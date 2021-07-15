@@ -1,0 +1,25 @@
+# Project exclude paths
+/.gradle/
+/build/classes/java/main/
+
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+#compiled files
+bin/main/*
+bin/test/*
