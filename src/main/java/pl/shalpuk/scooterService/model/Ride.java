@@ -9,11 +9,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "rides")
-public class Ride extends AbstractPersistentObject {
+public class Ride extends AbstractPersistentObject implements Serializable {
+
+    private static final long serialVersionUID = 2756167777311379182L;
 
     @Column(name = "start_time")
     private LocalDateTime startRideTime;

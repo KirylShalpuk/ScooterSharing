@@ -3,11 +3,14 @@ package pl.shalpuk.scooterService.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
@@ -33,17 +36,17 @@ public class User extends AbstractPersistentObject implements Serializable {
     @Column(name = "active")
     private boolean active = false;
 
-//    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "payment_id")
-//    @JsonManagedReference
-//    private PaymentInformation paymentInformation;
-//
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
+    @JsonManagedReference
+    private PaymentInformation paymentInformation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     @JsonManagedReference
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<Ride> rides;
 
@@ -102,6 +105,14 @@ public class User extends AbstractPersistentObject implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public PaymentInformation getPaymentInformation() {
+        return paymentInformation;
+    }
+
+    public void setPaymentInformation(PaymentInformation paymentInformation) {
+        this.paymentInformation = paymentInformation;
     }
 
     public Role getRole() {
