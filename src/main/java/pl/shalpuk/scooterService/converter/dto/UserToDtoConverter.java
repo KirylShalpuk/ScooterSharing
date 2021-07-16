@@ -10,8 +10,8 @@ public class UserToDtoConverter implements ToDtoConverter<User, UserDto>{
 
     @Override
     public UserDto convertToDto(User entity) {
-        UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(entity, userDto, "password");
-        return userDto;
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity, dto, "password");
+        return dto;
     }
 }

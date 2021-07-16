@@ -23,6 +23,20 @@ CREATE TABLE roles(
     modifiable boolean default false
 );
 
+CREATE TABLE scooters(
+    id uuid not null primary key,
+    version int4,
+    manufacturer varchar(255) not null,
+    model varchar(255) not null,
+    photo_url varchar(500),
+    battery_charge int2,
+    last_service timestamp,
+    software_version varchar(255),
+    active boolean default false,
+    charging boolean default false
+);
+
 ALTER TABLE users ADD CONSTRAINT fk_users_role_id FOREIGN KEY (role_id) REFERENCES roles;
+ALTER TABLE scooters ADD CONSTRAINT uk_scooters_battery_charge CHECK (battery_charge <= 100);
 
 COMMIT;
