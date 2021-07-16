@@ -21,32 +21,32 @@ public class UserController {
     private final Logger logger;
     private final UserService userService;
 
-    private final UserToEntityConverter userToEntityConverter;
-    private final UserToDtoConverter userToDtoConverter;
+    private final UserToEntityConverter entityConverter;
+    private final UserToDtoConverter dtoConverter;
 
 
     public UserController(Logger logger,
                           UserService userService,
-                          UserToEntityConverter userToEntityConverter,
-                          UserToDtoConverter userToDtoConverter) {
+                          UserToEntityConverter entityConverter,
+                          UserToDtoConverter dtoConverter) {
         this.logger = logger;
         this.userService = userService;
-        this.userToEntityConverter = userToEntityConverter;
-        this.userToDtoConverter = userToDtoConverter;
+        this.entityConverter = entityConverter;
+        this.dtoConverter = dtoConverter;
     }
 
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserDto request) {
-        User userFromDto = userToEntityConverter.convertToEntity(request);
-        User userFromDB = userService.createUser(userFromDto);
-        return ResponseEntity.ok(userToDtoConverter.convertToDto(userFromDB));
+        User fromDto = entityConverter.convertToEntity(request);
+        User createdUser = userService.createUser(fromDto);
+        return ResponseEntity.ok(dtoConverter.convertToDto(createdUser));
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserByUserId(@PathVariable UUID userId) {
         User user = userService.getUserById(userId);
-        return ResponseEntity.ok(userToDtoConverter.convertToDto(user));
+        return ResponseEntity.ok(dtoConverter.convertToDto(user));
     }
 
     @DeleteMapping("/{userId}")
@@ -58,7 +58,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUserById(@PathVariable UUID userId, @Valid @RequestBody UserDto userDto) {
         User updatedUser = userService.updateUserById(userId, userDto);
-        return ResponseEntity.ok(userToDtoConverter.convertToDto(updatedUser));
+        return ResponseEntity.ok(dtoConverter.convertToDto(updatedUser));
     }
 
     @PutMapping("/{userId}/activate")

@@ -1,37 +1,31 @@
-package pl.shalpuk.scooterService.model;
+package pl.shalpuk.scooterService.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
-@Entity
-@Table(name = "scooters")
-public class Scooter extends AbstractPersistentObject implements Serializable {
+public class ScooterDto {
 
-    private static final long serialVersionUID = -565959792581229320L;
-
-    @Column(name = "manufacturer")
+    @JsonProperty("manufacturer")
     private String manufacturer;
-    @Column(name = "model")
+    @JsonProperty("model")
     private String model;
-    @Column(name = "photo_url")
+    @JsonProperty("photo_url")
     private String photoUrl;
-    @Column(name = "battery_charge")
+    @Max(value = 100)
+    @Min(value = 0)
+    @JsonProperty("battery_charge")
     private int batteryCharge;
-    @Column(name = "last_service")
+    @JsonProperty("last_service")
     private Date lastService;
-    @Column(name = "software_version")
+    @JsonProperty("software_version")
     private String softwareVersion;
-    @Column(name = "active")
+    @JsonProperty("active")
     private boolean active;
-    @Column(name = "charging")
+    @JsonProperty("charging")
     private boolean charging;
-
-//    @OneToOne
-//    private Location currentLocation;
-
 
     public String getManufacturer() {
         return manufacturer;

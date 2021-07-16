@@ -15,23 +15,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
-//        Properties properties = new Properties();
-//        properties.setProperty("log4j.rootLogger", "INFO, stdout, file");
-//        properties.setProperty("log4j.appender.stdout", "org.apache.log4j.ConsoleAppender");
-//        properties.setProperty("log4j.appender.stdout.Target", "System.out");
-//        properties.setProperty("log4j.appender.stdout.layout", "org.apache.log4j.PatternLayout");
-//        properties.setProperty("log4j.appender.stdout.layout.ConversionPattern", "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n");
-//        PropertyConfigurator.configure(properties);
-
-//        try (InputStream inputStream = getClass().getResourceAsStream("/log4j.properties")) {
-//            Properties properties = new Properties();
-//            properties.load(inputStream);
-//            PropertyConfigurator.configure(properties);
-//        } catch (Exception ex) {
-//            System.out.println("Something was gone wrong");
-//        }
-//        BasicConfigurator.configure();
-
         logger.info("Comparing spring application context...");
         long startProcessingMillis = System.currentTimeMillis();
 

@@ -71,7 +71,7 @@ public class UserService {
         if (isStatusChanged(user, dto) && dto.getAccessCode().equals("1111")) {
             user.setActive(dto.isAccessStatus());
             userRepository.save(user);
-            logger.info(String.format("User with id = %s is activated", userId));
+            logger.info(String.format("User with id = %s was activated", userId));
         }
     }
 

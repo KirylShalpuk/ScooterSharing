@@ -1,5 +1,7 @@
 package pl.shalpuk.scooterService.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,12 +10,19 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.Role;
+import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RoleRepository;
+import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.sql.Date;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DataLoader {
@@ -25,15 +34,18 @@ public class DataLoader {
     private final DataSource dataSource;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ScooterRepository scooterRepository;
 
     public DataLoader(Logger logger,
                       DataSource dataSource,
                       UserRepository userRepository,
-                      RoleRepository roleRepository) {
+                      RoleRepository roleRepository,
+                      ScooterRepository scooterRepository) {
         this.logger = logger;
         this.dataSource = dataSource;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.scooterRepository = scooterRepository;
     }
 
     @EventListener
@@ -59,6 +71,7 @@ public class DataLoader {
         createSuperAdminUser();
         createDefaultAdmin(adminRole);
         createDefaultUser(defaultUserRole);
+        createScooters();
     }
 
     private Flyway configureFlyway() {
@@ -117,6 +130,26 @@ public class DataLoader {
         user.setActive(true);
         user.setRole(userRole);
         return userRepository.save(user);
+    }
+
+    private List<Scooter> createScooters() {
+        List<Scooter> scooters = new ArrayList<>();
+
+        int objectNumber = RandomUtils.nextInt(15, 25);
+        for (int i = 0; i < objectNumber; i++) {
+            Scooter scooter = new Scooter();
+            scooter.setManufacturer("Xiaomi");
+            scooter.setModel(String.format("Mi %s", RandomStringUtils.randomAlphabetic(3)));
+            scooter.setSoftwareVersion("1.1." + RandomUtils.nextInt(1, 25));
+            scooter.setLastService(Date.from(Instant.now().minus(Duration.ofDays(RandomUtils.nextInt(0, 90)))));
+            scooter.setActive(RandomUtils.nextBoolean());
+            scooter.setBatteryCharge(RandomUtils.nextInt(0, 100));
+            scooter.setCharging(RandomUtils.nextBoolean());
+
+            scooters.add(scooter);
+        }
+
+        return scooterRepository.saveAll(scooters);
     }
 
 

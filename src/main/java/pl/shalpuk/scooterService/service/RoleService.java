@@ -6,7 +6,6 @@ import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.repository.RoleRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 public class RoleService {

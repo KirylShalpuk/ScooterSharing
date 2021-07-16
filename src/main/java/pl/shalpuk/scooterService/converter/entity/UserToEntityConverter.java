@@ -10,8 +10,8 @@ public class UserToEntityConverter implements ToEntityConverter<UserDto, User> {
 
     @Override
     public User convertToEntity(UserDto dto) {
-        User user = new User();
-        BeanUtils.copyProperties(dto, user,"id");
-        return user;
+        User entity = new User();
+        BeanUtils.copyProperties(dto, entity,"id");
+        return entity;
     }
 }
