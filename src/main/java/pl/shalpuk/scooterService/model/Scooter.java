@@ -1,10 +1,14 @@
 package pl.shalpuk.scooterService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "scooters")
@@ -28,6 +32,10 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
     private boolean active;
     @Column(name = "charging")
     private boolean charging;
+
+    @OneToMany(mappedBy = "scooter")
+    @JsonBackReference
+    private Set<Ride> rides;
 
 //    @OneToOne
 //    private Location currentLocation;
@@ -95,5 +103,18 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     public void setCharging(boolean charging) {
         this.charging = charging;
+    }
+
+    public Set<Ride> getRides() {
+        return rides;
+    }
+
+    public void setRides(Set<Ride> rides) {
+        if (this.rides == null) {
+            this.rides = rides;
+        } else {
+            this.rides.clear();
+            this.rides.addAll(rides);
+        }
     }
 }

@@ -9,11 +9,14 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import pl.shalpuk.scooterService.model.DefaultRoles;
+import pl.shalpuk.scooterService.model.DefaultTariffs;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RoleRepository;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
+import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
 
 import javax.sql.DataSource;
@@ -35,17 +38,20 @@ public class DataLoader {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ScooterRepository scooterRepository;
+    private final TariffRepository tariffRepository;
 
     public DataLoader(Logger logger,
                       DataSource dataSource,
                       UserRepository userRepository,
                       RoleRepository roleRepository,
-                      ScooterRepository scooterRepository) {
+                      ScooterRepository scooterRepository,
+                      TariffRepository tariffRepository) {
         this.logger = logger;
         this.dataSource = dataSource;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.scooterRepository = scooterRepository;
+        this.tariffRepository = tariffRepository;
     }
 
     @EventListener
@@ -72,6 +78,9 @@ public class DataLoader {
         createDefaultAdmin(adminRole);
         createDefaultUser(defaultUserRole);
         createScooters();
+        createRegularTariff();
+        createPremiumTariff();
+        createDiscountTariff();
     }
 
     private Flyway configureFlyway() {
@@ -152,5 +161,34 @@ public class DataLoader {
         return scooterRepository.saveAll(scooters);
     }
 
+    private Tariff createRegularTariff() {
+        Tariff regularTariff = new Tariff();
+        regularTariff.setName(DefaultTariffs.REGULAR.getName());
+        regularTariff.setDescription(DefaultTariffs.REGULAR.getDescription());
+        regularTariff.setCosts(8);
+        regularTariff.setActive(true);
+
+        return tariffRepository.save(regularTariff);
+    }
+
+    private Tariff createPremiumTariff() {
+        Tariff premiumTariff = new Tariff();
+        premiumTariff.setName(DefaultTariffs.PREMIUM.getName());
+        premiumTariff.setDescription(DefaultTariffs.PREMIUM.getDescription());
+        premiumTariff.setCosts(12);
+        premiumTariff.setActive(true);
+
+        return tariffRepository.save(premiumTariff);
+    }
+
+    private Tariff createDiscountTariff() {
+        Tariff discountTariff = new Tariff();
+        discountTariff.setName(DefaultTariffs.DISCOUNT.getName());
+        discountTariff.setDescription(DefaultTariffs.DISCOUNT.getDescription());
+        discountTariff.setCosts(6);
+        discountTariff.setActive(true);
+
+        return tariffRepository.save(discountTariff);
+    }
 
 }

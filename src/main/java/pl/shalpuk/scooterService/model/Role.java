@@ -1,6 +1,6 @@
 package pl.shalpuk.scooterService.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,9 +26,8 @@ public class Role extends AbstractPersistentObject implements Serializable {
     @Column(name = "modifiable")
     private boolean modifiable;
 
-
     @OneToMany(mappedBy = "role")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<User> users;
 
 

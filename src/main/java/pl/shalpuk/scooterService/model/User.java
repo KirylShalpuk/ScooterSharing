@@ -1,13 +1,16 @@
 package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -37,8 +40,12 @@ public class User extends AbstractPersistentObject implements Serializable {
 //
     @ManyToOne
     @JoinColumn(name = "role_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private Set<Ride> rides;
 
 
     public String getFirstName() {
@@ -103,5 +110,18 @@ public class User extends AbstractPersistentObject implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Ride> getRides() {
+        return rides;
+    }
+
+    public void setRides(Set<Ride> rides) {
+        if (this.rides == null) {
+            this.rides = rides;
+        } else {
+            this.rides.clear();
+            this.rides.addAll(rides);
+        }
     }
 }
