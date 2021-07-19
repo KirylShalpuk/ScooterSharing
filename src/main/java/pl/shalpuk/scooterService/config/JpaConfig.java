@@ -27,6 +27,8 @@ public class JpaConfig {
     private String user;
     @Value("${spring.datasource.password}")
     private String password;
+    @Value("${spring.jpa.database-platform}")
+    private String dialect;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -62,7 +64,7 @@ public class JpaConfig {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setShowSql(true);
         hibernateJpaVendorAdapter.setGenerateDdl(false);
-        hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
+        hibernateJpaVendorAdapter.setDatabasePlatform(dialect);
 
         return hibernateJpaVendorAdapter;
     }
