@@ -43,6 +43,10 @@ public class Ride extends AbstractPersistentObject implements Serializable {
     @JsonManagedReference
     private Tariff tariff;
 
+    @Column(name = "payment_status")
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
 //    @OneToOne
 //    private Location startLocation;
 
@@ -93,5 +97,13 @@ public class Ride extends AbstractPersistentObject implements Serializable {
 
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }

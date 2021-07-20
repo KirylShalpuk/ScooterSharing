@@ -8,6 +8,7 @@ import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -32,12 +33,22 @@ public class ScooterService {
                 () -> new EntityNotFoundException(String.format("Scooter with id = %s is not found", scooterId)));
     }
 
+    @Transactional
     public Scooter updateScooter(UUID scooterId, ScooterDto request) {
         Scooter scooter = getScooterById(scooterId);
         BeanUtils.copyProperties(request, scooter, "id", "version");
+        if (scooter.getBatteryCharge() < 10) {
+            deactivateScooter(scooter);
+        }
         scooter = scooterRepository.save(scooter);
         logger.info(String.format("Scooter with id = %s was updated successfully", scooterId));
         return scooter;
+    }
+
+    void deactivateScooter(Scooter scooter) {
+        scooter.setActive(false);
+        scooterRepository.save(scooter);
+        logger.info(String.format("Scooter with id = %s was deactivated because of battery charge is low", scooter.getId()));
     }
 
     public void deleteScooterById(UUID scooterId) {

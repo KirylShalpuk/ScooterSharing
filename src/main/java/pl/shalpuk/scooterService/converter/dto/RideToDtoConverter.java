@@ -12,6 +12,9 @@ public class RideToDtoConverter implements ToDtoConverter<Ride, RideDto> {
     public RideDto convertToDto(Ride entity) {
         RideDto dto = new RideDto();
         BeanUtils.copyProperties(entity, dto);
+        dto.setScooterId(entity.getScooter().getId());
+        dto.setUserId(entity.getUser().getId());
+        dto.setTariffId(entity.getTariff().getId());
         return dto;
     }
 }
