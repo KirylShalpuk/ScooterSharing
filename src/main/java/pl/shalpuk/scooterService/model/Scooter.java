@@ -18,18 +18,25 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "manufacturer")
     private String manufacturer;
+
     @Column(name = "model")
     private String model;
+
     @Column(name = "photo_url")
     private String photoUrl;
+
     @Column(name = "battery_charge")
     private int batteryCharge;
+
     @Column(name = "last_service")
     private Date lastService;
+
     @Column(name = "software_version")
     private String softwareVersion;
+
     @Column(name = "active")
     private boolean active;
+
     @Column(name = "charging")
     private boolean charging;
 

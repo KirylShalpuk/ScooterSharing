@@ -17,12 +17,16 @@ public class Card extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "card_number")
     private String cardNumber;
+
     @Column(name = "card_holder")
     private String cardHolder;
+
     @Column(name = "date_expiration")
     private String dateExpiration;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "main")
     private boolean main;
 

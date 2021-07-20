@@ -13,24 +13,34 @@ public class UserDto {
 
     @JsonProperty("id")
     private UUID id;
+
     @JsonProperty("firstname")
     private String firstName;
+
     @JsonProperty("lastname")
     private String lastName;
+
     @NotBlank
-    @JsonProperty("phone_number")
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
+
     @NotBlank
     @JsonDeserialize(using = PasswordDeserialization.class)
     @JsonProperty("password")
     private String password;
+
     @NotBlank
     @Email
     @JsonProperty("email")
     private String email;
+
     @Size(max = 500)
-    @JsonProperty("photo_url")
+    @JsonProperty("photoUrl")
     private String photoUrl;
+
+    @JsonProperty("paymentInformation")
+    private PaymentInformationDto paymentInformationDto;
+
     @JsonProperty("active")
     private boolean active;
 
@@ -88,6 +98,14 @@ public class UserDto {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public PaymentInformationDto getPaymentInformationDto() {
+        return paymentInformationDto;
+    }
+
+    public void setPaymentInformationDto(PaymentInformationDto paymentInformationDto) {
+        this.paymentInformationDto = paymentInformationDto;
     }
 
     public boolean isActive() {

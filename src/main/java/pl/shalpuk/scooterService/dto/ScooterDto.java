@@ -10,20 +10,27 @@ public class ScooterDto {
 
     @JsonProperty("manufacturer")
     private String manufacturer;
+
     @JsonProperty("model")
     private String model;
-    @JsonProperty("photo_url")
+
+    @JsonProperty("photoUrl")
     private String photoUrl;
+
     @Max(value = 100)
     @Min(value = 0)
-    @JsonProperty("battery_charge")
+    @JsonProperty("batteryCharge")
     private int batteryCharge;
-    @JsonProperty("last_service")
+
+    @JsonProperty("lastService")
     private Date lastService;
-    @JsonProperty("software_version")
+
+    @JsonProperty("softwareVersion")
     private String softwareVersion;
+
     @JsonProperty("active")
     private boolean active;
+
     @JsonProperty("charging")
     private boolean charging;
 

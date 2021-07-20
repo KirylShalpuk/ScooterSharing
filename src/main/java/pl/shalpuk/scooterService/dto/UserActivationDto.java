@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserActivationDto {
 
-    @JsonProperty("access_code")
+    @JsonProperty("accessCode")
     private String accessCode;
-    @JsonProperty("access_status")
+
+    @JsonProperty("accessStatus")
     private boolean accessStatus;
 
     public String getAccessCode() {

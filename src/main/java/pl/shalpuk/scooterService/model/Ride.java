@@ -20,8 +20,10 @@ public class Ride extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "start_time")
     private LocalDateTime startRideTime;
+
     @Column(name = "end_time")
     private LocalDateTime endRideTime;
+
     @Column(name = "ride_status")
     @Enumerated(value = EnumType.STRING)
     private RideStatus rideStatus;
