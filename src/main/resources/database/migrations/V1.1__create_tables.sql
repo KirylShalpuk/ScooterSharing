@@ -53,7 +53,8 @@ CREATE TABLE rides(
     ride_status varchar(255),
     tariff_id uuid not null,
     user_id uuid not null,
-    scooter_id uuid not null
+    scooter_id uuid not null,
+    payment_status varchar(255)
 );
 
 CREATE TABLE payments(

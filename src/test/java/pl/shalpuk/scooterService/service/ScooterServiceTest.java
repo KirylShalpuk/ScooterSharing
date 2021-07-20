@@ -16,13 +16,13 @@ class ScooterServiceTest extends AbstractJunitTest {
     @Test
     public void testCreateScooter_ScooterNotExist_Created() {
         Assertions.assertEquals(20, scooterRepository.count());
-        scooterService.createScooter(ScooterTestHelper.createScooter());
+        scooterService.createScooter(ScooterTestHelper.createScooter(100));
         Assertions.assertEquals(21, scooterRepository.count());
     }
 
     @Test
     public void testDeleteScooterById_ScooterExists_Deleted() {
-        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter());
+        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter(100));
 
         Assertions.assertEquals(21, scooterRepository.count());
         scooterService.deleteScooterById(savedScooter.getId());
@@ -38,7 +38,7 @@ class ScooterServiceTest extends AbstractJunitTest {
 
     @Test
     public void testGetScooterById_ScooterExists_Success() {
-        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter());
+        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter(100));
 
         Scooter scooterFromDb = scooterService.getScooterById(savedScooter.getId());
         Assertions.assertNotNull(scooterFromDb);
@@ -52,7 +52,7 @@ class ScooterServiceTest extends AbstractJunitTest {
 
     @Test
     public void testUpdateScooter_ScooterExists_Updated() {
-        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter());
+        Scooter savedScooter = scooterRepository.save(ScooterTestHelper.createScooter(100));
 
         ScooterDto request = new ScooterDto();
         request.setManufacturer(savedScooter.getManufacturer());

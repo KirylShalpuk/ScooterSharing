@@ -20,4 +20,9 @@ public class TariffService {
         return tariffRepository.findById(tariffId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Tariff with id = %s is not found", tariffId)));
     }
+
+    Tariff getTariffByName(String roleName) {
+        return tariffRepository.getTariffByName(roleName).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Tariff with name = %s is not found", roleName)));
+    }
 }

@@ -3,6 +3,7 @@ package pl.shalpuk.scooterService.service;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.exception.ServiceException;
+import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.Ride;
 import pl.shalpuk.scooterService.model.RideStatus;
 import pl.shalpuk.scooterService.model.Scooter;
@@ -63,6 +64,7 @@ public class RideService {
         Ride ride = getRideById(rideId);
         ride.setEndRideTime(LocalDateTime.now());
         ride.setRideStatus(RideStatus.FINISHED);
+        ride.setPaymentStatus(PaymentStatus.PROCESSING);
 
         ride = rideRepository.save(ride);
         logger.info(String.format("Ride with id = %s was finished successfully", rideId));
