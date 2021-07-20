@@ -41,6 +41,7 @@ public class RideService {
         Tariff tariff = tariffService.getTariffById(tariffId);
 
         if (scooter.getBatteryCharge() < 10) {
+            scooterService.deactivateScooter(scooter);
             throw new ServiceException(String.format("Scooter with id = %s has not enough " +
                     "battery charge to start the ride", scooterId));
         }

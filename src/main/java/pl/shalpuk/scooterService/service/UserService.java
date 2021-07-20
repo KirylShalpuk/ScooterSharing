@@ -26,18 +26,15 @@ public class UserService {
     private final RoleService roleService;
     private final UserRepository userRepository;
     private final PaymentInformationToEntityConverter paymentInformationToEntityConverter;
-    private final CardToEntityConverter cardToEntityConverter;
 
     public UserService(Logger logger,
                        UserRepository userRepository,
                        RoleService roleService,
-                       PaymentInformationToEntityConverter paymentInformationToEntityConverter,
-                       CardToEntityConverter cardToEntityConverter) {
+                       PaymentInformationToEntityConverter paymentInformationToEntityConverter) {
         this.logger = logger;
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.paymentInformationToEntityConverter = paymentInformationToEntityConverter;
-        this.cardToEntityConverter = cardToEntityConverter;
     }
 
     public User createUser(User request) {

@@ -14,9 +14,7 @@ public class ScooterHelper {
 
     public static List<Scooter> createScooters() {
         List<Scooter> scooters = new ArrayList<>();
-
-        int objectNumber = RandomUtils.nextInt(15, 25);
-        for (int i = 0; i < objectNumber; i++) {
+        for (int i = 0; i < 20; i++) {
             Scooter scooter = new Scooter();
             scooter.setManufacturer("Xiaomi");
             scooter.setModel(String.format("Mi %s", RandomStringUtils.randomAlphabetic(3)));
