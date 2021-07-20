@@ -10,17 +10,23 @@ public class RideDto {
 
     @JsonProperty("id")
     private UUID id;
-    @JsonProperty("start_time")
+
+    @JsonProperty("startRideTime")
     private LocalDateTime startRideTime;
-    @JsonProperty("end_time")
+
+    @JsonProperty("endRideTime")
     private LocalDateTime endRideTime;
-    @JsonProperty("ride_status")
+
+    @JsonProperty("rideStatus")
     private RideStatus rideStatus;
-    @JsonProperty("user_id")
+
+    @JsonProperty("userId")
     private UUID userId;
-    @JsonProperty("scooter_id")
+
+    @JsonProperty("scooterId")
     private UUID scooterId;
-    @JsonProperty("tariff_id")
+
+    @JsonProperty("tariffId")
     private UUID tariffId;
 
     public UUID getId() {

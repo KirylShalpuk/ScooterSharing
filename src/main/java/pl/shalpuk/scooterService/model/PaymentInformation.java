@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,15 +21,19 @@ public class PaymentInformation extends AbstractPersistentObject implements Seri
 
     @Column(name = "country")
     private String country;
+
     @Column(name = "address")
     private String address;
+
     @Column(name = "post_code")
     private String postCode;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "paymentInformation")
+    @OneToOne
     @JsonBackReference
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "paymentInformation", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -86,5 +91,7 @@ public class PaymentInformation extends AbstractPersistentObject implements Seri
             this.cards.clear();
             this.cards.addAll(cards);
         }
+
+        this.cards.forEach(card -> card.setPaymentInformation(this));
     }
 }

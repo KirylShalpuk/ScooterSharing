@@ -17,12 +17,16 @@ public class Role extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "description")
     private String description;
+
     @Column(name = "active")
     private boolean active;
+
     @Column(name = "admin")
     private boolean admin;
+
     @Column(name = "modifiable")
     private boolean modifiable;
 

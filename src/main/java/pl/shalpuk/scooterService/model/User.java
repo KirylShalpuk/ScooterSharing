@@ -23,21 +23,26 @@ public class User extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "firstname")
     private String firstName;
+
     @Column(name = "lastname")
     private String lastName;
+
     @Column(name = "phone_number")
     private String phoneNumber;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "photo_url")
     private String photoUrl;
+
     @Column(name = "active")
     private boolean active = false;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private PaymentInformation paymentInformation;
 
@@ -113,6 +118,7 @@ public class User extends AbstractPersistentObject implements Serializable {
 
     public void setPaymentInformation(PaymentInformation paymentInformation) {
         this.paymentInformation = paymentInformation;
+        paymentInformation.setUser(this);
     }
 
     public Role getRole() {

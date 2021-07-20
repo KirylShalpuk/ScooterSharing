@@ -3,9 +3,12 @@ package pl.shalpuk.scooterService.service;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import pl.shalpuk.scooterService.converter.entity.CardToEntityConverter;
+import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
 import pl.shalpuk.scooterService.model.DefaultRoles;
+import pl.shalpuk.scooterService.model.PaymentInformation;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.UserRepository;
@@ -22,11 +25,19 @@ public class UserService {
     private final Logger logger;
     private final RoleService roleService;
     private final UserRepository userRepository;
+    private final PaymentInformationToEntityConverter paymentInformationToEntityConverter;
+    private final CardToEntityConverter cardToEntityConverter;
 
-    public UserService(Logger logger, UserRepository userRepository, RoleService roleService) {
+    public UserService(Logger logger,
+                       UserRepository userRepository,
+                       RoleService roleService,
+                       PaymentInformationToEntityConverter paymentInformationToEntityConverter,
+                       CardToEntityConverter cardToEntityConverter) {
         this.logger = logger;
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.paymentInformationToEntityConverter = paymentInformationToEntityConverter;
+        this.cardToEntityConverter = cardToEntityConverter;
     }
 
     public User createUser(User request) {
@@ -58,7 +69,11 @@ public class UserService {
 
     public User updateUserById(UUID userId, UserDto updatedUser) {
         User currentUser = getUserById(userId);
-        BeanUtils.copyProperties(updatedUser, currentUser, "id", "version", "active");
+        BeanUtils.copyProperties(updatedUser, currentUser, "id", "version", "active", "paymentInformation");
+
+        PaymentInformation paymentInformation = paymentInformationToEntityConverter.convertToEntity(updatedUser.getPaymentInformationDto());
+        currentUser.setPaymentInformation(paymentInformation);
+
         currentUser = userRepository.save(currentUser);
         logger.info(String.format("User with id = %s was updated successfully", userId));
         return currentUser;
@@ -77,11 +92,7 @@ public class UserService {
 
     private boolean isStatusChanged(User user, UserActivationDto dto) {
         if (Objects.nonNull(user) && Objects.nonNull(dto)) {
-            boolean userStatus = user.isActive();
-            boolean dtoStatus = dto.isAccessStatus();
-            if (userStatus != dtoStatus) {
-                return true;
-            }
+            return user.isActive() != dto.isAccessStatus();
         }
 
         return false;

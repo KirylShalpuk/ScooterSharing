@@ -1,85 +1,24 @@
 package pl.shalpuk.scooterService.service;
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
+import pl.shalpuk.scooterService.dto.CardDto;
+import pl.shalpuk.scooterService.dto.PaymentInformationDto;
+import pl.shalpuk.scooterService.dto.UserDto;
 import pl.shalpuk.scooterService.helper.UserTestHelper;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
-import pl.shalpuk.scooterService.repository.CardRepository;
-import pl.shalpuk.scooterService.repository.PaymentInformationRepository;
-import pl.shalpuk.scooterService.repository.RideRepository;
-import pl.shalpuk.scooterService.repository.RoleRepository;
-import pl.shalpuk.scooterService.repository.ScooterRepository;
-import pl.shalpuk.scooterService.repository.TariffRepository;
-import pl.shalpuk.scooterService.repository.UserRepository;
 
-import static pl.shalpuk.scooterService.helper.RoleHelper.createDefaultAdminRole;
-import static pl.shalpuk.scooterService.helper.RoleHelper.createDefaultUserRole;
-import static pl.shalpuk.scooterService.helper.ScooterHelper.createScooters;
-import static pl.shalpuk.scooterService.helper.TariffHelper.createDiscountTariff;
-import static pl.shalpuk.scooterService.helper.TariffHelper.createPremiumTariff;
-import static pl.shalpuk.scooterService.helper.TariffHelper.createRegularTariff;
-import static pl.shalpuk.scooterService.helper.UserHelper.createDefaultAdmin;
-import static pl.shalpuk.scooterService.helper.UserHelper.createDefaultUser;
-import static pl.shalpuk.scooterService.helper.UserHelper.createSuperAdminUser;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {SpringTestConfiguration.class})
-class UserServiceTest {
-
-    @Autowired
-    protected UserService userService;
-    @Autowired
-    protected ScooterService scooterService;
-    @Autowired
-    protected RoleService roleService;
-    @Autowired
-    protected RideService rideService;
-    @Autowired
-    protected TariffService tariffService;
-    @Autowired
-    protected DataLoader dataLoader;
-
-    @Autowired
-    protected UserRepository userRepository;
-    @Autowired
-    protected ScooterRepository scooterRepository;
-    @Autowired
-    protected RoleRepository roleRepository;
-    @Autowired
-    protected RideRepository rideRepository;
-    @Autowired
-    protected TariffRepository tariffRepository;
-    @Autowired
-    protected PaymentInformationRepository paymentInformationRepository;
-    @Autowired
-    protected CardRepository cardRepository;
-
-    @BeforeEach
-    public void init() {
-        Role adminRole = roleRepository.save(createDefaultAdminRole());
-        Role defaultUserRole = roleRepository.save(createDefaultUserRole());
-
-        userRepository.save(createSuperAdminUser());
-        userRepository.save(createDefaultAdmin(adminRole));
-        userRepository.save(createDefaultUser(defaultUserRole));
-
-        scooterRepository.saveAll(createScooters());
-
-        tariffRepository.save(createRegularTariff());
-        tariffRepository.save(createPremiumTariff());
-        tariffRepository.save(createDiscountTariff());
-    }
+class UserServiceTest extends AbstractJunitTest {
 
     @Test
-    public void testCreateUser_Created() {
+    public void testCreateUser_UserNotExist_Created() {
         Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
 
         Assertions.assertEquals(3, userRepository.count());
@@ -87,10 +26,99 @@ class UserServiceTest {
         Assertions.assertEquals(0, cardRepository.count());
 
         User user = UserTestHelper.createUser(role);
+        userService.createUser(user);
 
         Assertions.assertEquals(4, userRepository.count());
         Assertions.assertEquals(1, paymentInformationRepository.count());
         Assertions.assertEquals(2, cardRepository.count());
     }
 
+    @Test
+    public void testCreateUser_UserExists_EntityExistsException() {
+        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        User user = UserTestHelper.createUser(role);
+        userRepository.save(user);
+
+        Assertions.assertThrows(EntityExistsException.class,
+                () -> userService.createUser(user));
+    }
+
+    @Test
+    public void testDeleteUserById_UserExists_Deleted() {
+        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        User user = userRepository.save(UserTestHelper.createUser(role));
+
+        Assertions.assertEquals(4, userRepository.count());
+        userService.deleteUserById(user.getId());
+        Assertions.assertEquals(3, userRepository.count());
+    }
+
+    @Test
+    public void testDeleteUserById_UserNotExist_EntityNotFoundException() {
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> userService.deleteUserById(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testGetUserById_UserExists_Success() {
+        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        User user = userRepository.save(UserTestHelper.createUser(role));
+
+        User userFromDb = userService.getUserById(user.getId());
+        Assertions.assertEquals(user.getId(), userFromDb.getId());
+    }
+
+    @Test
+    public void testGetUserById_UserNotExist_EntityNotFoundException() {
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> userService.getUserById(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testUpdateUserById_UserExists_Updated() {
+        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        User user = userRepository.save(UserTestHelper.createUser(role));
+
+        CardDto cardDto = new CardDto();
+        cardDto.setCardNumber("5555-5555-5555-5555");
+        cardDto.setCardHolder(user.getFirstName().concat(" ").concat(user.getLastName()));
+        cardDto.setDateExpiration("12/2987");
+
+        PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
+        paymentInformationDto.setAddress("Gdansk");
+        paymentInformationDto.setCountry("Poland");
+        paymentInformationDto.setPostCode("00-001");
+        paymentInformationDto.setPhoneNumber(user.getPhoneNumber());
+        paymentInformationDto.setCards(Sets.newHashSet(cardDto));
+
+        UserDto updateRequest = new UserDto();
+        updateRequest.setEmail(user.getEmail());
+        updateRequest.setFirstName(user.getFirstName());
+        updateRequest.setLastName("updated lastname");
+        updateRequest.setPassword(user.getPassword());
+        updateRequest.setPhoneNumber(user.getPhoneNumber());
+        updateRequest.setActive(true);
+        updateRequest.setPaymentInformationDto(paymentInformationDto);
+
+        Assertions.assertEquals(2, cardRepository.count());
+
+        UUID oldPaymentInformationId = user.getPaymentInformation().getId();
+        UUID oldCardId = user.getPaymentInformation().getCards().stream().findFirst().get().getId();
+
+        User updatedUser = userService.updateUserById(user.getId(), updateRequest);
+
+        Assertions.assertEquals(updateRequest.getLastName(), updatedUser.getLastName());
+        Assertions.assertFalse(updatedUser.isActive());
+        Assertions.assertEquals(1, cardRepository.count());
+        Assertions.assertEquals("Gdansk",
+                updatedUser.getPaymentInformation().getAddress());
+        Assertions.assertFalse(paymentInformationRepository.existsById(oldPaymentInformationId));
+        Assertions.assertFalse(cardRepository.existsById(oldCardId));
+    }
+
+    @Test
+    public void testUpdateUserById_UserNotExist_EntityNotFoundException() {
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> userService.updateUserById(UUID.randomUUID(), new UserDto()));
+    }
 }

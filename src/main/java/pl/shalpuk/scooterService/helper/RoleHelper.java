@@ -2,7 +2,6 @@ package pl.shalpuk.scooterService.helper;
 
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.Role;
-import pl.shalpuk.scooterService.model.User;
 
 public class RoleHelper {
 
