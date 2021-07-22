@@ -94,4 +94,9 @@ public class UserService {
 
         return false;
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email).orElseThrow(
+                () -> new EntityExistsException(String.format("User with email = %s is not found", email)));
+    }
 }

@@ -78,6 +78,15 @@ CREATE TABLE cards(
     payment_id uuid
 );
 
+CREATE TABLE tokens(
+    id uuid not null primary key,
+    version int4,
+    user_id uuid not null,
+    creation_date timestamp,
+    token varchar(1000) unique not null,
+    active boolean default false
+);
+
 ALTER TABLE users ADD CONSTRAINT fk_users_role_id FOREIGN KEY (role_id) REFERENCES roles;
 ALTER TABLE payments ADD CONSTRAINT fk_payments_user_id FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE rides ADD CONSTRAINT fk_rides_tariff_id FOREIGN KEY (tariff_id) REFERENCES tariffs;
@@ -85,5 +94,6 @@ ALTER TABLE rides ADD CONSTRAINT fk_rides_user_id FOREIGN KEY (user_id) REFERENC
 ALTER TABLE rides ADD CONSTRAINT fk_rides_scooter_id FOREIGN KEY (scooter_id) REFERENCES scooters;
 ALTER TABLE cards ADD CONSTRAINT fk_cards_payment_id FOREIGN KEY (payment_id) REFERENCES payments ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE scooters ADD CONSTRAINT uk_scooters_battery_charge CHECK (battery_charge <= 100);
+ALTER TABLE tokens ADD CONSTRAINT  fk_tokens_user_id FOREIGN KEY (user_id) REFERENCES users;
 
 COMMIT;

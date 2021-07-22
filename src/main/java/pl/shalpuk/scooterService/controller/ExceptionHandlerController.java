@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.shalpuk.scooterService.exception.LoginException;
 import pl.shalpuk.scooterService.exception.ServiceException;
 
 import javax.persistence.EntityExistsException;
@@ -31,6 +32,11 @@ public class ExceptionHandlerController {
     @ExceptionHandler(value = ServiceException.class)
     public ResponseEntity<?> handleServiceException(final EntityExistsException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = LoginException.class)
+    public ResponseEntity<?> handleLoginException(final LoginException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
 
     @ExceptionHandler(value = RuntimeException.class)
