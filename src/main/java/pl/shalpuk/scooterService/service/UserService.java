@@ -3,7 +3,6 @@ package pl.shalpuk.scooterService.service;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import pl.shalpuk.scooterService.converter.entity.CardToEntityConverter;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
@@ -95,8 +94,8 @@ public class UserService {
         return false;
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email).orElseThrow(
-                () -> new EntityExistsException(String.format("User with email = %s is not found", email)));
+    public User getActiveUserByEmail(String email) {
+        return userRepository.getUserByEmailAndActiveIsTrue(email).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
     }
 }
