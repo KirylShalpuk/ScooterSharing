@@ -2,6 +2,7 @@ package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.collect.Lists;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,8 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -60,6 +63,9 @@ public class User extends AbstractPersistentObject implements Serializable, User
     @JsonBackReference
     private Set<Ride> rides;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<UserLocation> userLocations;
 
     public String getFirstName() {
         return firstName;
@@ -140,6 +146,20 @@ public class User extends AbstractPersistentObject implements Serializable, User
         } else {
             this.rides.clear();
             this.rides.addAll(rides);
+        }
+    }
+
+    public List<UserLocation> getUserLocations() {
+        return userLocations;
+    }
+
+    public void addUserLocation(UserLocation userLocation) {
+        userLocation.setUser(this);
+
+        if (Objects.isNull(userLocations)) {
+            userLocations = Lists.newArrayList(userLocation);
+        } else {
+            userLocations.add(userLocation);
         }
     }
 

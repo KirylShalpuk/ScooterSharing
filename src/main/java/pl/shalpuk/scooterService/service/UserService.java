@@ -2,6 +2,7 @@ package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
@@ -84,6 +85,14 @@ public class UserService {
             userRepository.save(user);
             logger.info(String.format("User with id = %s was activated", userId));
         }
+    }
+
+    public void deactivateUser(UUID userId) {
+        User user = getUserById(userId);
+        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getId().equals(userFromContext.getId()))
+        userRepository.save(user);
+
     }
 
     private boolean isStatusChanged(User user, UserActivationDto dto) {

@@ -2,9 +2,12 @@ package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -44,9 +47,9 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
     @JsonBackReference
     private Set<Ride> rides;
 
-//    @OneToOne
-//    private Location currentLocation;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
+    private Location currentLocation;
 
     public String getManufacturer() {
         return manufacturer;
@@ -123,5 +126,13 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
             this.rides.clear();
             this.rides.addAll(rides);
         }
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }
