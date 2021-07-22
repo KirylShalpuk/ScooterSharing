@@ -33,7 +33,8 @@ CREATE TABLE scooters(
     last_service timestamp,
     software_version varchar(255),
     active boolean default false,
-    charging boolean default false
+    charging boolean default false,
+    location_id uuid
 );
 
 CREATE TABLE tariffs(
@@ -87,6 +88,39 @@ CREATE TABLE tokens(
     active boolean default false
 );
 
+CREATE TABLE locations(
+    id uuid not null primary key,
+    version int4,
+    country varchar(255),
+    city varchar(255),
+    address varchar(255),
+    building varchar(255),
+    coordinates_id uuid
+);
+
+CREATE TABLE coordinates(
+    id uuid not null primary key,
+    version int4,
+    latitude varchar(255),
+    longitude varchar(255)
+);
+
+CREATE TABLE user_locations(
+    id uuid not null primary key,
+    version int4,
+    user_id uuid not null,
+    location_id uuid not null,
+    position_time timestamp
+);
+
+CREATE TABLE ride_locations(
+    id uuid not null primary key,
+    version int4,
+    ride_id uuid not null,
+    location_id uuid not null,
+    position_time timestamp
+);
+
 ALTER TABLE users ADD CONSTRAINT fk_users_role_id FOREIGN KEY (role_id) REFERENCES roles;
 ALTER TABLE payments ADD CONSTRAINT fk_payments_user_id FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE rides ADD CONSTRAINT fk_rides_tariff_id FOREIGN KEY (tariff_id) REFERENCES tariffs;
@@ -94,6 +128,12 @@ ALTER TABLE rides ADD CONSTRAINT fk_rides_user_id FOREIGN KEY (user_id) REFERENC
 ALTER TABLE rides ADD CONSTRAINT fk_rides_scooter_id FOREIGN KEY (scooter_id) REFERENCES scooters;
 ALTER TABLE cards ADD CONSTRAINT fk_cards_payment_id FOREIGN KEY (payment_id) REFERENCES payments ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE scooters ADD CONSTRAINT uk_scooters_battery_charge CHECK (battery_charge <= 100);
+ALTER TABLE scooters ADD CONSTRAINT fk_scooters_location_id FOREIGN KEY (location_id) REFERENCES locations;
 ALTER TABLE tokens ADD CONSTRAINT  fk_tokens_user_id FOREIGN KEY (user_id) REFERENCES users;
+ALTER TABLE locations ADD CONSTRAINT fk_locations_coordinates_id FOREIGN KEY (coordinates_id) REFERENCES coordinates ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_user_id FOREIGN KEY (user_id) REFERENCES users;
+ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_location_id FOREIGN KEY (location_id) REFERENCES locations;
+ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_ride_id FOREIGN KEY (ride_id) REFERENCES rides;
+ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_location_id FOREIGN KEY (location_id) REFERENCES locations;
 
 COMMIT;

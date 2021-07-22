@@ -34,5 +34,18 @@ public abstract class AbstractPersistentObject {
         this.version = version;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        AbstractPersistentObject that = (AbstractPersistentObject) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

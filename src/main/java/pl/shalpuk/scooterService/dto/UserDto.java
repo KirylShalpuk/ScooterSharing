@@ -44,6 +44,9 @@ public class UserDto {
     @JsonProperty("active")
     private boolean active;
 
+    @JsonProperty("location")
+    private LocationDto userLocation;
+
     public UUID getId() {
         return id;
     }
@@ -114,5 +117,13 @@ public class UserDto {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public LocationDto getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(LocationDto userLocation) {
+        this.userLocation = userLocation;
     }
 }

@@ -29,6 +29,9 @@ public class RideDto {
     @JsonProperty("tariffId")
     private UUID tariffId;
 
+    @JsonProperty("location")
+    private LocationDto rideLocation;
+
     public UUID getId() {
         return id;
     }
@@ -83,5 +86,13 @@ public class RideDto {
 
     public void setTariffId(UUID tariffId) {
         this.tariffId = tariffId;
+    }
+
+    public LocationDto getRideLocation() {
+        return rideLocation;
+    }
+
+    public void setRideLocation(LocationDto rideLocation) {
+        this.rideLocation = rideLocation;
     }
 }

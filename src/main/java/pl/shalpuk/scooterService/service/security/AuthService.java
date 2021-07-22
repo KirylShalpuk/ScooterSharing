@@ -40,7 +40,7 @@ public class AuthService {
 
     @Transactional
     public JwtToken loginUser(AuthDto request) {
-        User user = userService.getUserByEmail(request.getLogin());
+        User user = userService.getActiveUserByEmail(request.getLogin());
 
         if (!isPasswordsMatch(request, user)) {
             throw new LoginException("Passwords are not equal");

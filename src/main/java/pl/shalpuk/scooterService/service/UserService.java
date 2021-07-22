@@ -2,8 +2,8 @@ package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import pl.shalpuk.scooterService.converter.entity.CardToEntityConverter;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
@@ -87,6 +87,14 @@ public class UserService {
         }
     }
 
+    public void deactivateUser(UUID userId) {
+        User user = getUserById(userId);
+        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getId().equals(userFromContext.getId()))
+        userRepository.save(user);
+
+    }
+
     private boolean isStatusChanged(User user, UserActivationDto dto) {
         if (Objects.nonNull(user) && Objects.nonNull(dto)) {
             return user.isActive() != dto.isAccessStatus();
@@ -95,8 +103,8 @@ public class UserService {
         return false;
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email).orElseThrow(
-                () -> new EntityExistsException(String.format("User with email = %s is not found", email)));
+    public User getActiveUserByEmail(String email) {
+        return userRepository.getUserByEmailAndActiveIsTrue(email).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Optional<User> getUserByEmail(String email);
+    Optional<User> getUserByEmailAndActiveIsTrue(String email);
 
     boolean existsByPhoneNumberOrEmail(String phoneNumber, String email);
 }

@@ -1,16 +1,23 @@
 package pl.shalpuk.scooterService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.collect.Lists;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rides")
@@ -47,9 +54,9 @@ public class Ride extends AbstractPersistentObject implements Serializable {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-//    @OneToOne
-//    private Location startLocation;
-
+    @OneToMany(mappedBy = "ride", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<RideLocation> rideLocations;
 
     public LocalDateTime getStartRideTime() {
         return startRideTime;
@@ -105,5 +112,19 @@ public class Ride extends AbstractPersistentObject implements Serializable {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public List<RideLocation> getRideLocations() {
+        return rideLocations;
+    }
+
+    public void addRideLocation(RideLocation rideLocation) {
+        rideLocation.setRide(this);
+
+        if (Objects.isNull(rideLocations)) {
+            rideLocations = Lists.newArrayList(rideLocation);
+        } else {
+            rideLocations.add(rideLocation);
+        }
     }
 }
