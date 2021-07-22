@@ -2,6 +2,9 @@ package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,11 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractPersistentObject implements Serializable {
+public class User extends AbstractPersistentObject implements Serializable, UserDetails {
 
     private static final long serialVersionUID = -3734506383010695540L;
 
@@ -46,7 +51,7 @@ public class User extends AbstractPersistentObject implements Serializable {
     @JsonManagedReference
     private PaymentInformation paymentInformation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     @JsonManagedReference
     private Role role;
@@ -78,10 +83,6 @@ public class User extends AbstractPersistentObject implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -140,5 +141,40 @@ public class User extends AbstractPersistentObject implements Serializable {
             this.rides.clear();
             this.rides.addAll(rides);
         }
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(getRole().getName()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !isActive();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !isActive();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !isActive();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
     }
 }
