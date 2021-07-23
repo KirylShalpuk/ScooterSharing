@@ -84,7 +84,7 @@ public class UserService {
     public void activateUser(UUID userId, UserActivationDto dto) {
         User user = getUserById(userId);
 
-        //TODO: if statement will be updated
+        //TODO: if statement must be updated
         if (isStatusChanged(user, dto) && dto.getAccessCode().equals("1111")) {
             user.setActive(dto.isAccessStatus());
             userRepository.save(user);
@@ -128,10 +128,14 @@ public class UserService {
             throw new ServiceException(String.format("User [%s] can not change role himself", userId));
         }
 
-        Role role = roleService.getRoleByName(roleDto.getRole().getName());
+        String roleName = roleDto.getRole().getName();
+        Role role = roleService.getRoleByName(roleName);
         user.setRole(role);
 
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        logger.info(String.format("Role [%s] for user with id = %s was assigned successfully", roleName, userId));
+
+        return user;
     }
 
     private boolean isCurrentUser(UUID userId) {
