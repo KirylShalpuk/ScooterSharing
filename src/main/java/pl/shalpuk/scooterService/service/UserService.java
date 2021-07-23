@@ -2,11 +2,15 @@ package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
+import pl.shalpuk.scooterService.dto.UserRoleDto;
+import pl.shalpuk.scooterService.exception.ServiceException;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.PaymentInformation;
 import pl.shalpuk.scooterService.model.Role;
@@ -68,7 +72,8 @@ public class UserService {
         User currentUser = getUserById(userId);
         BeanUtils.copyProperties(updatedUser, currentUser, "id", "version", "active", "paymentInformation");
 
-        PaymentInformation paymentInformation = paymentInformationToEntityConverter.convertToEntity(updatedUser.getPaymentInformationDto());
+        PaymentInformation paymentInformation =
+                paymentInformationToEntityConverter.convertToEntity(updatedUser.getPaymentInformationDto());
         currentUser.setPaymentInformation(paymentInformation);
 
         currentUser = userRepository.save(currentUser);
@@ -89,10 +94,10 @@ public class UserService {
 
     public void deactivateUser(UUID userId) {
         User user = getUserById(userId);
-        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user.getId().equals(userFromContext.getId()))
+        if (isCurrentUser(userId)) {
+            throw new ServiceException(String.format("User [%s] can not deactivate himself", userId));
+        }
         userRepository.save(user);
-
     }
 
     private boolean isStatusChanged(User user, UserActivationDto dto) {
@@ -106,5 +111,31 @@ public class UserService {
     public User getActiveUserByEmail(String email) {
         return userRepository.getUserByEmailAndActiveIsTrue(email).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
+    }
+
+    public Page<User> getAllUsersPage(PageRequest pageRequest, String search) {
+        if (search.isBlank()) {
+            return userRepository.findAll(pageRequest);
+        } else {
+            return userRepository.getAllByEmailIgnoreCaseContaining(search, pageRequest);
+        }
+    }
+
+    public User updateUserRole(UUID userId, UserRoleDto roleDto) {
+        User user = getUserById(userId);
+
+        if (isCurrentUser(userId)) {
+            throw new ServiceException(String.format("User [%s] can not change role himself", userId));
+        }
+
+        Role role = roleService.getRoleByName(roleDto.getRole().getName());
+        user.setRole(role);
+
+        return userRepository.save(user);
+    }
+
+    private boolean isCurrentUser(UUID userId) {
+        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userId.equals(userFromContext.getId());
     }
 }

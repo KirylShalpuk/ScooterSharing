@@ -41,13 +41,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+
                 .authorizeRequests()
-                .antMatchers("/user/*").hasAnyRole("ADMIN", "VIEWER")
+                .antMatchers(HttpMethod.POST, "/user").hasRole("VIEWER")
+                .antMatchers(HttpMethod.GET, "/user/*").hasAnyRole("ADMIN", "VIEWER")
+                .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/user/*").hasAnyRole("ADMIN", "VIEWER")
+                .antMatchers(HttpMethod.DELETE, "/user/*").hasAnyRole("ADMIN")
                 .antMatchers("/user/*/activate").hasAnyRole("ADMIN", "VIEWER")
-                .antMatchers("/user/*/deactivate").hasRole("ADMIN")
+                .antMatchers("/user/*/deactivate", "/user/*/updateRole").hasRole("ADMIN")
+
                 .antMatchers("/scooter/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/scooter/*").hasAnyRole("ADMIN", "VIEWER")
+
                 .antMatchers("/ride/*").hasAnyRole("ADMIN", "VIEWER")
+
                 .antMatchers("/auth/*").permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -30,7 +30,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(value = ServiceException.class)
-    public ResponseEntity<?> handleServiceException(final EntityExistsException ex) {
+    public ResponseEntity<?> handleServiceException(final ServiceException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
