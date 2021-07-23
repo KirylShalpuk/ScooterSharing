@@ -2,6 +2,7 @@ package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.dto.ScooterDto;
 import pl.shalpuk.scooterService.model.Scooter;
@@ -55,5 +56,9 @@ public class ScooterService {
         Scooter scooter = getScooterById(scooterId);
         scooterRepository.delete(scooter);
         logger.info(String.format("Scooter with id = %s was deleted successfully", scooterId));
+    }
+
+    public Scooter getAllScootersPage(PageRequest pageRequest) {
+        return null;
     }
 }

@@ -19,7 +19,7 @@ public class LocationToEntityConverter implements ToEntityConverter<LocationDto,
     public Location convertToEntity(LocationDto dto) {
         Location entity = new Location();
         BeanUtils.copyProperties(dto, entity, "id");
-        Coordinates coordinates = coordinatesToEntityConverter.convertToEntity(dto.getCoordinatesDto());
+        Coordinates coordinates = coordinatesToEntityConverter.convertToEntity(dto.getCoordinates());
         entity.setCoordinates(coordinates);
 
         return entity;

@@ -1,22 +1,18 @@
 package pl.shalpuk.scooterService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.RideStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class RideDto {
+public class ShortRideDto {
 
     @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("startRideTime")
     private LocalDateTime startRideTime;
-
-    @JsonProperty("endRideTime")
-    private LocalDateTime endRideTime;
 
     @JsonProperty("rideStatus")
     private RideStatus rideStatus;
@@ -29,9 +25,6 @@ public class RideDto {
 
     @JsonProperty("tariff")
     private ShortTariffDto tariff;
-
-    @JsonProperty("paymentStatus")
-    private PaymentStatus paymentStatus;
 
     public UUID getId() {
         return id;
@@ -47,14 +40,6 @@ public class RideDto {
 
     public void setStartRideTime(LocalDateTime startRideTime) {
         this.startRideTime = startRideTime;
-    }
-
-    public LocalDateTime getEndRideTime() {
-        return endRideTime;
-    }
-
-    public void setEndRideTime(LocalDateTime endRideTime) {
-        this.endRideTime = endRideTime;
     }
 
     public RideStatus getRideStatus() {
@@ -87,13 +72,5 @@ public class RideDto {
 
     public void setTariff(ShortTariffDto tariff) {
         this.tariff = tariff;
-    }
-
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.shalpuk.scooterService.converter.dto.RoleToDtoConverter;
 import pl.shalpuk.scooterService.dto.RoleDto;
 import pl.shalpuk.scooterService.model.Role;
-import pl.shalpuk.scooterService.model.UserSortingField;
 import pl.shalpuk.scooterService.service.RoleService;
 
 import javax.validation.constraints.Max;
@@ -30,13 +29,12 @@ public class RoleController {
         this.dtoConverter = dtoConverter;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Page<RoleDto>> getAllRolesPage(
             @RequestParam(value = "page", defaultValue = "0") @Min(0) int page,
             @RequestParam(value = "elements", defaultValue = "0") @Min(20) @Max(50) int elements,
-            @RequestParam(value = "sortDirection", defaultValue = "ASC") Sort.Direction sortDirection,
-            @RequestParam(value = "sortBy", defaultValue = "EMAIL") UserSortingField sortBy) {
-        PageRequest pageRequest = PageRequest.of(page, elements, sortDirection, sortBy.getSortField());
+            @RequestParam(value = "sortDirection", defaultValue = "ASC") Sort.Direction sortDirection) {
+        PageRequest pageRequest = PageRequest.of(page, elements, sortDirection, "name");
         Page<Role> rolePage = roleService.getAllRolesPage(pageRequest);
         return ResponseEntity.ok(dtoConverter.convertToDto(rolePage));
     }

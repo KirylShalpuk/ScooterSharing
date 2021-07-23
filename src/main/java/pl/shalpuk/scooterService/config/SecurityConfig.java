@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user").hasRole("VIEWER")
+                .antMatchers(HttpMethod.POST, "/user/*").hasRole("VIEWER")
                 .antMatchers(HttpMethod.GET, "/user/*").hasAnyRole("ADMIN", "VIEWER")
                 .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/user/*").hasAnyRole("ADMIN", "VIEWER")
@@ -53,10 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/role/*").hasRole("ADMIN")
 
-                .antMatchers("/scooter/*").hasRole("ADMIN")
+                .antMatchers("/scooter", "/scooter/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/scooter/*").hasAnyRole("ADMIN", "VIEWER")
 
                 .antMatchers("/ride/*").hasAnyRole("ADMIN", "VIEWER")
+                .antMatchers(HttpMethod.GET, "/ride").hasRole("ADMIN")
 
                 .antMatchers("/auth/*").permitAll()
                 .anyRequest().authenticated()

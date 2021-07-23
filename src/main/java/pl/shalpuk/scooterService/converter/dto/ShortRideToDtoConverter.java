@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import pl.shalpuk.scooterService.dto.LocationDto;
 import pl.shalpuk.scooterService.dto.RideDto;
+import pl.shalpuk.scooterService.dto.ShortRideDto;
 import pl.shalpuk.scooterService.dto.ShortScooterDto;
 import pl.shalpuk.scooterService.dto.ShortTariffDto;
 import pl.shalpuk.scooterService.dto.ShortUserDto;
@@ -13,18 +14,18 @@ import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 
 @Component
-public class RideToDtoConverter implements ToDtoConverter<Ride, RideDto> {
+public class ShortRideToDtoConverter implements ToDtoConverter<Ride, ShortRideDto> {
 
     private final LocationToDtoConverter locationToDtoConverter;
 
-    public RideToDtoConverter(LocationToDtoConverter locationToDtoConverter) {
+    public ShortRideToDtoConverter(LocationToDtoConverter locationToDtoConverter) {
         this.locationToDtoConverter = locationToDtoConverter;
     }
 
     @Override
-    public RideDto convertToDto(Ride entity) {
-        RideDto dto = new RideDto();
-        BeanUtils.copyProperties(entity, dto, "scooter", "currentLocation");
+    public ShortRideDto convertToDto(Ride entity) {
+        ShortRideDto dto = new ShortRideDto();
+        BeanUtils.copyProperties(entity, dto, "scooter", "user", "tariff");
 
         Scooter scooter = entity.getScooter();
         LocationDto scooterLocationDto = locationToDtoConverter.convertToDto(scooter.getCurrentLocation());

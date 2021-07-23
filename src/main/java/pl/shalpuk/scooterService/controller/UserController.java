@@ -72,12 +72,12 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Page<UserListDto>> getAllUsers(
+    public ResponseEntity<Page<UserListDto>> getAllUsersPage(
             @RequestParam(value = "page", defaultValue = "0") @Min(0) int page,
             @RequestParam(value = "elements", defaultValue = "0") @Min(20) @Max(50) int elements,
             @RequestParam(value = "sortDirection", defaultValue = "ASC") Sort.Direction sortDirection,
             @RequestParam(value = "sortBy", defaultValue = "EMAIL") UserSortingField sortBy,
-            @RequestParam(value = "search", defaultValue = "") @Min(2) String search ) {
+            @RequestParam(value = "search", defaultValue = "") @Min(2) String search) {
         PageRequest pageRequest = PageRequest.of(page, elements, sortDirection, sortBy.getSortField());
         Page<User> userPage = userService.getAllUsersPage(pageRequest, search);
         return ResponseEntity.ok(userListToDtoConverter.convertToDto(userPage));
