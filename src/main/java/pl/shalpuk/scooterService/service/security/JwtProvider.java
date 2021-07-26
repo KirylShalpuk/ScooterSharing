@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.shalpuk.scooterService.util.LogUtil;
 
 import java.util.Date;
 
@@ -33,7 +34,7 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
 
-        logger.info(String.format("Token for user with email = %s was created successfully", login));
+        LogUtil.logInfo(logger, String.format("Token for user with email = %s was created successfully", login));
         return token;
     }
 

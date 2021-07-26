@@ -11,6 +11,7 @@ import pl.shalpuk.scooterService.repository.RoleRepository;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
+import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
@@ -55,18 +56,18 @@ public class DataLoader {
     @EventListener
     @Transactional
     public void uploadData(ContextRefreshedEvent event) {
-        logger.info("Start flyway migrations...");
+
+        LogUtil.logInfo(logger,"Start flyway migrations...");
         Flyway flyway = configureFlyway();
         flyway.migrate();
 
-        logger.info("Start uploading system default data...");
+        LogUtil.logInfo(logger, "Start uploading system default data...");
         if (userRepository.count() == 0) {
             createDefaultData();
-            logger.info("Uploading system default data was finished successfully");
+            LogUtil.logInfo(logger, "Uploading system default data was finished successfully");
         } else {
-            logger.info("Uploading system default data was skipped");
+            LogUtil.logInfo(logger, "Uploading system default data was skipped");
         }
-
     }
 
     private void createDefaultData() {

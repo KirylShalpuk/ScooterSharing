@@ -12,6 +12,7 @@ import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.util.AuthContext;
+import pl.shalpuk.scooterService.util.LogUtil;
 import pl.shalpuk.scooterService.util.ScooterSpecification;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class ScooterService {
 
     public Scooter createScooter(Scooter request) {
         Scooter scooter = scooterRepository.save(request);
-        logger.info(String.format("Scooter with id = %s was created successfully", scooter.getId()));
+        LogUtil.logInfo(logger, String.format("Scooter with id = %s was created successfully", scooter.getId()));
         return scooter;
     }
 
@@ -49,21 +50,21 @@ public class ScooterService {
             deactivateScooter(scooter);
         }
         scooter = scooterRepository.save(scooter);
-        logger.info(String.format("Scooter with id = %s was updated successfully", scooterId));
+        LogUtil.logInfo(logger, String.format("Scooter with id = %s was updated successfully", scooterId));
         return scooter;
     }
 
     void deactivateScooter(Scooter scooter) {
         scooter.setActive(false);
         scooterRepository.save(scooter);
-        logger.info(String.format("Scooter with id = %s was deactivated because of battery charge is low", scooter.getId()));
+        LogUtil.logInfo(logger, String.format("Scooter with id = %s was " +
+                "deactivated because of battery charge is low", scooter.getId()));
     }
 
     public void deleteScooterById(UUID scooterId) {
         Scooter scooter = getScooterById(scooterId);
         scooterRepository.delete(scooter);
-        logger.info(String.format("Scooter with id = %s was deleted successfully", scooterId));
-    }
+        LogUtil.logInfo(logger, String.format("Scooter with id = %s was deleted successfully", scooterId)); }
 
     public Page<Scooter> getAllScootersPage(PageRequest pageRequest, ScooterSpecificationDto scooterSpecificationDto) {
         if (showEmptyPage(scooterSpecificationDto)) {
