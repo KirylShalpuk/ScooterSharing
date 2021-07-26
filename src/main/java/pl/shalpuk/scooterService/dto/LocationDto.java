@@ -22,7 +22,7 @@ public class LocationDto {
     private String building;
 
     @JsonProperty("coordinates")
-    private CoordinatesDto coordinatesDto;
+    private CoordinatesDto coordinates;
 
     public UUID getId() {
         return id;
@@ -64,11 +64,11 @@ public class LocationDto {
         this.building = building;
     }
 
-    public CoordinatesDto getCoordinatesDto() {
-        return coordinatesDto;
+    public CoordinatesDto getCoordinates() {
+        return coordinates;
     }
 
-    public void setCoordinatesDto(CoordinatesDto coordinatesDto) {
-        this.coordinatesDto = coordinatesDto;
+    public void setCoordinates(CoordinatesDto coordinates) {
+        this.coordinates = coordinates;
     }
 }

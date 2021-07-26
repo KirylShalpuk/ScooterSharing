@@ -165,7 +165,11 @@ public class User extends AbstractPersistentObject implements Serializable, User
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(getRole().getName()));
+        if (Objects.nonNull(getRole())){
+            return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_" + getRole().getName()));
+        } else {
+            return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_SUPER_ADMIN"));
+        }
     }
 
     @Override
@@ -196,5 +200,9 @@ public class User extends AbstractPersistentObject implements Serializable, User
     @Override
     public boolean isEnabled() {
         return isActive();
+    }
+
+    public boolean isAdmin() {
+        return Objects.isNull(getRole()) || getRole().isAdmin();
     }
 }

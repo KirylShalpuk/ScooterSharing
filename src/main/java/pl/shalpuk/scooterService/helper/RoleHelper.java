@@ -7,7 +7,7 @@ public class RoleHelper {
 
     public static Role createDefaultAdminRole() {
         Role admin = new Role();
-        admin.setName(DefaultRoles.ADMIN.getName());
+        admin.setName(DefaultRoles.ADMIN.toString());
         admin.setDescription(DefaultRoles.ADMIN.getDescription());
         admin.setActive(true);
         admin.setAdmin(true);
@@ -16,8 +16,8 @@ public class RoleHelper {
 
     public static Role createDefaultUserRole() {
         Role user = new Role();
-        user.setName(DefaultRoles.USER.getName());
-        user.setDescription(DefaultRoles.USER.getDescription());
+        user.setName(DefaultRoles.VIEWER.toString());
+        user.setDescription(DefaultRoles.VIEWER.getDescription());
         user.setActive(true);
         return user;
     }

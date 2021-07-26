@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.shalpuk.scooterService.exception.ExpiredTokenException;
 import pl.shalpuk.scooterService.exception.LoginException;
 import pl.shalpuk.scooterService.exception.ServiceException;
 
@@ -30,13 +31,18 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(value = ServiceException.class)
-    public ResponseEntity<?> handleServiceException(final EntityExistsException ex) {
+    public ResponseEntity<?> handleServiceException(final ServiceException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(value = LoginException.class)
     public ResponseEntity<?> handleLoginException(final LoginException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = ExpiredTokenException.class)
+    public ResponseEntity<?> handleLoginException(final ExpiredTokenException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(value = RuntimeException.class)

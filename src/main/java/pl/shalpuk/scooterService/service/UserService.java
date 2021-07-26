@@ -2,16 +2,20 @@ package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
+import pl.shalpuk.scooterService.dto.UserRoleDto;
+import pl.shalpuk.scooterService.exception.ServiceException;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.PaymentInformation;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.UserRepository;
+import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -45,7 +49,7 @@ public class UserService {
                     String.format("User with email = %s or phone number = %s already exists", email, phoneNumber));
         }
 
-        Role userRole = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role userRole = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         request.setRole(userRole);
 
         User user = userRepository.save(request);
@@ -54,12 +58,17 @@ public class UserService {
     }
 
     public User getUserById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("User with id = %s is not found", userId)));
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with id = %s is not found", userId)));
     }
 
     public void deleteUserById(UUID userId) {
         User user = getUserById(userId);
+
+        if (Objects.isNull(user.getRole())) {
+            throw new ServiceException("You can not delete super admin");
+        }
+
         userRepository.delete(user);
         logger.info(String.format("User with id = %s was deleted successfully", userId));
     }
@@ -68,7 +77,8 @@ public class UserService {
         User currentUser = getUserById(userId);
         BeanUtils.copyProperties(updatedUser, currentUser, "id", "version", "active", "paymentInformation");
 
-        PaymentInformation paymentInformation = paymentInformationToEntityConverter.convertToEntity(updatedUser.getPaymentInformationDto());
+        PaymentInformation paymentInformation =
+                paymentInformationToEntityConverter.convertToEntity(updatedUser.getPaymentInformationDto());
         currentUser.setPaymentInformation(paymentInformation);
 
         currentUser = userRepository.save(currentUser);
@@ -79,7 +89,7 @@ public class UserService {
     public void activateUser(UUID userId, UserActivationDto dto) {
         User user = getUserById(userId);
 
-        //TODO: if statement will be updated
+        //TODO: if statement must be updated
         if (isStatusChanged(user, dto) && dto.getAccessCode().equals("1111")) {
             user.setActive(dto.isAccessStatus());
             userRepository.save(user);
@@ -89,10 +99,10 @@ public class UserService {
 
     public void deactivateUser(UUID userId) {
         User user = getUserById(userId);
-        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user.getId().equals(userFromContext.getId()))
+        if (isCurrentUserFromAuth(userId)) {
+            throw new ServiceException(String.format("User [%s] can not deactivate himself", userId));
+        }
         userRepository.save(user);
-
     }
 
     private boolean isStatusChanged(User user, UserActivationDto dto) {
@@ -104,7 +114,37 @@ public class UserService {
     }
 
     public User getActiveUserByEmail(String email) {
-        return userRepository.getUserByEmailAndActiveIsTrue(email).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
+        return userRepository.getUserByEmailAndActiveIsTrue(email)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
+    }
+
+    public Page<User> getAllUsersPage(PageRequest pageRequest, String search) {
+        if (search.isBlank()) {
+            return userRepository.findAll(pageRequest);
+        } else {
+            return userRepository.getAllByEmailIgnoreCaseContaining(search, pageRequest);
+        }
+    }
+
+    public User updateUserRole(UUID userId, UserRoleDto roleDto) {
+        User user = getUserById(userId);
+
+        if (isCurrentUserFromAuth(userId)) {
+            throw new ServiceException(String.format("User [%s] can not change role himself", userId));
+        }
+
+        String roleName = roleDto.getRole().toString();
+        Role role = roleService.getRoleByName(roleName);
+        user.setRole(role);
+
+        user = userRepository.save(user);
+        logger.info(String.format("Role [%s] for user with id = %s was assigned successfully", roleName, userId));
+
+        return user;
+    }
+
+    private boolean isCurrentUserFromAuth(UUID userId) {
+        User userFromContext = AuthContext.getAuthContext();
+        return userId.equals(userFromContext.getId());
     }
 }

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 public class JwtTokenDto {
 
     @NotBlank
-    @JsonProperty("access_token")
+    @JsonProperty("token")
     private String token;
 
     public JwtTokenDto() {

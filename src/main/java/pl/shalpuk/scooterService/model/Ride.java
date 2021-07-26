@@ -54,7 +54,7 @@ public class Ride extends AbstractPersistentObject implements Serializable {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @OneToMany(mappedBy = "ride", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ride", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<RideLocation> rideLocations;
 

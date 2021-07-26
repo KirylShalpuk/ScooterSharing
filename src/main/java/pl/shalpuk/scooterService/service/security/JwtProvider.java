@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.shalpuk.scooterService.exception.ExpiredTokenException;
 
 import java.util.Date;
 
@@ -42,7 +43,7 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException expEx) {
-            logger.error(String.format("Token expired [%s]", token));
+            throw new ExpiredTokenException(String.format("Token expired [%s]", token));
         } catch (Exception ex) {
             logger.error(String.format("Failed validation token [%s]", token));
         }

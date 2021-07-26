@@ -1,6 +1,8 @@
 package pl.shalpuk.scooterService.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.exception.ServiceException;
 import pl.shalpuk.scooterService.model.PaymentStatus;
@@ -88,7 +90,15 @@ public class RideService {
     }
 
     public Ride getRideById(UUID rideId) {
-        return rideRepository.findById(rideId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Ride with id is = %s is not found", rideId)));
+        return rideRepository.findById(rideId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ride with id is = %s is not found", rideId)));
+    }
+
+    public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search) {
+        if (search.isBlank()) {
+            return rideRepository.getAllByUserEmailIgnoreCaseContaining(search, pageRequest);
+        } else {
+            return rideRepository.findAll(pageRequest);
+        }
     }
 }

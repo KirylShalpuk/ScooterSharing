@@ -62,8 +62,8 @@ public class AuthService {
     }
 
     public void logoutUser(JwtTokenDto logoutRequest) {
-        JwtToken jwtToken = jwtTokenRepository.findByTokenAndActiveIsTrue(logoutRequest.getToken()).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Token [%s] is not found", logoutRequest.getToken())));
+        JwtToken jwtToken = jwtTokenRepository.findByTokenAndActiveIsTrue(logoutRequest.getToken())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Token [%s] is not found", logoutRequest.getToken())));
 
         jwtToken.setActive(false);
         jwtTokenRepository.save(jwtToken);
