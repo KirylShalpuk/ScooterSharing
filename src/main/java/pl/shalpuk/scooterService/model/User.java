@@ -201,4 +201,8 @@ public class User extends AbstractPersistentObject implements Serializable, User
     public boolean isEnabled() {
         return isActive();
     }
+
+    public boolean isAdmin() {
+        return Objects.isNull(getRole()) || getRole().isAdmin();
+    }
 }

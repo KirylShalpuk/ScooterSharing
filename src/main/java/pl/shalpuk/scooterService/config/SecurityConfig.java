@@ -18,10 +18,7 @@ import pl.shalpuk.scooterService.filter.JWTAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true,
-        proxyTargetClass = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan("pl.shalpuk")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

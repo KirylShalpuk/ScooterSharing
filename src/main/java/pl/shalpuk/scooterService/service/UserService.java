@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.converter.entity.PaymentInformationToEntityConverter;
 import pl.shalpuk.scooterService.dto.UserActivationDto;
@@ -16,6 +15,7 @@ import pl.shalpuk.scooterService.model.PaymentInformation;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.UserRepository;
+import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -99,7 +99,7 @@ public class UserService {
 
     public void deactivateUser(UUID userId) {
         User user = getUserById(userId);
-        if (isCurrentUser(userId)) {
+        if (isCurrentUserFromAuth(userId)) {
             throw new ServiceException(String.format("User [%s] can not deactivate himself", userId));
         }
         userRepository.save(user);
@@ -129,7 +129,7 @@ public class UserService {
     public User updateUserRole(UUID userId, UserRoleDto roleDto) {
         User user = getUserById(userId);
 
-        if (isCurrentUser(userId)) {
+        if (isCurrentUserFromAuth(userId)) {
             throw new ServiceException(String.format("User [%s] can not change role himself", userId));
         }
 
@@ -143,8 +143,8 @@ public class UserService {
         return user;
     }
 
-    private boolean isCurrentUser(UUID userId) {
-        User userFromContext = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private boolean isCurrentUserFromAuth(UUID userId) {
+        User userFromContext = AuthContext.getAuthContext();
         return userId.equals(userFromContext.getId());
     }
 }

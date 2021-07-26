@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.shalpuk.scooterService.converter.dto.ScooterToDtoConverter;
 import pl.shalpuk.scooterService.converter.entity.ScooterToEntityConverter;
 import pl.shalpuk.scooterService.dto.ScooterDto;
+import pl.shalpuk.scooterService.dto.ScooterSpecificationDto;
 import pl.shalpuk.scooterService.model.Scooter;
-import pl.shalpuk.scooterService.model.UserSortingField;
+import pl.shalpuk.scooterService.model.ScooterSortingField;
 import pl.shalpuk.scooterService.service.ScooterService;
 
 import javax.validation.constraints.Max;
@@ -47,17 +49,17 @@ public class ScooterController {
         return ResponseEntity.ok(dtoConverter.convertToDto(scooter));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('VIEWER', 'ADMIN', 'SUPER_ADMIN')")
     @GetMapping
     public ResponseEntity<?> getAllScootersPage(
             @RequestParam(value = "page", defaultValue = "0", required = false) @Min(0) int page,
             @RequestParam(value = "elements", defaultValue = "20", required = false) @Min(20) @Max(50) int elements,
             @RequestParam(value = "sortDirection", defaultValue = "ASC", required = false) Sort.Direction sortDirection,
-            @RequestParam(value = "sortBy", defaultValue = "EMAIL", required = false) UserSortingField sortBy,
-            @RequestParam(value = "search", defaultValue = "", required = false) @Min(2) String search) {
+            @RequestParam(value = "sortBy", defaultValue = "ADDRESS", required = false) ScooterSortingField sortBy,
+            @RequestBody ScooterSpecificationDto specificationDto) {
         PageRequest pageRequest = PageRequest.of(page, elements, sortDirection, sortBy.getSortField());
-        Scooter scooter = scooterService.getAllScootersPage(pageRequest, search);
-        return ResponseEntity.ok(dtoConverter.convertToDto(scooter));
+        Page<Scooter> scooterPage = scooterService.getAllScootersPage(pageRequest, specificationDto);
+        return ResponseEntity.ok(dtoConverter.convertToDto(scooterPage));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
@@ -80,5 +82,12 @@ public class ScooterController {
     public ResponseEntity<?> deleteScooter(@PathVariable UUID scooterId) {
         scooterService.deleteScooterById(scooterId);
         return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyRole('VIEWER', 'ADMIN', 'SUPER_ADMIN')")
+    @GetMapping("/filter")
+    public ResponseEntity<?> getScooterFilterProperties() {
+        ScooterSpecificationDto response = scooterService.getScooterFilterProperties();
+        return ResponseEntity.ok(response);
     }
 }
