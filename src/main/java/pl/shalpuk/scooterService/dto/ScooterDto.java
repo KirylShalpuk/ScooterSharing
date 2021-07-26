@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Date;
+import java.util.UUID;
 
 public class ScooterDto {
+
+    @JsonProperty("id")
+    private UUID id;
 
     @JsonProperty("manufacturer")
     private String manufacturer;
@@ -33,6 +37,14 @@ public class ScooterDto {
 
     @JsonProperty("charging")
     private boolean charging;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getManufacturer() {
         return manufacturer;

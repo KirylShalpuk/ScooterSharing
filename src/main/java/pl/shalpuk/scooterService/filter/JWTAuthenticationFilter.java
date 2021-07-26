@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import pl.shalpuk.scooterService.dto.ErrorResponse;
-import pl.shalpuk.scooterService.exception.ExpiredTokenException;
 import pl.shalpuk.scooterService.service.security.JwtProvider;
 import pl.shalpuk.scooterService.util.AuthContext;
 
@@ -40,26 +39,22 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader(AUTHORIZATION_HEADER_NAME);
 
-        boolean isTokenValid;
-        try {
-            isTokenValid = Objects.nonNull(token) && jwtProvider.validateToken(token);
-            if (isTokenValid) {
-                String email = jwtProvider.getLoginFromToken(token);
-                UserDetails user = userDetailsService.loadUserByUsername(email);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                AuthContext.setAuthContext(auth);
-            }
-            chain.doFilter(request, response);
-        } catch (ExpiredTokenException ex) {
-            handleExpiredTokenException((HttpServletResponse) response, ex.getMessage());
+        boolean isTokenValid = Objects.nonNull(token) && jwtProvider.validateToken(token);
+        if (isTokenValid) {
+            String email = jwtProvider.getLoginFromToken(token);
+            UserDetails user = userDetailsService.loadUserByUsername(email);
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            AuthContext.setAuthContext(auth);
         }
+        chain.doFilter(request, response);
     }
 
-    private void handleExpiredTokenException(HttpServletResponse response, String message) throws IOException {
+    private void handleExpiredJwtException(HttpServletResponse response, String message) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

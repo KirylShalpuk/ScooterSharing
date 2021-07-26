@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.service.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,15 @@ public class AuthService {
 
         Optional<JwtToken> jwtTokenOptional = jwtTokenRepository.findByUserIdAndActiveIsTrue(user.getId());
         if (jwtTokenOptional.isPresent()) {
-            if (jwtProvider.validateToken(jwtTokenOptional.get().getToken())) {
+            String token = jwtTokenOptional.get().getToken();
+            boolean isValid = false;
+            try {
+                isValid = jwtProvider.validateToken(token);
+            } catch (ExpiredJwtException exception) {
+                logger.info(String.format("Token expired [%s]", token));
+            }
+
+            if (isValid) {
                 return jwtTokenOptional.get();
             } else {
                 JwtToken oldToken = jwtTokenOptional.get();
