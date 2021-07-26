@@ -49,7 +49,7 @@ public class UserService {
                     String.format("User with email = %s or phone number = %s already exists", email, phoneNumber));
         }
 
-        Role userRole = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role userRole = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         request.setRole(userRole);
 
         User user = userRepository.save(request);
@@ -58,12 +58,17 @@ public class UserService {
     }
 
     public User getUserById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("User with id = %s is not found", userId)));
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with id = %s is not found", userId)));
     }
 
     public void deleteUserById(UUID userId) {
         User user = getUserById(userId);
+
+        if (Objects.isNull(user.getRole())) {
+            throw new ServiceException("You can not delete super admin");
+        }
+
         userRepository.delete(user);
         logger.info(String.format("User with id = %s was deleted successfully", userId));
     }
@@ -109,8 +114,8 @@ public class UserService {
     }
 
     public User getActiveUserByEmail(String email) {
-        return userRepository.getUserByEmailAndActiveIsTrue(email).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
+        return userRepository.getUserByEmailAndActiveIsTrue(email)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Active user with email = %s is not found", email)));
     }
 
     public Page<User> getAllUsersPage(PageRequest pageRequest, String search) {
@@ -128,7 +133,7 @@ public class UserService {
             throw new ServiceException(String.format("User [%s] can not change role himself", userId));
         }
 
-        String roleName = roleDto.getRole().getName();
+        String roleName = roleDto.getRole().toString();
         Role role = roleService.getRoleByName(roleName);
         user.setRole(role);
 

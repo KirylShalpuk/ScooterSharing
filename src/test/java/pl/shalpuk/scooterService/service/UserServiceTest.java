@@ -19,7 +19,7 @@ class UserServiceTest extends AbstractJunitTest {
 
     @Test
     public void testCreateUser_UserNotExist_Created() {
-        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
 
         Assertions.assertEquals(3, userRepository.count());
         Assertions.assertEquals(0, paymentInformationRepository.count());
@@ -35,7 +35,7 @@ class UserServiceTest extends AbstractJunitTest {
 
     @Test
     public void testCreateUser_UserExists_EntityExistsException() {
-        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = UserTestHelper.createUser(role);
         userRepository.save(user);
 
@@ -45,7 +45,7 @@ class UserServiceTest extends AbstractJunitTest {
 
     @Test
     public void testDeleteUserById_UserExists_Deleted() {
-        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(role));
 
         Assertions.assertEquals(4, userRepository.count());
@@ -61,7 +61,7 @@ class UserServiceTest extends AbstractJunitTest {
 
     @Test
     public void testGetUserById_UserExists_Success() {
-        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(role));
 
         User userFromDb = userService.getUserById(user.getId());
@@ -76,7 +76,7 @@ class UserServiceTest extends AbstractJunitTest {
 
     @Test
     public void testUpdateUserById_UserExists_Updated() {
-        Role role = roleService.getRoleByName(DefaultRoles.USER.getName());
+        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(role));
 
         CardDto cardDto = new CardDto();

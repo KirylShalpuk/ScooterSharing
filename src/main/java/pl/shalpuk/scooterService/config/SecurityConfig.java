@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,15 +18,19 @@ import pl.shalpuk.scooterService.filter.JWTAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true,
+        proxyTargetClass = true)
 @ComponentScan("pl.shalpuk")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JWTAuthenticationFilter JWTAuthenticationFilter;
+    private final JWTAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
 
     public SecurityConfig(JWTAuthenticationFilter jwtAuthenticationFilter,
                           UserDetailsService userDetailsService) {
-        this.JWTAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
     }
 
@@ -41,28 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user/*").hasRole("VIEWER")
-                .antMatchers(HttpMethod.GET, "/user/*").hasAnyRole("ADMIN", "VIEWER")
-                .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/user/*").hasAnyRole("ADMIN", "VIEWER")
-                .antMatchers(HttpMethod.DELETE, "/user/*").hasAnyRole("ADMIN")
-                .antMatchers("/user/*/activate").hasAnyRole("ADMIN", "VIEWER")
-                .antMatchers("/user/*/deactivate", "/user/*/updateRole").hasRole("ADMIN")
-
-                .antMatchers("/role/*").hasRole("ADMIN")
-
-                .antMatchers("/scooter", "/scooter/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/scooter/*").hasAnyRole("ADMIN", "VIEWER")
-
-                .antMatchers("/ride/*").hasAnyRole("ADMIN", "VIEWER")
-                .antMatchers(HttpMethod.GET, "/ride").hasRole("ADMIN")
-
                 .antMatchers("/auth/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(JWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

@@ -90,8 +90,8 @@ public class RideService {
     }
 
     public Ride getRideById(UUID rideId) {
-        return rideRepository.findById(rideId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Ride with id is = %s is not found", rideId)));
+        return rideRepository.findById(rideId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ride with id is = %s is not found", rideId)));
     }
 
     public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search) {

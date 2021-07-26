@@ -7,10 +7,13 @@ import pl.shalpuk.scooterService.dto.RideDto;
 import pl.shalpuk.scooterService.dto.ShortScooterDto;
 import pl.shalpuk.scooterService.dto.ShortTariffDto;
 import pl.shalpuk.scooterService.dto.ShortUserDto;
+import pl.shalpuk.scooterService.model.Location;
 import pl.shalpuk.scooterService.model.Ride;
 import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
+
+import java.util.Objects;
 
 @Component
 public class RideToDtoConverter implements ToDtoConverter<Ride, RideDto> {
@@ -27,7 +30,14 @@ public class RideToDtoConverter implements ToDtoConverter<Ride, RideDto> {
         BeanUtils.copyProperties(entity, dto, "scooter", "currentLocation");
 
         Scooter scooter = entity.getScooter();
-        LocationDto scooterLocationDto = locationToDtoConverter.convertToDto(scooter.getCurrentLocation());
+
+        Location currentLocation = scooter.getCurrentLocation();
+        LocationDto scooterLocationDto;
+        if (Objects.nonNull(currentLocation)) {
+            scooterLocationDto = locationToDtoConverter.convertToDto(scooter.getCurrentLocation());
+        } else {
+            scooterLocationDto = null;
+        }
         ShortScooterDto scooterDto = new ShortScooterDto(scooter.getId(), scooter.getManufacturer(), scooter.getModel(), scooterLocationDto);
 
         User user = entity.getUser();

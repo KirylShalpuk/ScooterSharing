@@ -30,8 +30,8 @@ public class ScooterService {
     }
 
     public Scooter getScooterById(UUID scooterId) {
-        return scooterRepository.findById(scooterId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Scooter with id = %s is not found", scooterId)));
+        return scooterRepository.findById(scooterId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Scooter with id = %s is not found", scooterId)));
     }
 
     @Transactional
@@ -58,7 +58,7 @@ public class ScooterService {
         logger.info(String.format("Scooter with id = %s was deleted successfully", scooterId));
     }
 
-    public Scooter getAllScootersPage(PageRequest pageRequest) {
+    public Scooter getAllScootersPage(PageRequest pageRequest, String search) {
         return null;
     }
 }

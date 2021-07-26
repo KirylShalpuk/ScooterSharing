@@ -21,8 +21,8 @@ public class RoleService {
     }
 
     public Role getRoleByName(String roleName) {
-        return roleRepository.findRoleByName(roleName).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Role with name %s is not found", roleName)));
+        return roleRepository.findRoleByName(roleName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Role with name %s is not found", roleName)));
     }
 
     public Page<Role> getAllRolesPage(PageRequest pageRequest) {
