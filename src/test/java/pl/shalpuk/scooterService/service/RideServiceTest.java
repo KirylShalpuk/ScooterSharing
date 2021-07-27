@@ -26,7 +26,7 @@ class RideServiceTest extends AbstractJunitTest {
     void testCreateRide_AllEntitiesExist_Created() {
         Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() > 10)
                 .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(100)));
@@ -48,7 +48,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testCreateRide_UserNotExist_EntityNotFoundException() {
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() > 10)
                 .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(100)));
@@ -61,7 +61,7 @@ class RideServiceTest extends AbstractJunitTest {
     void testCreateRide_ScooterNotExist_EntityNotFoundException() {
         Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
 
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> rideService.createRide(user.getId(), UUID.randomUUID(), tariff.getId(), new Ride()));
@@ -83,7 +83,7 @@ class RideServiceTest extends AbstractJunitTest {
     void testCreateRide_ScooterNotCharged_ServiceException() {
         Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() < 10)
                 .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(5)));
@@ -96,7 +96,7 @@ class RideServiceTest extends AbstractJunitTest {
     void testFinishRide_RideExists_Finished() {
         Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() < 10)
                 .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(30)));
@@ -119,7 +119,7 @@ class RideServiceTest extends AbstractJunitTest {
     void testGetRideById_RideExists_Success() {
         Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
-        Tariff tariff = tariffService.getTariffByName(DefaultTariffs.REGULAR.getName());
+        Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() < 10)
                 .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(30)));
@@ -133,5 +133,10 @@ class RideServiceTest extends AbstractJunitTest {
     void testGetRideById_RideNotExists_EntityNotFoundException() {
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> rideService.getRideById(UUID.randomUUID()));
+    }
+
+    private Tariff getTariffByName(String roleName) {
+        return tariffRepository.getTariffByName(roleName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Tariff with name = %s is not found", roleName)));
     }
 }

@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RideRepository;
+import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -56,7 +58,7 @@ public class RideService {
         request.setTariff(tariff);
 
         request = rideRepository.save(request);
-        logger.info(String.format("Ride with id = %s for user id = %s " +
+        LogUtil.logInfo(logger, String.format("Ride with id = %s for user id = %s " +
                 "and scooter id = %s was created successfully", request.getId(), userId, scooterId));
 
         return request;
@@ -69,7 +71,7 @@ public class RideService {
         ride.setPaymentStatus(PaymentStatus.PROCESSING);
 
         ride = rideRepository.save(ride);
-        logger.info(String.format("Ride with id = %s was finished successfully", rideId));
+        LogUtil.logInfo(logger, String.format("Ride with id = %s was finished successfully", rideId));
 
         return ride;
     }
@@ -84,7 +86,7 @@ public class RideService {
         ride.setRideStatus(RideStatus.SERVICE);
 
         ride = rideRepository.save(ride);
-        logger.info(String.format("Ride with id = %s was marked as SERVICE successfully", rideId));
+        LogUtil.logInfo(logger, String.format("Ride with id = %s was marked as SERVICE successfully", rideId));
 
         return ride;
     }
@@ -95,7 +97,7 @@ public class RideService {
     }
 
     public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search) {
-        if (search.isBlank()) {
+        if (StringUtils.isEmpty(search)) {
             return rideRepository.getAllByUserEmailIgnoreCaseContaining(search, pageRequest);
         } else {
             return rideRepository.findAll(pageRequest);

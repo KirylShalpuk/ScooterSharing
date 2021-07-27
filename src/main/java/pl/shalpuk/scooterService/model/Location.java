@@ -20,8 +20,8 @@ public class Location extends AbstractPersistentObject implements Serializable {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "street")
+    private String street;
 
     @Column(name = "building")
     private String building;
@@ -46,12 +46,12 @@ public class Location extends AbstractPersistentObject implements Serializable {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String address) {
+        this.street = address;
     }
 
     public String getBuilding() {

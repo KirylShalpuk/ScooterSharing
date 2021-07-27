@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.UserRepository;
 import pl.shalpuk.scooterService.util.AuthContext;
+import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -53,7 +55,7 @@ public class UserService {
         request.setRole(userRole);
 
         User user = userRepository.save(request);
-        logger.info(String.format("User with phone number %s was created successfully", user.getPhoneNumber()));
+        LogUtil.logInfo(logger, String.format("User with phone number %s was created successfully", user.getPhoneNumber()));
         return userRepository.save(request);
     }
 
@@ -70,7 +72,7 @@ public class UserService {
         }
 
         userRepository.delete(user);
-        logger.info(String.format("User with id = %s was deleted successfully", userId));
+        LogUtil.logInfo(logger, String.format("User with id = %s was deleted successfully", userId));
     }
 
     public User updateUserById(UUID userId, UserDto updatedUser) {
@@ -82,7 +84,7 @@ public class UserService {
         currentUser.setPaymentInformation(paymentInformation);
 
         currentUser = userRepository.save(currentUser);
-        logger.info(String.format("User with id = %s was updated successfully", userId));
+        LogUtil.logInfo(logger, String.format("User with id = %s was updated successfully", userId));
         return currentUser;
     }
 
@@ -93,7 +95,7 @@ public class UserService {
         if (isStatusChanged(user, dto) && dto.getAccessCode().equals("1111")) {
             user.setActive(dto.isAccessStatus());
             userRepository.save(user);
-            logger.info(String.format("User with id = %s was activated", userId));
+            LogUtil.logInfo(logger, String.format("User with id = %s was activated", userId));
         }
     }
 
@@ -101,6 +103,10 @@ public class UserService {
         User user = getUserById(userId);
         if (isCurrentUserFromAuth(userId)) {
             throw new ServiceException(String.format("User [%s] can not deactivate himself", userId));
+        }
+
+        if (Objects.isNull(user)) {
+            throw new ServiceException(String.format("User [%s] can not be deactivated", userId));
         }
         userRepository.save(user);
     }
@@ -119,7 +125,7 @@ public class UserService {
     }
 
     public Page<User> getAllUsersPage(PageRequest pageRequest, String search) {
-        if (search.isBlank()) {
+        if (StringUtils.isEmpty(search)) {
             return userRepository.findAll(pageRequest);
         } else {
             return userRepository.getAllByEmailIgnoreCaseContaining(search, pageRequest);
@@ -138,7 +144,7 @@ public class UserService {
         user.setRole(role);
 
         user = userRepository.save(user);
-        logger.info(String.format("Role [%s] for user with id = %s was assigned successfully", roleName, userId));
+        LogUtil.logInfo(logger, String.format("Role [%s] for user with id = %s was assigned successfully", roleName, userId));
 
         return user;
     }

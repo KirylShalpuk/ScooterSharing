@@ -22,10 +22,10 @@ public interface ScooterRepository extends JpaRepository<Scooter, UUID>, JpaSpec
     @Query(value = "SELECT DISTINCT s.model from Scooter s where s.active = true")
     Set<String> getAllModelsActiveScooters();
 
-    @Query(value = "SELECT DISTINCT s.currentLocation.address from Scooter s")
+    @Query(value = "SELECT DISTINCT s.currentLocation.street from Scooter s")
     Set<String> getAllLocationAddress();
 
-    @Query(value = "SELECT DISTINCT s.currentLocation.address from Scooter s where s.active = true")
+    @Query(value = "SELECT DISTINCT s.currentLocation.street from Scooter s where s.active = true")
     Set<String> getAllLocationAddressActiveScooters();
 
     @Query(value = "SELECT MIN(s.batteryCharge) FROM Scooter s")

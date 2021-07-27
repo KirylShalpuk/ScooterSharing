@@ -11,6 +11,7 @@ import pl.shalpuk.scooterService.model.JwtToken;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.JwtTokenRepository;
 import pl.shalpuk.scooterService.service.UserService;
+import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -54,7 +55,7 @@ public class AuthService {
             try {
                 isValid = jwtProvider.validateToken(token);
             } catch (ExpiredJwtException exception) {
-                logger.info(String.format("Token expired [%s]", token));
+                LogUtil.logInfo(logger, String.format("Token expired [%s]", token));
             }
 
             if (isValid) {
@@ -76,7 +77,7 @@ public class AuthService {
 
         jwtToken.setActive(false);
         jwtTokenRepository.save(jwtToken);
-        logger.info(String.format("Token [%s] was deactivated successfully", logoutRequest));
+        LogUtil.logInfo(logger, String.format("Token [%s] was deactivated successfully", logoutRequest));
     }
 
     private JwtToken generateNewToken(User user) {
