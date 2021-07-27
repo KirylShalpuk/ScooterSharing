@@ -5,11 +5,11 @@ Requests:
 - [AUTH requests](#AUTH requests)
     - [Login](#login)
     - [Logout](#logout)
-- [USER requests](#user_requests)
-    - [Create user](#create_user)
-    - [Get page of all users](#get_page_of_all_users)
-    - [Get user by id](#get_user_by_id)
-    - [Delete user by id](#delete_user_by_id)
+- [USER requests](#USER requests)
+    - [Create user](#Create user)
+    - [Get page of all users](#Get_page_of_all_users)
+    - [Get user by id](#Get_user_by_id)
+    - [Delete user by id](#Delete_user_by_id)
 
 ## AUTH requests
 - ### Login:
@@ -43,7 +43,7 @@ Requests:
 >Authenticated: `NONE`
 
 
-### USER requests
+## USER requests
 - ### Create user
 > `POST -> "/users"`
 
@@ -63,7 +63,7 @@ Requests:
 ```
 >Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
 
-- ### Get page of all users
+- ### Get page of all users:
 > `GET -> "/users"`
 
 >_Request body:_ `page`, `elements`, `sortDirection`, `sortBy`, `search` 
@@ -71,7 +71,7 @@ Requests:
 >Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
 
 
-- ### Get user by id
+- ### Get user by id:
 > `GET -> "/users/{userId}"`
 
 >_Request parameters:_ `NONE`
@@ -81,7 +81,7 @@ Requests:
 >Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
 
 
-- ### Delete user by id
+- ### Delete user by id:
 > `DELETE -> "/{users{/userId"`
 
 >_Request parameters:_ `NONE`
@@ -91,7 +91,7 @@ Requests:
 >Authenticated: `ADMIN`, `SUPER ADMIN`
 
 
-- ### Update user role
+- ### Update user role:
 > `PUT -> "/users/{userId}/updateRole"`
 
 >_Request parameters:_ `NONE`
@@ -111,7 +111,7 @@ or
 
 >Authenticated: `ADMIN`, `SUPER ADMIN`
 
-- ### Update user
+- ### Update user:
 > `PUT -> "/users/{userId}"`
 
 >_Request parameters:_ `NONE`
