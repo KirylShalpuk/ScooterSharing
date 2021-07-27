@@ -5,11 +5,11 @@ Requests:
 - [AUTH requests](#AUTH requests)
     - [Login](#login)
     - [Logout](#logout)
-- [USER requests](#USER requests)
-    - [Create user](#Create user)
-    - [Get page of all users](#Get page of all users)
-    - [Get user by id](#Get user by id)
-    - [Delete user by id](#Delete user by id)
+- [USER requests](#user_requests)
+    - [Create user](#create_user)
+    - [Get page of all users](#get_page_of_all_users)
+    - [Get user by id](#get_user_by_id)
+    - [Delete user by id](#delete_user_by_id)
 
 ## AUTH requests
 - ### Login:
