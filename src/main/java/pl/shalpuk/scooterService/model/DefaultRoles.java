@@ -3,7 +3,7 @@ package pl.shalpuk.scooterService.model;
 public enum DefaultRoles {
 
     ADMIN("Default admin role"),
-    VIEWER("Default user role");
+    USER("Default user role");
 
     private final String description;
 

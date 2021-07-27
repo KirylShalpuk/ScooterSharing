@@ -16,8 +16,8 @@ public class RoleHelper {
 
     public static Role createDefaultUserRole() {
         Role user = new Role();
-        user.setName(DefaultRoles.VIEWER.toString());
-        user.setDescription(DefaultRoles.VIEWER.getDescription());
+        user.setName(DefaultRoles.USER.toString());
+        user.setDescription(DefaultRoles.USER.getDescription());
         user.setActive(true);
         return user;
     }

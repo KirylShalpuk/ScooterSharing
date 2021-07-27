@@ -51,7 +51,7 @@ public class UserService {
                     String.format("User with email = %s or phone number = %s already exists", email, phoneNumber));
         }
 
-        Role userRole = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role userRole = roleService.getRoleByName(DefaultRoles.USER.toString());
         request.setRole(userRole);
 
         User user = userRepository.save(request);
