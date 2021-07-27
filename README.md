@@ -2,14 +2,14 @@
 ![img_1.png](img_1.png)
 
 Requests:
-- [AUTH requests](#auth_requests)
+- [AUTH requests](#auth-requests)
     - [Login](#login)
     - [Logout](#logout)
-- [USER requests](#user_requests)
-    - [Create user](#create_user)
-    - [Get page of all users](#get_page_of_all_users)
-    - [Get user by id](#get_user_by_id)
-    - [Delete user by id](#gelete_user_by_id)
+- [USER requests](#user-requests)
+    - [Create user](#create-user)
+    - [Get page of all users](#get-page-of-all-users)
+    - [Get user by id](#get-user-by-id)
+    - [Delete user by id](#gelete-user-by-id)
 
 ## AUTH requests
 - ### Login:
