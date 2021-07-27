@@ -9,7 +9,9 @@ Requests:
     - [Create user](#create-user)
     - [Get page of all users](#get-page-of-all-users)
     - [Get user by id](#get-user-by-id)
-    - [Delete user by id](#gelete-user-by-id)
+    - [Delete user by id](#delete-user-by-id)
+    - [Update user role](#update-user-role)
+    - [Update user by id](#update-user-by-id)
 
 ## AUTH requests
 - ### Login:
@@ -111,7 +113,7 @@ or
 
 >Authenticated: `ADMIN`, `SUPER ADMIN`
 
-- ### Update user:
+- ### Update user by id:
 > `PUT -> "/users/{userId}"`
 
 >_Request parameters:_ `NONE`
