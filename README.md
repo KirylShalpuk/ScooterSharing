@@ -1,7 +1,7 @@
 # **Scooter Sharing Service**
 ![img_1.png](img_1.png)
 
-Requests:
+REST API:
 - [AUTH requests](#auth-requests)
   - [Login](#login)
   - [Logout](#logout)
@@ -19,10 +19,23 @@ Requests:
   - [Get scooter by id](#get-scooter-by-id)
   - [Delete scooter by id](#delete-scooter-by-id)
   - [Update user scooter id](#update-user-scooter-id)
+- [TARIFF requests](#tariff-requests)
+  - [Get tariff by id](#get-tariff-by-id)
+  - [Get page of all tariffs](#get-page-of-all-tariffs)
+- [ROLE requests](#role-requests)
+  - [Get page of all roles](#get-page-of-all-roles)
+- [STATISTIC requests](#statistic-requests)
+  - [Get list of all ride location statistics](#get-list-of-all-ride-location-statistics)
+- [RIDE requests](#ride-requests)
+  - [Create ride](#create-ride)
+  - [Finish ride](#finish-ride)
+  - [Complain about ride](#complain-about-ride)
+  - [Get ride by id](#get-ride-by-id)
+  - [Get page of all rides](#get-page-of-all-rides)
+  
 
 ## AUTH requests
 - ### Login:
-
 > `POST -> "/auth/login"`
 
 >_Request parameters:_ `NONE`
@@ -38,7 +51,6 @@ Requests:
 
 
 - ### Logout:
-
 > `PUT -> "/auth/logout"`
 
 >_Request parameters:_ `NONE`
@@ -53,7 +65,7 @@ Requests:
 
 
 ## USER requests
-- ### Create user
+- ### Create user:
 > `POST -> "/users"`
 
 >_Request parameters:_ `NONE`
@@ -261,3 +273,108 @@ or
 }
 ```
 >Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+## TARIFF requests
+- ### Get tariff by id:
+> `GET -> "/tariffs/{tariffId}"`
+
+>_Request parameters:_ `NONE`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+- ### Get page of all tariffs:
+> `GET -> "/tariffs"`
+
+>_Request parameters:_ `page`, `elements`, `sortDirection`, `sortBy`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `ADMIN`, `SUPER ADMIN`
+
+
+## ROLE requests
+- ### Get page of all roles:
+> `GET -> "/roles"`
+
+>_Request parameters:_ `page`, `elements`, `sortDirection`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `ADMIN`, `SUPER ADMIN`
+
+
+## STATISTIC requests
+- ### Get list of all ride location statistics:
+> `GET -> "/statistics/rides/locations"`
+
+>_Request parameters:_ `dateFrom`, `dateTo`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `ADMIN`, `SUPER ADMIN`
+
+
+## RIDE requests
+- ### Create ride:
+> `POST -> "/rides"`
+
+>_Request parameters:_ `NONE`
+
+>_Request body:_
+```json
+{
+    "user" : {
+      "id" : "90e947c5-bd0a-4fc3-95cf-623577a5a241"
+    },
+    "scooter" : {
+      "id" : "90e947c5-bd0a-4fc3-95cf-623577a5a241"
+    },
+    "tariff" : {
+      "id" : "90e947c5-bd0a-4fc3-95cf-623577a5a241"
+    }
+}
+```
+>Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+- ### Finish ride:
+> `PUT -> "/rides/{rideId}/finish"`
+
+>_Request parameters:_ `NONE`
+
+>_Request body:_ `NONE`
+>Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+- ### Complain about ride:
+> `PUT -> "/rides/{rideId}/complain"`
+
+>_Request parameters:_ `NONE`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+- ### Get ride by id:
+> `GET -> "/rides/{rideId}"`
+
+>_Request parameters:_ `NONE`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `USER`, `ADMIN`, `SUPER ADMIN`
+
+
+- ### Get page of all rides:
+> `GET -> "/rides"`
+
+>_Request parameters:_ `page`, `elements`, `sortDirection`, `sortBy`, `search`
+
+>_Request body:_ `NONE`
+
+>Authenticated: `ADMIN`, `SUPER ADMIN`
