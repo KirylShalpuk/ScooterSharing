@@ -37,7 +37,7 @@
   - [Roles](#roles)
   - [Default users](#default-users)
 
-# REST API:
+# REST API
 ## AUTH requests
 - ### Login:
 > `POST -> "/auth/login"`
