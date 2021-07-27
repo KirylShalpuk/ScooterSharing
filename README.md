@@ -2,7 +2,7 @@
 ![img_1.png](img_1.png)
 
 Requests:
-- [AUTH requests](#auth requests)
+- [AUTH requests](#auth_requests)
     - [Login](#login)
     - [Logout](#logout)
 - [USER requests](#USER requests)
