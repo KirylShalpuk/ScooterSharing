@@ -36,7 +36,7 @@ public class TariffController {
     }
 
     @PreAuthorize("hasAnyRole('VIEWER', 'ADMIN', 'SUPER_ADMIN')")
-    @GetMapping("{tariffId}")
+    @GetMapping("/{tariffId}")
     public ResponseEntity<?> getTariffById(@PathVariable UUID tariffId) {
         Tariff tariff = tariffService.getTariffById(tariffId);
         return ResponseEntity.ok(dtoConverter.convertToDto(tariff));
