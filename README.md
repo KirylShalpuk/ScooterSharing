@@ -1,39 +1,43 @@
 # **Scooter Sharing Service**
 ![img_1.png](img_1.png)
 
-REST API:
-- [AUTH requests](#auth-requests)
-  - [Login](#login)
-  - [Logout](#logout)
-- [USER requests](#user-requests)
-  - [Create user](#create-user)
-  - [Get page of all users](#get-page-of-all-users)
-  - [Get user by id](#get-user-by-id)
-  - [Delete user by id](#delete-user-by-id)
-  - [Update user role](#update-user-role)
-  - [Update user by id](#update-user-by-id)
-- [SCOOTER requests](#scooter-requests)
-  - [Create scooter](#create-scooter)
-  - [Get scooter filter properties](#get-scooter-filter-properties)
-  - [Get page of all scooters](#get-page-of-all-scooters)
-  - [Get scooter by id](#get-scooter-by-id)
-  - [Delete scooter by id](#delete-scooter-by-id)
-  - [Update user scooter id](#update-user-scooter-id)
-- [TARIFF requests](#tariff-requests)
-  - [Get tariff by id](#get-tariff-by-id)
-  - [Get page of all tariffs](#get-page-of-all-tariffs)
-- [ROLE requests](#role-requests)
-  - [Get page of all roles](#get-page-of-all-roles)
-- [STATISTIC requests](#statistic-requests)
-  - [Get list of all ride location statistics](#get-list-of-all-ride-location-statistics)
-- [RIDE requests](#ride-requests)
-  - [Create ride](#create-ride)
-  - [Finish ride](#finish-ride)
-  - [Complain about ride](#complain-about-ride)
-  - [Get ride by id](#get-ride-by-id)
-  - [Get page of all rides](#get-page-of-all-rides)
-  
+- [Scooter Sharing Service](#scooter-sharing-service)
+- [REST API](#rest-api)
+  - [AUTH requests](#auth-requests)
+    - [Login](#login)
+    - [Logout](#logout)
+  - [USER requests](#user-requests)
+    - [Create user](#create-user)
+    - [Get page of all users](#get-page-of-all-users)
+    - [Get user by id](#get-user-by-id)
+    - [Delete user by id](#delete-user-by-id)
+    - [Update user role](#update-user-role)
+    - [Update user by id](#update-user-by-id)
+  - [SCOOTER requests](#scooter-requests)
+    - [Create scooter](#create-scooter)
+    - [Get scooter filter properties](#get-scooter-filter-properties)
+    - [Get page of all scooters](#get-page-of-all-scooters)
+    - [Get scooter by id](#get-scooter-by-id)
+    - [Delete scooter by id](#delete-scooter-by-id)
+    - [Update user scooter id](#update-user-scooter-id)
+  - [TARIFF requests](#tariff-requests)
+    - [Get tariff by id](#get-tariff-by-id)
+    - [Get page of all tariffs](#get-page-of-all-tariffs)
+  - [ROLE requests](#role-requests)
+    - [Get page of all roles](#get-page-of-all-roles)
+  - [STATISTIC requests](#statistic-requests)
+    - [Get list of all ride location statistics](#get-list-of-all-ride-location-statistics)
+  - [RIDE requests](#ride-requests)
+    - [Create ride](#create-ride)
+    - [Finish ride](#finish-ride)
+    - [Complain about ride](#complain-about-ride)
+    - [Get ride by id](#get-ride-by-id)
+    - [Get page of all rides](#get-page-of-all-rides)
+- [Model](#model)
+  - [Roles](#roles)
+  - [Default users](#default-users)
 
+#REST API:
 ## AUTH requests
 - ### Login:
 > `POST -> "/auth/login"`
@@ -378,3 +382,23 @@ or
 >_Request body:_ `NONE`
 
 >Authenticated: `ADMIN`, `SUPER ADMIN`
+
+
+# Model
+## Roles
+>- `SUPER ADMIN` - default system admin role, can not be deleted and assigned
+>- `ADMIN` - default system admin role, can not be deleted, can be assigned
+>- `USER` - default system user role, can not be deleted, can be assigned
+
+## Default users
+>`super admin` - default system user with `SUPER ADMIN` role
+- email: super.admin@scooter.com
+ - password: 12345678
+
+>`admin admin` - default system user with `ADMIN` role
+- email: admin@scooter.com
+- password: 12345678
+
+>`Kiryl Shalpuk` - default system user with `USER` role
+- email: kiryl.shalpuk@scooter.com
+- password: 12345678

@@ -31,7 +31,7 @@ public class UserHelper {
         user.setFirstName("Kiryl");
         user.setLastName("Shalpuk");
         user.setPhoneNumber("+48798743379");
-        user.setEmail("kirill.shelpuk@gmail.com");
+        user.setEmail("kiryl.shalpuk@scooter.com");
         user.setPassword("$2a$10$0sBp8KSHQW/VuTjGJSnoO.nbRcr3mcfStc5BxA5s61A4Mt2vU6iq."); //1-8
         user.setActive(true);
         user.setRole(userRole);

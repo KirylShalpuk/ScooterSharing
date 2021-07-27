@@ -11,7 +11,7 @@ class RoleServiceTest extends AbstractJunitTest {
 
     @Test
     public void testGetRoleById_RoleExists_Success() {
-        Role role = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role role = roleService.getRoleByName(DefaultRoles.USER.toString());
         Assertions.assertNotNull(role);
     }
 

@@ -24,7 +24,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testCreateRide_AllEntitiesExist_Created() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
@@ -59,7 +59,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testCreateRide_ScooterNotExist_EntityNotFoundException() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
 
@@ -69,7 +69,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testCreateRide_TariffNotExist_EntityNotFoundException() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() > 10)
@@ -81,7 +81,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testCreateRide_ScooterNotCharged_ServiceException() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
@@ -94,7 +94,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testFinishRide_RideExists_Finished() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
@@ -117,7 +117,7 @@ class RideServiceTest extends AbstractJunitTest {
 
     @Test
     void testGetRideById_RideExists_Success() {
-        Role viewer = roleService.getRoleByName(DefaultRoles.VIEWER.toString());
+        Role viewer = roleService.getRoleByName(DefaultRoles.USER.toString());
         User user = userRepository.save(UserTestHelper.createUser(viewer));
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
