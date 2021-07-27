@@ -15,8 +15,8 @@ public class LocationDto {
     @JsonProperty("city")
     private String city;
 
-    @JsonProperty("address")
-    private String address;
+    @JsonProperty("street")
+    private String street;
 
     @JsonProperty("building")
     private String building;
@@ -48,12 +48,12 @@ public class LocationDto {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getBuilding() {

@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -96,7 +97,7 @@ public class RideService {
     }
 
     public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search) {
-        if (search.isBlank()) {
+        if (StringUtils.isEmpty(search)) {
             return rideRepository.getAllByUserEmailIgnoreCaseContaining(search, pageRequest);
         } else {
             return rideRepository.findAll(pageRequest);

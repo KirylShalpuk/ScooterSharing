@@ -1,5 +1,7 @@
 package pl.shalpuk.scooterService.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.repository.TariffRepository;
@@ -21,8 +23,7 @@ public class TariffService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Tariff with id = %s is not found", tariffId)));
     }
 
-    Tariff getTariffByName(String roleName) {
-        return tariffRepository.getTariffByName(roleName)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Tariff with name = %s is not found", roleName)));
+    public Page<Tariff> getAllTariffsPage(PageRequest pageRequest) {
+        return tariffRepository.findAll(pageRequest);
     }
 }

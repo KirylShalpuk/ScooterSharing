@@ -93,7 +93,7 @@ CREATE TABLE locations(
     version int4,
     country varchar(255),
     city varchar(255),
-    address varchar(255),
+    street varchar(255),
     building varchar(255),
     coordinates_id uuid
 );

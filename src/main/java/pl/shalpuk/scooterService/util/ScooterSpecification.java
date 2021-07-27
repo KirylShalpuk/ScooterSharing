@@ -2,10 +2,12 @@ package pl.shalpuk.scooterService.util;
 
 import org.springframework.data.jpa.domain.Specification;
 import pl.shalpuk.scooterService.dto.ScooterSpecificationDto;
+import pl.shalpuk.scooterService.model.Location;
 import pl.shalpuk.scooterService.model.Scooter;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -28,13 +30,15 @@ public class ScooterSpecification implements Specification<Scooter> {
         Set<String> locations = scooterSpecificationDto.getLocationAddress();
         boolean isActive = scooterSpecificationDto.isActive();
 
+        Join<Scooter, Location> locationJoin = root.join("currentLocation");
+
         List<Predicate> predicates = new ArrayList<>();
 
         predicates.add(root.get("manufacturer").in(manufacturers));
         predicates.add(root.get("model").in(models));
         predicates.add(criteriaBuilder.greaterThan(root.get("batteryCharge"), scooterSpecificationDto.getBatteryChargeFrom()));
         predicates.add(criteriaBuilder.lessThan(root.get("batteryCharge"), batteryChargeTo));
-//        predicates.add(root.get("currentLocation.address").in(locations));
+        predicates.add(locationJoin.get("street").in(locations));
 
         if (isActive) {
             predicates.add(root.get("active").in(true));

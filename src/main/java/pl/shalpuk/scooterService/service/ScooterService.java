@@ -64,7 +64,8 @@ public class ScooterService {
     public void deleteScooterById(UUID scooterId) {
         Scooter scooter = getScooterById(scooterId);
         scooterRepository.delete(scooter);
-        LogUtil.logInfo(logger, String.format("Scooter with id = %s was deleted successfully", scooterId)); }
+        LogUtil.logInfo(logger, String.format("Scooter with id = %s was deleted successfully", scooterId));
+    }
 
     public Page<Scooter> getAllScootersPage(PageRequest pageRequest, ScooterSpecificationDto scooterSpecificationDto) {
         if (showEmptyPage(scooterSpecificationDto)) {
@@ -77,7 +78,7 @@ public class ScooterService {
     private boolean showEmptyPage(ScooterSpecificationDto scooterSpecificationDto) {
         return CollectionUtils.isEmpty(scooterSpecificationDto.getManufacturers())
                 || CollectionUtils.isEmpty(scooterSpecificationDto.getModels())
-//                || CollectionUtils.isEmpty(scooterSpecificationDto.getAddress())
+                || CollectionUtils.isEmpty(scooterSpecificationDto.getLocationAddress())
                 || scooterSpecificationDto.getBatteryChargeTo() == 0;
     }
 

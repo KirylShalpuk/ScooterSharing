@@ -5,7 +5,7 @@ public enum ScooterSortingField {
     MANUFACTURER("manufacturer"),
     MODEL("model"),
     BATTERY_CHARGE("batteryCharge"),
-    ADDRESS("currentLocation.address");
+    ADDRESS("currentLocation.street");
 
     private final String sortField;
 

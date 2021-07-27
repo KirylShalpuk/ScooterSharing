@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -124,7 +125,7 @@ public class UserService {
     }
 
     public Page<User> getAllUsersPage(PageRequest pageRequest, String search) {
-        if (search.isBlank()) {
+        if (StringUtils.isEmpty(search)) {
             return userRepository.findAll(pageRequest);
         } else {
             return userRepository.getAllByEmailIgnoreCaseContaining(search, pageRequest);
