@@ -3,11 +3,9 @@ package pl.shalpuk.scooterService.service;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import pl.shalpuk.scooterService.dto.CardDto;
 import pl.shalpuk.scooterService.dto.PaymentInformationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
@@ -16,7 +14,6 @@ import pl.shalpuk.scooterService.helper.UserTestHelper;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
-import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -137,7 +134,7 @@ class UserServiceTest extends AbstractJunitTest {
         UserRoleDto userRoleDto = new UserRoleDto();
         userRoleDto.setRole(DefaultRoles.ADMIN);
 
-        User updatedUser = userService.updateUserRole(user.getId(),userRoleDto);
+        User updatedUser = userService.updateUserRole(user.getId(), userRoleDto);
         Assertions.assertEquals(DefaultRoles.ADMIN.toString(), updatedUser.getRole().getName());
     }
 

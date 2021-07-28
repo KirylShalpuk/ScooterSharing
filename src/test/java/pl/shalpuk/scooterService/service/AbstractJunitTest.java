@@ -22,6 +22,7 @@ import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserLocationRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
+import pl.shalpuk.scooterService.service.security.AuthService;
 import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.annotation.PostConstruct;
@@ -53,6 +54,11 @@ public class AbstractJunitTest {
 
     @Autowired
     protected RideLocationService rideLocationService;
+
+    @Autowired
+    protected AuthService authService;
+
+
 
     @Autowired
     protected UserRepository userRepository;
