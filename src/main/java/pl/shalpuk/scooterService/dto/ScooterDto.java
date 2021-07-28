@@ -1,10 +1,10 @@
 package pl.shalpuk.scooterService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pl.shalpuk.scooterService.model.Location;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,9 +13,11 @@ public class ScooterDto {
     @JsonProperty("id")
     private UUID id;
 
+    @NotNull
     @JsonProperty("manufacturer")
     private String manufacturer;
 
+    @NotNull
     @JsonProperty("model")
     private String model;
 
@@ -39,6 +41,7 @@ public class ScooterDto {
     @JsonProperty("charging")
     private boolean charging;
 
+    @NotNull
     @JsonProperty("currentLocation")
     private LocationDto currentLocation;
 

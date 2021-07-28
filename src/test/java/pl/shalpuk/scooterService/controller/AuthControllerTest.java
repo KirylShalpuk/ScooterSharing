@@ -1,22 +1,21 @@
 package pl.shalpuk.scooterService.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.shalpuk.scooterService.dto.AuthDto;
 import pl.shalpuk.scooterService.dto.JwtTokenDto;
-import pl.shalpuk.scooterService.service.security.AuthService;
+import pl.shalpuk.scooterService.model.JwtToken;
+
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AuthControllerTest extends AbstractJUnitControllerTest {
-
-    @Mock
-    private AuthService authService;
 
     @Test
     public void testLogin_200() throws Exception {
@@ -28,7 +27,7 @@ public class AuthControllerTest extends AbstractJUnitControllerTest {
         mockMvc.perform(post("/auth/login")
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -37,14 +36,13 @@ public class AuthControllerTest extends AbstractJUnitControllerTest {
         JwtTokenDto logoutRequest = new JwtTokenDto("this is token");
 
         Mockito.doNothing().when(authService).logoutUser(any());
-
-//        Mockito.when(jwtTokenRepository.findByTokenAndActiveIsTrue(token)).thenReturn(Optional.of(new JwtToken()));
-        Mockito.doNothing().when(authService).logoutUser(any());
+        Mockito.when(jwtTokenRepository.findByTokenAndActiveIsTrue(anyString())).thenReturn(Optional.of(new JwtToken()));
+//        Mockito.doNothing().when(authService).logoutUser(any(JwtTokenDto.class));
 
         String requestBody = objectMapper.writeValueAsString(logoutRequest);
         mockMvc.perform(put("/auth/logout")
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
     }
 }

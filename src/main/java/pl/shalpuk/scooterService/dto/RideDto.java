@@ -1,9 +1,11 @@
 package pl.shalpuk.scooterService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.RideStatus;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,20 +15,25 @@ public class RideDto {
     private UUID id;
 
     @JsonProperty("startRideTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
     private LocalDateTime startRideTime;
 
     @JsonProperty("endRideTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
     private LocalDateTime endRideTime;
 
     @JsonProperty("rideStatus")
     private RideStatus rideStatus;
 
+    @NotNull(message = "User can not be null")
     @JsonProperty("user")
     private ShortUserDto user;
 
+    @NotNull(message = "Scooter can not be null")
     @JsonProperty("scooter")
     private ShortScooterDto scooter;
 
+    @NotNull(message = "Tariff can not be null")
     @JsonProperty("tariff")
     private ShortTariffDto tariff;
 

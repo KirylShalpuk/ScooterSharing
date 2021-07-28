@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
@@ -27,4 +28,9 @@ public class SpringTestConfiguration {
     public MockMvc getMockMvc() {
         return MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+
+//    @Bean
+//    public MethodValidationPostProcessor methodValidationPostProcessor() {
+//        return new MethodValidationPostProcessor();
+//    }
 }
