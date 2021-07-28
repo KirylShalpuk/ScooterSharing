@@ -15,7 +15,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
-class ScooterServiceTest extends AbstractJunitTest {
+class ScooterServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testCreateScooter_ScooterNotExist_Created() {

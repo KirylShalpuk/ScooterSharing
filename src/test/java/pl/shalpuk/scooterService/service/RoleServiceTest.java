@@ -10,7 +10,7 @@ import pl.shalpuk.scooterService.model.Role;
 
 import javax.persistence.EntityNotFoundException;
 
-class RoleServiceTest extends AbstractJunitTest {
+class RoleServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testGetRoleById_RoleExists_Success() {

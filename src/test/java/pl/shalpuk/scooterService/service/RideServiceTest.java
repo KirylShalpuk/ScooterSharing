@@ -20,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-class RideServiceTest extends AbstractJunitTest {
+class RideServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     void testCreateRide_AllEntitiesExist_Created() {

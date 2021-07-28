@@ -10,7 +10,7 @@ import pl.shalpuk.scooterService.model.Tariff;
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
-class TariffServiceTest extends AbstractJunitTest {
+class TariffServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testGetTariffById_TariffExists_Success() {

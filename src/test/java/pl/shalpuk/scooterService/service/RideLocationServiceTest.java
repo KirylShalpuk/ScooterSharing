@@ -7,7 +7,7 @@ import pl.shalpuk.scooterService.model.RideLocation;
 import java.time.LocalDateTime;
 import java.util.List;
 
-class RideLocationServiceTest extends AbstractJunitTest {
+class RideLocationServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testGetRideLocationStatistic_() {

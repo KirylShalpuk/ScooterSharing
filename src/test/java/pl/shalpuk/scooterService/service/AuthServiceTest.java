@@ -7,7 +7,7 @@ import pl.shalpuk.scooterService.dto.JwtTokenDto;
 import pl.shalpuk.scooterService.model.JwtToken;
 import pl.shalpuk.scooterService.model.User;
 
-public class AuthServiceTest extends AbstractJunitTest {
+public class AuthServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testLogin_UserExists_Successfully() {

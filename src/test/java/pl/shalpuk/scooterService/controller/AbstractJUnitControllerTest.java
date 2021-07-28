@@ -1,15 +1,23 @@
-package pl.shalpuk.scooterService.service;
+package pl.shalpuk.scooterService.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.exceptions.base.MockitoException;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 import pl.shalpuk.scooterService.config.SpringTestConfiguration;
-import pl.shalpuk.scooterService.model.DefaultRoles;
-import pl.shalpuk.scooterService.model.Role;
-import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.CardRepository;
 import pl.shalpuk.scooterService.repository.CoordinatesRepository;
 import pl.shalpuk.scooterService.repository.JwtTokenRepository;
@@ -22,89 +30,84 @@ import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserLocationRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
+import pl.shalpuk.scooterService.service.DataLoader;
+import pl.shalpuk.scooterService.service.RideLocationService;
+import pl.shalpuk.scooterService.service.RideService;
+import pl.shalpuk.scooterService.service.RoleService;
+import pl.shalpuk.scooterService.service.ScooterService;
+import pl.shalpuk.scooterService.service.TariffService;
+import pl.shalpuk.scooterService.service.UserService;
 import pl.shalpuk.scooterService.service.security.AuthService;
-import pl.shalpuk.scooterService.util.AuthContext;
 
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
-
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = {SpringTestConfiguration.class})
 @WebAppConfiguration
-@Transactional
-public class AbstractJunitTest {
+public class AbstractJUnitControllerTest {
 
     @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected MockMvc mockMvc;
+
+    @Mock
     protected UserService userService;
 
-    @Autowired
+    @Mock
     protected ScooterService scooterService;
 
-    @Autowired
+    @Mock
     protected RoleService roleService;
 
-    @Autowired
+    @Mock
     protected RideService rideService;
 
-    @Autowired
+    @Mock
     protected TariffService tariffService;
 
-    @Autowired
+    @Mock
     protected DataLoader dataLoader;
 
-    @Autowired
+    @Mock
     protected RideLocationService rideLocationService;
 
-    @Autowired
-    protected AuthService authService;
+//    @Mock
+//    protected AuthService authService;
 
-
-
-    @Autowired
+    @Mock
     protected UserRepository userRepository;
 
-    @Autowired
+    @Mock
     protected ScooterRepository scooterRepository;
 
-    @Autowired
+    @Mock
     protected RoleRepository roleRepository;
 
-    @Autowired
+    @Mock
     protected RideRepository rideRepository;
 
-    @Autowired
+    @Mock
     protected TariffRepository tariffRepository;
 
-    @Autowired
+    @Mock
     protected PaymentInformationRepository paymentInformationRepository;
 
-    @Autowired
+    @Mock
     protected CardRepository cardRepository;
 
-    @Autowired
+    @Mock
     protected CoordinatesRepository coordinatesRepository;
 
-    @Autowired
+    @Mock
     protected JwtTokenRepository jwtTokenRepository;
 
-    @Autowired
+    @Mock
     protected LocationRepository locationRepository;
 
-    @Autowired
+    @Mock
     protected RideLocationRepository rideLocationRepository;
 
-    @Autowired
+    @Mock
     protected UserLocationRepository userLocationRepository;
-
-    @PostConstruct
-    public void init() {
-        Role adminRole = roleRepository.findRoleByName(DefaultRoles.ADMIN.toString()).orElse(null);
-        User admin = userRepository.findAllByRole(adminRole).stream().findFirst().get();
-
-        UsernamePasswordAuthenticationToken auth =
-                new UsernamePasswordAuthenticationToken(admin, null, admin.getAuthorities());
-
-        AuthContext.setAuthContext(auth);
-    }
 
 }

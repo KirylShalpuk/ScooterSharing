@@ -19,7 +19,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
-class UserServiceTest extends AbstractJunitTest {
+class UserServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testCreateUser_UserNotExist_Created() {
