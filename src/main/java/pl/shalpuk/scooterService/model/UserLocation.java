@@ -3,6 +3,7 @@ package pl.shalpuk.scooterService.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +28,7 @@ public class UserLocation extends AbstractPersistentObject implements Serializab
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @JoinColumn(name = "position_time")
+    @Column(name = "position_time")
     private LocalDateTime positionTime;
 
 

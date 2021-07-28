@@ -36,8 +36,8 @@ public class ScooterSpecification implements Specification<Scooter> {
 
         predicates.add(root.get("manufacturer").in(manufacturers));
         predicates.add(root.get("model").in(models));
-        predicates.add(criteriaBuilder.greaterThan(root.get("batteryCharge"), scooterSpecificationDto.getBatteryChargeFrom()));
-        predicates.add(criteriaBuilder.lessThan(root.get("batteryCharge"), batteryChargeTo));
+        predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("batteryCharge"), scooterSpecificationDto.getBatteryChargeFrom()));
+        predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("batteryCharge"), batteryChargeTo));
         predicates.add(locationJoin.get("street").in(locations));
 
         if (isActive) {
