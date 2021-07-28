@@ -34,7 +34,7 @@ class RideServiceTest extends AbstractJunitTest {
         Ride request = new Ride();
         request.setRideStatus(RideStatus.STARTED);
 
-        Assertions.assertEquals(0, rideRepository.count());
+        Assertions.assertEquals(2, rideRepository.count());
 
         Ride savedRide = rideService.createRide(user.getId(), scooter.getId(), tariff.getId(), request);
 

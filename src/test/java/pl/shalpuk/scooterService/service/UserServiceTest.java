@@ -3,13 +3,20 @@ package pl.shalpuk.scooterService.service;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import pl.shalpuk.scooterService.dto.CardDto;
 import pl.shalpuk.scooterService.dto.PaymentInformationDto;
 import pl.shalpuk.scooterService.dto.UserDto;
+import pl.shalpuk.scooterService.dto.UserRoleDto;
 import pl.shalpuk.scooterService.helper.UserTestHelper;
 import pl.shalpuk.scooterService.model.DefaultRoles;
 import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
+import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -22,15 +29,15 @@ class UserServiceTest extends AbstractJunitTest {
         Role role = roleService.getRoleByName(DefaultRoles.USER.toString());
 
         Assertions.assertEquals(3, userRepository.count());
-        Assertions.assertEquals(0, paymentInformationRepository.count());
-        Assertions.assertEquals(0, cardRepository.count());
+        Assertions.assertEquals(1, paymentInformationRepository.count());
+        Assertions.assertEquals(1, cardRepository.count());
 
         User user = UserTestHelper.createUser(role);
         userService.createUser(user);
 
         Assertions.assertEquals(4, userRepository.count());
-        Assertions.assertEquals(1, paymentInformationRepository.count());
-        Assertions.assertEquals(2, cardRepository.count());
+        Assertions.assertEquals(2, paymentInformationRepository.count());
+        Assertions.assertEquals(3, cardRepository.count());
     }
 
     @Test
@@ -100,7 +107,7 @@ class UserServiceTest extends AbstractJunitTest {
         updateRequest.setActive(true);
         updateRequest.setPaymentInformationDto(paymentInformationDto);
 
-        Assertions.assertEquals(2, cardRepository.count());
+        Assertions.assertEquals(3, cardRepository.count());
 
         UUID oldPaymentInformationId = user.getPaymentInformation().getId();
         UUID oldCardId = user.getPaymentInformation().getCards().stream().findFirst().get().getId();
@@ -109,7 +116,7 @@ class UserServiceTest extends AbstractJunitTest {
 
         Assertions.assertEquals(updateRequest.getLastName(), updatedUser.getLastName());
         Assertions.assertFalse(updatedUser.isActive());
-        Assertions.assertEquals(1, cardRepository.count());
+        Assertions.assertEquals(2, cardRepository.count());
         Assertions.assertEquals("Gdansk",
                 updatedUser.getPaymentInformation().getAddress());
         Assertions.assertFalse(paymentInformationRepository.existsById(oldPaymentInformationId));
@@ -120,5 +127,35 @@ class UserServiceTest extends AbstractJunitTest {
     public void testUpdateUserById_UserNotExist_EntityNotFoundException() {
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> userService.updateUserById(UUID.randomUUID(), new UserDto()));
+    }
+
+    @Test
+    public void testUpdateUserRole_SetAdminRole_Changed() {
+        Role role = roleService.getRoleByName(DefaultRoles.USER.toString());
+        User user = userRepository.save(UserTestHelper.createUser(role));
+
+        UserRoleDto userRoleDto = new UserRoleDto();
+        userRoleDto.setRole(DefaultRoles.ADMIN);
+
+        User updatedUser = userService.updateUserRole(user.getId(),userRoleDto);
+        Assertions.assertEquals(DefaultRoles.ADMIN.toString(), updatedUser.getRole().getName());
+    }
+
+    @Test
+    public void testGetAllUsersPage_WithoutSearching_ReturnThreeUsers() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "email");
+        Page<User> userPage = userService.getAllUsersPage(pageRequest, "");
+
+        Assertions.assertEquals(3, userRepository.count());
+        Assertions.assertEquals(3, userPage.getTotalElements());
+    }
+
+    @Test
+    public void testGetAllUsersPage_WithSearching_ReturnOneUser() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "email");
+        Page<User> userPage = userService.getAllUsersPage(pageRequest, "kiryl");
+
+        Assertions.assertEquals(3, userRepository.count());
+        Assertions.assertEquals(1, userPage.getTotalElements());
     }
 }
