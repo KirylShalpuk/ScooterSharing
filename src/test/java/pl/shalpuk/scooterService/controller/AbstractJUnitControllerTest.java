@@ -3,14 +3,12 @@ package pl.shalpuk.scooterService.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.shalpuk.scooterService.config.SpringTestConfiguration;
@@ -39,11 +37,12 @@ import pl.shalpuk.scooterService.service.security.AuthService;
 import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = {SpringTestConfiguration.class})
 @WebAppConfiguration
-@RunWith(SpringRunner.class)
+@Transactional
 public class AbstractJUnitControllerTest {
 
     @Autowired
