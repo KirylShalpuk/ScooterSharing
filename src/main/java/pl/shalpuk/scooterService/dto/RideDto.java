@@ -1,7 +1,7 @@
 package pl.shalpuk.scooterService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.RideStatus;
 
@@ -15,11 +15,11 @@ public class RideDto {
     private UUID id;
 
     @JsonProperty("startRideTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime startRideTime;
 
     @JsonProperty("endRideTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime endRideTime;
 
     @JsonProperty("rideStatus")

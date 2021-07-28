@@ -1,5 +1,6 @@
 package pl.shalpuk.scooterService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.shalpuk.scooterService.model.RideStatus;
 
@@ -12,6 +13,7 @@ public class ShortRideDto {
     private UUID id;
 
     @JsonProperty("startRideTime")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime startRideTime;
 
     @JsonProperty("rideStatus")

@@ -1,11 +1,12 @@
 package pl.shalpuk.scooterService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ScooterDto {
@@ -30,7 +31,8 @@ public class ScooterDto {
     private int batteryCharge;
 
     @JsonProperty("lastService")
-    private Date lastService;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime lastService;
 
     @JsonProperty("softwareVersion")
     private String softwareVersion;
@@ -85,11 +87,11 @@ public class ScooterDto {
         this.batteryCharge = batteryCharge;
     }
 
-    public Date getLastService() {
+    public LocalDateTime getLastService() {
         return lastService;
     }
 
-    public void setLastService(Date lastService) {
+    public void setLastService(LocalDateTime lastService) {
         this.lastService = lastService;
     }
 

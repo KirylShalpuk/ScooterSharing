@@ -11,8 +11,7 @@ import pl.shalpuk.scooterService.helper.ScooterTestHelper;
 import pl.shalpuk.scooterService.model.Scooter;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 class ScooterServiceTest extends AbstractIntegrationServiceTest {
@@ -61,7 +60,7 @@ class ScooterServiceTest extends AbstractIntegrationServiceTest {
         ScooterDto request = new ScooterDto();
         request.setManufacturer(savedScooter.getManufacturer());
         request.setModel(savedScooter.getModel());
-        request.setLastService(Date.from(Instant.now()));
+        request.setLastService(LocalDateTime.now());
         request.setSoftwareVersion(savedScooter.getSoftwareVersion());
         request.setBatteryCharge(5);
         request.setCharging(false);
