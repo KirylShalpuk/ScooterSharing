@@ -86,17 +86,17 @@ public class DataLoader {
         Role adminRole = roleRepository.save(createDefaultAdminRole());
         Role defaultUserRole = roleRepository.save(createDefaultUserRole());
 
-        List<Location> locations = locationRepository.saveAll(preparationLocations());
-
-        userRepository.save(createSuperAdminUser());
-        userRepository.save(createDefaultAdmin(adminRole));
-        userRepository.save(createDefaultUser(defaultUserRole));
-
-        scooterRepository.saveAll(createScooters(locations));
-
-        tariffRepository.save(createRegularTariff());
-        tariffRepository.save(createPremiumTariff());
-        tariffRepository.save(createDiscountTariff());
+//        List<Location> locations = locationRepository.saveAll(preparationLocations());
+//
+//        userRepository.save(createSuperAdminUser());
+//        userRepository.save(createDefaultAdmin(adminRole));
+//        userRepository.save(createDefaultUser(defaultUserRole));
+//
+//        scooterRepository.saveAll(createScooters(locations));
+//
+//        tariffRepository.save(createRegularTariff());
+//        tariffRepository.save(createPremiumTariff());
+//        tariffRepository.save(createDiscountTariff());
 
     }
 
