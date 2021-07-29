@@ -23,6 +23,7 @@ import pl.shalpuk.scooterService.model.Scooter;
 import pl.shalpuk.scooterService.model.ScooterSortingField;
 import pl.shalpuk.scooterService.service.ScooterService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.UUID;
@@ -66,7 +67,7 @@ public class ScooterController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PostMapping
-    public ResponseEntity<?> createScooter(@RequestBody ScooterDto request) {
+    public ResponseEntity<?> createScooter(@RequestBody @Valid ScooterDto request) {
         Scooter fromDto = entityConverter.convertToEntity(request);
         Scooter createdScooter = scooterService.createScooter(fromDto);
         return ResponseEntity.ok(dtoConverter.convertToDto(createdScooter));
@@ -74,7 +75,7 @@ public class ScooterController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PutMapping("/{scooterId}")
-    public ResponseEntity<?> updateScooter(@PathVariable UUID scooterId, @RequestBody ScooterDto request) {
+    public ResponseEntity<?> updateScooter(@PathVariable UUID scooterId, @RequestBody @Valid ScooterDto request) {
         Scooter updatedScooter = scooterService.updateScooter(scooterId, request);
         return ResponseEntity.ok(dtoConverter.convertToDto(updatedScooter));
     }

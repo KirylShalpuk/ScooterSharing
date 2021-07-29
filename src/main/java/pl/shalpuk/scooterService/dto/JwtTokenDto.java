@@ -13,6 +13,10 @@ public class JwtTokenDto {
     public JwtTokenDto() {
     }
 
+    public JwtTokenDto(String token) {
+        this.token = token;
+    }
+
     public String getToken() {
         return token;
     }

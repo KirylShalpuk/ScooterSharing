@@ -22,6 +22,7 @@ import pl.shalpuk.scooterService.model.Ride;
 import pl.shalpuk.scooterService.model.RideSortingField;
 import pl.shalpuk.scooterService.service.RideService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.UUID;
@@ -48,7 +49,7 @@ public class RideController {
 
     @PreAuthorize("hasAnyRole('VIEWER', 'ADMIN', 'SUPER_ADMIN')")
     @PostMapping
-    public ResponseEntity<?> createRide(@RequestBody RideDto request) {
+    public ResponseEntity<?> createRide(@RequestBody @Valid RideDto request) {
         Ride fromDto = entityConverter.convertToEntity(request);
         Ride createdRide = rideService.createRide(
                 request.getUser().getId(),

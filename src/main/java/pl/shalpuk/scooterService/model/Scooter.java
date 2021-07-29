@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -32,7 +32,7 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
     private int batteryCharge;
 
     @Column(name = "last_service")
-    private Date lastService;
+    private LocalDateTime lastService;
 
     @Column(name = "software_version")
     private String softwareVersion;
@@ -83,11 +83,11 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
         this.batteryCharge = batteryCharge;
     }
 
-    public Date getLastService() {
+    public LocalDateTime getLastService() {
         return lastService;
     }
 
-    public void setLastService(Date lastService) {
+    public void setLastService(LocalDateTime lastService) {
         this.lastService = lastService;
     }
 
