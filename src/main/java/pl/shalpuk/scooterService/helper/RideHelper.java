@@ -28,12 +28,10 @@ public class RideHelper {
         ride.setTariff(tariff);
         ride.addRideLocation(startPoint);
 
-        locations.stream().limit(10).sorted(Comparator.comparing(Location::getStreet)).forEach(location -> {
-            RideLocation rideLocation = new RideLocation();
-            rideLocation.setLocation(location);
-            rideLocation.setPositionTime(LocalDateTime.now().minusHours(1).plusMinutes(locations.indexOf(location)));
-            ride.addRideLocation(rideLocation);
-        });
+        locations.stream()
+                .limit(10)
+                .sorted(Comparator.comparing(Location::getStreet))
+                .forEach(location -> generateRide(locations, ride, location));
 
         return ride;
     }
@@ -52,13 +50,18 @@ public class RideHelper {
         ride.addRideLocation(startPoint);
         ride.setPaymentStatus(PaymentStatus.PROCESSING);
 
-        locations.stream().limit(5).sorted(Comparator.comparing(Location::getStreet)).forEach(location -> {
-            RideLocation rideLocation = new RideLocation();
-            rideLocation.setLocation(location);
-            rideLocation.setPositionTime(LocalDateTime.now().minusHours(1).plusMinutes(locations.indexOf(location)));
-            ride.addRideLocation(rideLocation);
-        });
+        locations.stream()
+                .limit(5)
+                .sorted(Comparator.comparing(Location::getStreet))
+                .forEach(location -> generateRide(locations, ride, location));
 
         return ride;
+    }
+
+    private static void generateRide(List<Location> locations, Ride ride, Location location) {
+        RideLocation rideLocation = new RideLocation();
+        rideLocation.setLocation(location);
+        rideLocation.setPositionTime(LocalDateTime.now().minusHours(1).plusMinutes(locations.indexOf(location)));
+        ride.addRideLocation(rideLocation);
     }
 }
