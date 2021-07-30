@@ -12,6 +12,7 @@ import pl.shalpuk.scooterService.model.Location;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class LocationHelper {
     public static List<Location> preparationLocations() {
         JSONParser jsonParser = new JSONParser();
         try (InputStream inputStream = new ClassPathResource("locations/Warsaw.json").getInputStream()) {
-            InputStreamReader reader = new InputStreamReader(inputStream);
+            InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             JSONArray locationArray = (JSONArray) jsonParser.parse(reader);
 
             List<Location> locations = (List<Location>) locationArray.stream()

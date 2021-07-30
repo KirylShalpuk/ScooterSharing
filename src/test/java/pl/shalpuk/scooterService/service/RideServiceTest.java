@@ -2,6 +2,10 @@ package pl.shalpuk.scooterService.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import pl.shalpuk.scooterService.dto.RideSpecificationDto;
 import pl.shalpuk.scooterService.exception.ServiceException;
 import pl.shalpuk.scooterService.helper.RideTestHelper;
 import pl.shalpuk.scooterService.helper.ScooterTestHelper;
@@ -133,6 +137,31 @@ class RideServiceTest extends AbstractIntegrationServiceTest {
     void testGetRideById_RideNotExists_EntityNotFoundException() {
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> rideService.getRideById(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testGetRideFilterProperties_TwoRideExist_ReturnFullDto() {
+        RideSpecificationDto rideSpecificationDto = rideService.getRideFilterProperties();
+        Assertions.assertEquals("kiryl.shalpuk@scooter.com", rideSpecificationDto.getUserEmails().stream().findFirst().get());
+        Assertions.assertFalse(rideSpecificationDto.getLocationAddress().isEmpty());
+    }
+
+    @Test
+    public void testGetAllRidesPage_TwoRideExist_ReturnTwoRidesOnPage() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "user.email");
+        RideSpecificationDto rideSpecificationDto = rideService.getRideFilterProperties();
+        Page<Ride> ridePage = rideService.getAllRidesPage(pageRequest, "", rideSpecificationDto);
+
+        Assertions.assertEquals(2, ridePage.getTotalElements());
+    }
+
+    @Test
+    public void testGetAllRidesPage_EmptyFilter_ReturnEmptyPage() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "user.email");
+        RideSpecificationDto rideSpecificationDto = new RideSpecificationDto();
+        Page<Ride> ridePage = rideService.getAllRidesPage(pageRequest, "", rideSpecificationDto);
+
+        Assertions.assertEquals(0, ridePage.getTotalElements());
     }
 
     private Tariff getTariffByName(String roleName) {

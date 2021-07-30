@@ -18,6 +18,7 @@ import pl.shalpuk.scooterService.converter.dto.RideToDtoConverter;
 import pl.shalpuk.scooterService.converter.dto.ShortRideToDtoConverter;
 import pl.shalpuk.scooterService.converter.entity.RideToEntityConverter;
 import pl.shalpuk.scooterService.dto.RideDto;
+import pl.shalpuk.scooterService.dto.RideSpecificationDto;
 import pl.shalpuk.scooterService.model.Ride;
 import pl.shalpuk.scooterService.model.RideSortingField;
 import pl.shalpuk.scooterService.service.RideService;
@@ -87,9 +88,16 @@ public class RideController {
             @RequestParam(value = "elements", defaultValue = "20", required = false) @Min(20) @Max(50) int elements,
             @RequestParam(value = "sortDirection", defaultValue = "ASC", required = false) Sort.Direction sortDirection,
             @RequestParam(value = "sortBy", defaultValue = "EMAIL", required = false) RideSortingField sortBy,
-            @RequestParam(value = "search", defaultValue = "", required = false) @Min(2) String search) {
+            @RequestParam(value = "search", defaultValue = "", required = false) @Min(2) String search,
+            @RequestBody RideSpecificationDto specificationDto) {
         PageRequest pageRequest = PageRequest.of(page, elements, sortDirection, sortBy.getSortField());
-        Page<Ride> ridePage = rideService.getAllRidesPage(pageRequest, search);
+        Page<Ride> ridePage = rideService.getAllRidesPage(pageRequest, search, specificationDto);
         return ResponseEntity.ok(shortRideToDtoConverter.convertToDto(ridePage));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
+    @GetMapping("/filter")
+    public ResponseEntity<?> getRideFilterProperties() {
+        return ResponseEntity.ok(rideService.getRideFilterProperties());
     }
 }

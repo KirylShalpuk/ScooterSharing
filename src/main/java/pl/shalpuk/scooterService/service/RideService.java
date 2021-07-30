@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import pl.shalpuk.scooterService.dto.RideSpecificationDto;
 import pl.shalpuk.scooterService.exception.ServiceException;
 import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.Ride;
@@ -14,9 +16,11 @@ import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RideRepository;
 import pl.shalpuk.scooterService.util.LogUtil;
+import pl.shalpuk.scooterService.util.RideSpecification;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -96,11 +100,33 @@ public class RideService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Ride with id is = %s is not found", rideId)));
     }
 
-    public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search) {
-        if (StringUtils.isEmpty(search)) {
-            return rideRepository.getAllByUserEmailIgnoreCaseContaining(search, pageRequest);
-        } else {
-            return rideRepository.findAll(pageRequest);
+    public Page<Ride> getAllRidesPage(PageRequest pageRequest, String search, RideSpecificationDto specificationDto) {
+        if (showEmptyPage(specificationDto)) {
+            return Page.empty();
         }
+
+        RideSpecification rideSpecification = new RideSpecification(specificationDto);
+
+        if (!StringUtils.isEmpty(search)) {
+            return rideRepository.getAllByUserEmailIgnoreCaseContaining(search, rideSpecification, pageRequest);
+        } else {
+            return rideRepository.findAll(rideSpecification, pageRequest);
+        }
+    }
+
+    private boolean showEmptyPage(RideSpecificationDto rideSpecificationDto) {
+        return CollectionUtils.isEmpty(rideSpecificationDto.getLocationAddress())
+                || CollectionUtils.isEmpty(rideSpecificationDto.getUserEmails());
+    }
+
+    public RideSpecificationDto getRideFilterProperties() {
+        Set<String> userEmail = rideRepository.getAllUserEmail();
+        Set<String> locations = rideRepository.getAllLocationAddresses();
+
+        RideSpecificationDto rideSpecificationDto = new RideSpecificationDto();
+        rideSpecificationDto.setUserEmails(userEmail);
+        rideSpecificationDto.setLocationAddress(locations);
+
+        return rideSpecificationDto;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import pl.shalpuk.scooterService.dto.ErrorResponse;
 import pl.shalpuk.scooterService.service.security.JwtProvider;
+import pl.shalpuk.scooterService.service.security.JwtTokenService;
 import pl.shalpuk.scooterService.util.AuthContext;
 
 import javax.servlet.FilterChain;
@@ -32,10 +33,14 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 
     private final JwtProvider jwtProvider;
     private final UserDetailsService userDetailsService;
+    private final JwtTokenService jwtTokenService;
 
-    public JWTAuthenticationFilter(JwtProvider jwtProvider, UserDetailsService userDetailsService) {
+    public JWTAuthenticationFilter(JwtProvider jwtProvider,
+                                   UserDetailsService userDetailsService,
+                                   JwtTokenService jwtTokenService) {
         this.jwtProvider = jwtProvider;
         this.userDetailsService = userDetailsService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
@@ -44,7 +49,8 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
         String token = httpServletRequest.getHeader(AUTHORIZATION_HEADER_NAME);
 
         boolean isTokenValid = Objects.nonNull(token) && jwtProvider.validateToken(token);
-        if (isTokenValid) {
+        boolean isTokenActive = jwtTokenService.isTokenActive(token);
+        if (isTokenValid && isTokenActive) {
             String email = jwtProvider.getLoginFromToken(token);
             UserDetails user = userDetailsService.loadUserByUsername(email);
             UsernamePasswordAuthenticationToken auth =
