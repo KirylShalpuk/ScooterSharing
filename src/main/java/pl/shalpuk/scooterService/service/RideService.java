@@ -12,6 +12,7 @@ import pl.shalpuk.scooterService.model.PaymentStatus;
 import pl.shalpuk.scooterService.model.Ride;
 import pl.shalpuk.scooterService.model.RideStatus;
 import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.ScooterStatus;
 import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RideRepository;
@@ -19,6 +20,7 @@ import pl.shalpuk.scooterService.util.LogUtil;
 import pl.shalpuk.scooterService.util.RideSpecification;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -44,16 +46,25 @@ public class RideService {
         this.tariffService = tariffService;
     }
 
+    @Transactional
     public Ride createRide(UUID userId, UUID scooterId, UUID tariffId, Ride request) {
         User user = userService.getUserById(userId);
         Scooter scooter = scooterService.getScooterById(scooterId);
         Tariff tariff = tariffService.getTariffById(tariffId);
+
 
         if (scooter.getBatteryCharge() < 10) {
             scooterService.deactivateScooter(scooter);
             throw new ServiceException(String.format("Scooter with id = %s has not enough " +
                     "battery charge to start the ride", scooterId));
         }
+
+        if (!scooter.getScooterStatus().equals(ScooterStatus.READY)) {
+            throw new ServiceException(String.format("Scooter with id = %s is not ready to start ride [%s]",
+                    scooterId, scooter.getScooterStatus()));
+        }
+
+        scooter = scooterService.changeScooterStatus(scooter, ScooterStatus.TAKEN);
 
         request.setStartRideTime(LocalDateTime.now());
         request.setRideStatus(RideStatus.STARTED);
@@ -68,11 +79,14 @@ public class RideService {
         return request;
     }
 
+    @Transactional
     public Ride finishRide(UUID rideId) {
         Ride ride = getRideById(rideId);
         ride.setEndRideTime(LocalDateTime.now());
         ride.setRideStatus(RideStatus.FINISHED);
         ride.setPaymentStatus(PaymentStatus.PROCESSING);
+
+        scooterService.changeScooterStatus(ride.getScooter(), ScooterStatus.READY);
 
         ride = rideRepository.save(ride);
         LogUtil.logInfo(logger, String.format("Ride with id = %s was finished successfully", rideId));
@@ -80,8 +94,11 @@ public class RideService {
         return ride;
     }
 
+    @Transactional
     public Ride complainAboutRide(UUID rideId) {
         Ride ride = getRideById(rideId);
+
+        scooterService.changeScooterStatus(ride.getScooter(), ScooterStatus.SERVICE);
 
         if (!ride.getRideStatus().equals(RideStatus.FINISHED)) {
             throw new ServiceException(String.format("Ride with id = %s have not finished yet", rideId));

@@ -33,7 +33,7 @@ class RideServiceTest extends AbstractIntegrationServiceTest {
         Tariff tariff = getTariffByName(DefaultTariffs.REGULAR.getName());
         Scooter scooter = scooterRepository.findAll().stream()
                 .filter(scooterFromList -> scooterFromList.isActive() && scooterFromList.getBatteryCharge() > 10)
-                .findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(100)));
+                .skip(1).findFirst().orElse(scooterRepository.save(ScooterTestHelper.createScooter(100)));
 
         Ride request = new Ride();
         request.setRideStatus(RideStatus.STARTED);

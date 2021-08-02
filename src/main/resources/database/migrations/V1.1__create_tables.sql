@@ -34,7 +34,8 @@ CREATE TABLE scooters(
     software_version varchar(255),
     active boolean default false,
     charging boolean default false,
-    location_id uuid
+    location_id uuid,
+    status varchar(255)
 );
 
 CREATE TABLE tariffs(
@@ -121,6 +122,15 @@ CREATE TABLE ride_locations(
     position_time timestamp
 );
 
+CREATE TABLE scooter_statistic(
+    id uuid not null primary key,
+    version int4,
+    count int2,
+    date date,
+    time time,
+    location_id uuid NOT NULL
+);
+
 ALTER TABLE users ADD CONSTRAINT fk_users_role_id FOREIGN KEY (role_id) REFERENCES roles;
 ALTER TABLE payments ADD CONSTRAINT fk_payments_user_id FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE rides ADD CONSTRAINT fk_rides_tariff_id FOREIGN KEY (tariff_id) REFERENCES tariffs;
@@ -135,5 +145,6 @@ ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_user_id FOREIGN KEY 
 ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_location_id FOREIGN KEY (location_id) REFERENCES locations;
 ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_ride_id FOREIGN KEY (ride_id) REFERENCES rides;
 ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_location_id FOREIGN KEY (location_id) REFERENCES locations;
+ALTER TABLE scooter_statistic ADD CONSTRAINT fk_scooter_statistic_location_id FOREIGN KEY (location_id) REFERENCES locations;
 
 COMMIT;

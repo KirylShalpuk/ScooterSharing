@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -42,6 +44,10 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "charging")
     private boolean charging;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private ScooterStatus scooterStatus;
 
     @OneToMany(mappedBy = "scooter")
     @JsonBackReference
@@ -113,6 +119,14 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     public void setCharging(boolean charging) {
         this.charging = charging;
+    }
+
+    public ScooterStatus getScooterStatus() {
+        return scooterStatus;
+    }
+
+    public void setScooterStatus(ScooterStatus scooterStatus) {
+        this.scooterStatus = scooterStatus;
     }
 
     public Set<Ride> getRides() {

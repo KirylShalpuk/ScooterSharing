@@ -7,28 +7,39 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import pl.shalpuk.scooterService.dto.ScooterDto;
+import pl.shalpuk.scooterService.dto.ScooterLocationStatisticDto;
 import pl.shalpuk.scooterService.dto.ScooterSpecificationDto;
+import pl.shalpuk.scooterService.dto.ScooterStatisticDto;
 import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.ScooterStatus;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
+import pl.shalpuk.scooterService.repository.ScooterStatisticRepository;
 import pl.shalpuk.scooterService.util.AuthContext;
 import pl.shalpuk.scooterService.util.LogUtil;
 import pl.shalpuk.scooterService.util.ScooterSpecification;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ScooterService {
 
     private final Logger logger;
     private final ScooterRepository scooterRepository;
+    private final ScooterStatisticRepository scooterStatisticRepository;
 
-    public ScooterService(Logger logger, ScooterRepository scooterRepository) {
+    public ScooterService(Logger logger, ScooterRepository scooterRepository,
+                          ScooterStatisticRepository scooterStatisticRepository) {
         this.logger = logger;
         this.scooterRepository = scooterRepository;
+        this.scooterStatisticRepository = scooterStatisticRepository;
     }
 
     public Scooter createScooter(Scooter request) {
@@ -115,5 +126,25 @@ public class ScooterService {
         specificationDto.setActive(active);
 
         return specificationDto;
+    }
+
+    public ScooterLocationStatisticDto getAllFreeActiveScooters(ScooterLocationStatisticDto statisticDto) {
+        List<Object[]> countHours = scooterStatisticRepository.getAllScooterStatisticForLastMonth(
+                statisticDto.getStreet(), statisticDto.getBuilding(), LocalDate.now().minusMonths(1));
+        List<ScooterStatisticDto> scooterStatisticDtos = countHours.stream().map(objectArray -> {
+            ScooterStatisticDto scooterStatisticDto = new ScooterStatisticDto();
+            scooterStatisticDto.setCountAVG((double) objectArray[0]);
+            scooterStatisticDto.setTime((LocalTime) objectArray[1]);
+            return scooterStatisticDto;
+        }).collect(Collectors.toList());
+
+        statisticDto.setScooterStatisticDtos(scooterStatisticDtos);
+
+        return statisticDto;
+    }
+
+    public Scooter changeScooterStatus(Scooter scooter, ScooterStatus scooterStatus) {
+        scooter.setScooterStatus(scooterStatus);
+        return scooterRepository.save(scooter);
     }
 }
