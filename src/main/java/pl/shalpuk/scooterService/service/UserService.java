@@ -1,7 +1,7 @@
 package pl.shalpuk.scooterService.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +17,6 @@ import pl.shalpuk.scooterService.model.Role;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.UserRepository;
 import pl.shalpuk.scooterService.util.AuthContext;
-import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -55,7 +54,7 @@ public class UserService {
         request.setRole(userRole);
 
         User user = userRepository.save(request);
-        LogUtil.logInfo(logger, String.format("User with phone number %s was created successfully", user.getPhoneNumber()));
+        logger.info("User with phone number {} was created successfully", user.getPhoneNumber());
         return userRepository.save(request);
     }
 
@@ -72,7 +71,7 @@ public class UserService {
         }
 
         userRepository.delete(user);
-        LogUtil.logInfo(logger, String.format("User with id = %s was deleted successfully", userId));
+        logger.info("User with id = {} was deleted successfully", userId);
     }
 
     public User updateUserById(UUID userId, UserDto updatedUser) {
@@ -84,7 +83,7 @@ public class UserService {
         currentUser.setPaymentInformation(paymentInformation);
 
         currentUser = userRepository.save(currentUser);
-        LogUtil.logInfo(logger, String.format("User with id = %s was updated successfully", userId));
+        logger.info("User with id = {} was updated successfully", userId);
         return currentUser;
     }
 
@@ -95,7 +94,7 @@ public class UserService {
         if (isStatusChanged(user, dto) && dto.getAccessCode().equals("1111")) {
             user.setActive(dto.isAccessStatus());
             userRepository.save(user);
-            LogUtil.logInfo(logger, String.format("User with id = %s was activated", userId));
+            logger.info("User with id = {} was activated", userId);
         }
     }
 
@@ -144,7 +143,7 @@ public class UserService {
         user.setRole(role);
 
         user = userRepository.save(user);
-        LogUtil.logInfo(logger, String.format("Role [%s] for user with id = %s was assigned successfully", roleName, userId));
+        logger.info("Role [{}] for user with id = {} was assigned successfully", roleName, userId);
 
         return user;
     }

@@ -13,7 +13,7 @@ class RideLocationServiceTest extends AbstractIntegrationServiceTest {
     public void testGetRideLocationStatistic_() {
         LocalDateTime from = LocalDateTime.now().minusDays(1);
         LocalDateTime to = LocalDateTime.now();
-        List<RideLocation> rideLocations = rideLocationService.getRideLocationStatistic(from, to);
+        List<RideLocation> rideLocations = rideLocationService.getAllRideStatistics(from, to);
         Assertions.assertFalse(rideLocations.isEmpty());
     }
 }

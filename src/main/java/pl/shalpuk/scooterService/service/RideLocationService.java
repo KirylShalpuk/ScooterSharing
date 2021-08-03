@@ -18,7 +18,7 @@ public class RideLocationService {
         this.rideLocationRepository = rideLocationRepository;
     }
 
-    public List<RideLocation> getRideLocationStatistic(LocalDateTime dateFrom, LocalDateTime dateTo) {
+    public List<RideLocation> getAllRideStatistics(LocalDateTime dateFrom, LocalDateTime dateTo) {
         LocalDateTime currentTime = LocalDateTime.now();
         if (Objects.isNull(dateTo)) {
             dateTo = currentTime;

@@ -16,6 +16,8 @@ import java.util.Set;
 
 public class ScooterSpecification implements Specification<Scooter> {
 
+    private static final long serialVersionUID = -3396764680457245526L;
+
     private final ScooterSpecificationDto scooterSpecificationDto;
 
     public ScooterSpecification(ScooterSpecificationDto scooterSpecificationDto) {

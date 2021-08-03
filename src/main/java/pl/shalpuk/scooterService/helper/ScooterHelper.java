@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import pl.shalpuk.scooterService.model.Location;
 import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.ScooterStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ScooterHelper {
             scooter.setBatteryCharge(RandomUtils.nextInt(0, 100));
             scooter.setCharging(RandomUtils.nextBoolean());
             scooter.setCurrentLocation(locations.get(RandomUtils.nextInt(0, 19)));
+            scooter.setScooterStatus(ScooterStatus.READY);
 
             scooters.add(scooter);
         }
