@@ -15,9 +15,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleTasks {
@@ -40,22 +40,13 @@ public class ScheduleTasks {
         LogUtil.logInfo(logger, "Start generating scooter hour statistic ...");
         List<Scooter> scooters = scooterRepository.findAllByActiveIsTrueAndScooterStatus(ScooterStatus.READY);
 
-        Map<Location, Integer> scooterCounter = new HashMap<>();
-
-        scooters.forEach(scooter -> {
-            Location currentLocation = scooter.getCurrentLocation();
-            if (scooterCounter.containsKey(currentLocation)) {
-                int counter = scooterCounter.get(currentLocation);
-                scooterCounter.put(currentLocation, ++counter);
-            } else {
-                scooterCounter.put(currentLocation, 1);
-            }
-        });
+        Map<Location, Long> scooterCounter = scooters.stream()
+                .collect(Collectors.groupingBy(Scooter::getCurrentLocation, Collectors.counting()));
 
         List<ScooterStatistic> scooterStatistics = new ArrayList<>();
-        for (Map.Entry<Location, Integer> entry : scooterCounter.entrySet()) {
+        for (Map.Entry<Location, Long> entry : scooterCounter.entrySet()) {
             Location location = entry.getKey();
-            Integer counter = entry.getValue();
+            Long counter = entry.getValue();
             ScooterStatistic scooterStatistic = new ScooterStatistic();
             scooterStatistic.setLocation(location);
             scooterStatistic.setCount(counter);

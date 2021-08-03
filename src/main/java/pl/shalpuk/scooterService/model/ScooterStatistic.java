@@ -13,7 +13,7 @@ import java.time.LocalTime;
 public class ScooterStatistic extends AbstractPersistentObject {
 
     @Column(name = "count")
-    private int count;
+    private long count;
 
     @Column(name = "date")
     private LocalDate date;
@@ -26,11 +26,11 @@ public class ScooterStatistic extends AbstractPersistentObject {
     private Location location;
 
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 
