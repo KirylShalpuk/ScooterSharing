@@ -1,7 +1,7 @@
 package pl.shalpuk.scooterService.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import pl.shalpuk.scooterService.model.ScooterStatus;
 import pl.shalpuk.scooterService.model.Tariff;
 import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.RideRepository;
-import pl.shalpuk.scooterService.util.LogUtil;
 import pl.shalpuk.scooterService.util.RideSpecification;
 
 import javax.persistence.EntityNotFoundException;
@@ -73,8 +72,8 @@ public class RideService {
         request.setTariff(tariff);
 
         request = rideRepository.save(request);
-        LogUtil.logInfo(logger, String.format("Ride with id = %s for user id = %s " +
-                "and scooter id = %s was created successfully", request.getId(), userId, scooterId));
+        logger.info("Ride with id = {} for user id = {} " +
+                "and scooter id = {} was created successfully", request.getId(), userId, scooterId);
 
         return request;
     }
@@ -89,7 +88,7 @@ public class RideService {
         scooterService.changeScooterStatus(ride.getScooter(), ScooterStatus.READY);
 
         ride = rideRepository.save(ride);
-        LogUtil.logInfo(logger, String.format("Ride with id = %s was finished successfully", rideId));
+        logger.info("Ride with id = {} was finished successfully", rideId);
 
         return ride;
     }
@@ -107,7 +106,7 @@ public class RideService {
         ride.setRideStatus(RideStatus.SERVICE);
 
         ride = rideRepository.save(ride);
-        LogUtil.logInfo(logger, String.format("Ride with id = %s was marked as SERVICE successfully", rideId));
+        logger.info("Ride with id = {} was marked as SERVICE successfully", rideId);
 
         return ride;
     }

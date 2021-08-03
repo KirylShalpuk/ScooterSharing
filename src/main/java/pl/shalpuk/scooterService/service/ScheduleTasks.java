@@ -1,6 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.shalpuk.scooterService.model.Location;
@@ -9,7 +9,6 @@ import pl.shalpuk.scooterService.model.ScooterStatistic;
 import pl.shalpuk.scooterService.model.ScooterStatus;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.ScooterStatisticRepository;
-import pl.shalpuk.scooterService.util.LogUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,7 +36,7 @@ public class ScheduleTasks {
 
     @Scheduled(cron = "0 30 * * * *")
     public void saveScootedHourStatistics() {
-        LogUtil.logInfo(logger, "Start generating scooter hour statistic ...");
+        logger.info("Start generating scooter hour statistic ...");
         List<Scooter> scooters = scooterRepository.findAllByActiveIsTrueAndScooterStatus(ScooterStatus.READY);
 
         Map<Location, Long> scooterCounter = scooters.stream()
@@ -58,6 +57,6 @@ public class ScheduleTasks {
 
         scooterStatisticRepository.saveAll(scooterStatistics);
 
-        LogUtil.logInfo(logger, "... Finish generating scooter hour statistic");
+        logger.info("... Finish generating scooter hour statistic");
     }
 }

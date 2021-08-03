@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @ComponentScan("pl.shalpuk")
 @EnableWebMvc
-@PropertySource(value = {"classpath:log4j.properties", "classpath:application.properties"})
+@PropertySource(value = {"classpath:log4j2.properties", "classpath:application.properties"})
 @EnableScheduling
 public class ApplicationConfig implements WebMvcConfigurer {
 

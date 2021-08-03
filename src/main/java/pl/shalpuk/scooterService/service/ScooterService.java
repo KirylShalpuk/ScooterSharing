@@ -1,6 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,6 @@ import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.ScooterStatisticRepository;
 import pl.shalpuk.scooterService.util.AuthContext;
-import pl.shalpuk.scooterService.util.LogUtil;
 import pl.shalpuk.scooterService.util.ScooterSpecification;
 
 import javax.persistence.EntityNotFoundException;
@@ -44,7 +43,7 @@ public class ScooterService {
 
     public Scooter createScooter(Scooter request) {
         Scooter scooter = scooterRepository.save(request);
-        LogUtil.logInfo(logger, String.format("Scooter with id = %s was created successfully", scooter.getId()));
+        logger.info("Scooter with id = {} was created successfully", scooter.getId());
         return scooter;
     }
 
@@ -61,21 +60,21 @@ public class ScooterService {
             deactivateScooter(scooter);
         }
         scooter = scooterRepository.save(scooter);
-        LogUtil.logInfo(logger, String.format("Scooter with id = %s was updated successfully", scooterId));
+        logger.info("Scooter with id = {} was updated successfully", scooterId);
         return scooter;
     }
 
     void deactivateScooter(Scooter scooter) {
         scooter.setActive(false);
         scooterRepository.save(scooter);
-        LogUtil.logInfo(logger, String.format("Scooter with id = %s was " +
-                "deactivated because of battery charge is low", scooter.getId()));
+        logger.info("Scooter with id = {} was " +
+                "deactivated because of battery charge is low", scooter.getId());
     }
 
     public void deleteScooterById(UUID scooterId) {
         Scooter scooter = getScooterById(scooterId);
         scooterRepository.delete(scooter);
-        LogUtil.logInfo(logger, String.format("Scooter with id = %s was deleted successfully", scooterId));
+        logger.info("Scooter with id = {} was deleted successfully", scooterId);
     }
 
     public Page<Scooter> getAllScootersPage(PageRequest pageRequest, ScooterSpecificationDto scooterSpecificationDto) {
