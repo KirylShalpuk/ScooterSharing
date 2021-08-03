@@ -34,7 +34,8 @@ CREATE TABLE scooters(
     software_version VARCHAR(255),
     active BOOLEAN DEFAULT FALSE,
     charging BOOLEAN DEFAULT FALSE,
-    location_id VARCHAR(36)
+    location_id VARCHAR(36),
+    status VARCHAR(255)
 );
 
 CREATE TABLE tariffs(
@@ -121,6 +122,15 @@ CREATE TABLE ride_locations(
     position_time TIMESTAMP
 );
 
+CREATE TABLE scooter_statistic(
+    id uuid not null primary key,
+    version int4,
+    count int2,
+    date date,
+    time time,
+    location_id uuid NOT NULL
+);
+
 -- ALTER TABLE users CONVERT TO CHARACTER SET utf8mb4;
 -- ALTER TABLE cards CONVERT TO CHARACTER SET utf8mb4;
 -- ALTER TABLE coordinates CONVERT TO CHARACTER SET utf8mb4;
@@ -148,6 +158,7 @@ ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_user_id FOREIGN KEY 
 ALTER TABLE user_locations ADD CONSTRAINT fk_user_locations_location_id FOREIGN KEY (location_id) REFERENCES locations(id);
 ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_ride_id FOREIGN KEY (ride_id) REFERENCES rides(id);
 ALTER TABLE ride_locations ADD CONSTRAINT fk_ride_locations_location_id FOREIGN KEY (location_id) REFERENCES locations(id);
+ALTER TABLE scooter_statistic ADD CONSTRAINT fk_scooter_statistic_location_id FOREIGN KEY (location_id) REFERENCES locations(id);
 
 
 

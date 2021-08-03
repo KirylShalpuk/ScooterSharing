@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -32,7 +34,7 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
     private int batteryCharge;
 
     @Column(name = "last_service")
-    private Date lastService;
+    private LocalDateTime lastService;
 
     @Column(name = "software_version")
     private String softwareVersion;
@@ -42,6 +44,10 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     @Column(name = "charging")
     private boolean charging;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private ScooterStatus scooterStatus;
 
     @OneToMany(mappedBy = "scooter")
     @JsonBackReference
@@ -83,11 +89,11 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
         this.batteryCharge = batteryCharge;
     }
 
-    public Date getLastService() {
+    public LocalDateTime getLastService() {
         return lastService;
     }
 
-    public void setLastService(Date lastService) {
+    public void setLastService(LocalDateTime lastService) {
         this.lastService = lastService;
     }
 
@@ -113,6 +119,14 @@ public class Scooter extends AbstractPersistentObject implements Serializable {
 
     public void setCharging(boolean charging) {
         this.charging = charging;
+    }
+
+    public ScooterStatus getScooterStatus() {
+        return scooterStatus;
+    }
+
+    public void setScooterStatus(ScooterStatus scooterStatus) {
+        this.scooterStatus = scooterStatus;
     }
 
     public Set<Ride> getRides() {

@@ -1,7 +1,8 @@
 package pl.shalpuk.scooterService.config;
 
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +18,7 @@ public class LogConfig {
     @Bean
     @Scope("prototype")
     public Logger logger(InjectionPoint injectionPoint) {
-        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass());
+        return LogManager.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
 
 }

@@ -2,8 +2,7 @@ package pl.shalpuk.scooterService.helper;
 
 import pl.shalpuk.scooterService.model.Scooter;
 
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ScooterTestHelper {
 
@@ -14,7 +13,7 @@ public class ScooterTestHelper {
         scooter.setCharging(false);
         scooter.setBatteryCharge(batteryCharge);
         scooter.setActive(true);
-        scooter.setLastService(Date.from(Instant.now().minusSeconds(1000000)));
+        scooter.setLastService(LocalDateTime.now().minusDays(2));
 
         return scooter;
     }

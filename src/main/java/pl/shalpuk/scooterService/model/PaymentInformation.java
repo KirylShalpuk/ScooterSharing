@@ -2,6 +2,8 @@ package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.collect.Sets;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -93,5 +95,15 @@ public class PaymentInformation extends AbstractPersistentObject implements Seri
         }
 
         this.cards.forEach(card -> card.setPaymentInformation(this));
+    }
+
+    public void addCard(Card card) {
+        card.setPaymentInformation(this);
+
+        if (CollectionUtils.isEmpty(getCards())) {
+            this.cards = Sets.newHashSet(card);
+        } else {
+            this.cards.add(card);
+        }
     }
 }

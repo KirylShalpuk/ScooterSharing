@@ -1,6 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,19 +9,23 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import pl.shalpuk.scooterService.model.Location;
 import pl.shalpuk.scooterService.model.Role;
+import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.Tariff;
+import pl.shalpuk.scooterService.model.User;
 import pl.shalpuk.scooterService.repository.LocationRepository;
+import pl.shalpuk.scooterService.repository.RideRepository;
 import pl.shalpuk.scooterService.repository.RoleRepository;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
-import pl.shalpuk.scooterService.util.LogUtil;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static pl.shalpuk.scooterService.helper.LocationHelper.preparationLocations;
+import static pl.shalpuk.scooterService.helper.RideHelper.generateFinishedRide;
+import static pl.shalpuk.scooterService.helper.RideHelper.generateStartedRide;
 import static pl.shalpuk.scooterService.helper.RoleHelper.createDefaultAdminRole;
 import static pl.shalpuk.scooterService.helper.RoleHelper.createDefaultUserRole;
 import static pl.shalpuk.scooterService.helper.ScooterHelper.createScooters;
@@ -46,6 +50,7 @@ public class DataLoader {
     private final ScooterRepository scooterRepository;
     private final TariffRepository tariffRepository;
     private final LocationRepository locationRepository;
+    private final RideRepository rideRepository;
 
     public DataLoader(Logger logger,
                       DataSource dataSource,
@@ -53,7 +58,7 @@ public class DataLoader {
                       RoleRepository roleRepository,
                       ScooterRepository scooterRepository,
                       TariffRepository tariffRepository,
-                      LocationRepository locationRepository) {
+                      LocationRepository locationRepository, RideRepository rideRepository) {
         this.logger = logger;
         this.dataSource = dataSource;
         this.userRepository = userRepository;
@@ -61,43 +66,43 @@ public class DataLoader {
         this.scooterRepository = scooterRepository;
         this.tariffRepository = tariffRepository;
         this.locationRepository = locationRepository;
+        this.rideRepository = rideRepository;
     }
 
     @EventListener
     @Transactional
     public void uploadData(ContextRefreshedEvent event) {
-
-        LogUtil.logInfo(logger, "Start flyway migrations...");
+        logger.info("Start flyway migrations...");
         Flyway flyway = configureFlyway();
         flyway.migrate();
 
-        LogUtil.logInfo(logger, "Start uploading system default data...");
+        logger.info("Start uploading system default data...");
         if (userRepository.count() == 0) {
             createDefaultData();
-            LogUtil.logInfo(logger, "Uploading system default data was finished successfully");
+            logger.info("Uploading system default data was finished successfully");
         } else {
-            LogUtil.logInfo(logger, "Uploading system default data was skipped");
+            logger.info("Uploading system default data was skipped");
         }
-
-        LogUtil.logInfo(logger, "Preparation locations...");
     }
 
     private void createDefaultData() {
         Role adminRole = roleRepository.save(createDefaultAdminRole());
         Role defaultUserRole = roleRepository.save(createDefaultUserRole());
 
-//        List<Location> locations = locationRepository.saveAll(preparationLocations());
-//
-//        userRepository.save(createSuperAdminUser());
-//        userRepository.save(createDefaultAdmin(adminRole));
-//        userRepository.save(createDefaultUser(defaultUserRole));
-//
-//        scooterRepository.saveAll(createScooters(locations));
-//
-//        tariffRepository.save(createRegularTariff());
-//        tariffRepository.save(createPremiumTariff());
-//        tariffRepository.save(createDiscountTariff());
+        List<Location> locations = locationRepository.saveAll(preparationLocations());
 
+        userRepository.save(createSuperAdminUser());
+        userRepository.save(createDefaultAdmin(adminRole));
+        User user = userRepository.save(createDefaultUser(defaultUserRole, locations.get(12)));
+
+        List<Scooter> scooters = scooterRepository.saveAll(createScooters(locations));
+
+        Tariff regularTariff = tariffRepository.save(createRegularTariff());
+        tariffRepository.save(createPremiumTariff());
+        tariffRepository.save(createDiscountTariff());
+
+        rideRepository.save(generateStartedRide(scooters.get(0), user, regularTariff, locations));
+        rideRepository.save(generateFinishedRide(scooters.get(1), user, regularTariff, locations));
     }
 
     private Flyway configureFlyway() {

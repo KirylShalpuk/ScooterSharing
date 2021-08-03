@@ -2,16 +2,19 @@ package pl.shalpuk.scooterService.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import pl.shalpuk.scooterService.dto.ScooterDto;
+import pl.shalpuk.scooterService.dto.ScooterSpecificationDto;
 import pl.shalpuk.scooterService.helper.ScooterTestHelper;
 import pl.shalpuk.scooterService.model.Scooter;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-class ScooterServiceTest extends AbstractJunitTest {
+class ScooterServiceTest extends AbstractIntegrationServiceTest {
 
     @Test
     public void testCreateScooter_ScooterNotExist_Created() {
@@ -57,7 +60,7 @@ class ScooterServiceTest extends AbstractJunitTest {
         ScooterDto request = new ScooterDto();
         request.setManufacturer(savedScooter.getManufacturer());
         request.setModel(savedScooter.getModel());
-        request.setLastService(Date.from(Instant.now()));
+        request.setLastService(LocalDateTime.now());
         request.setSoftwareVersion(savedScooter.getSoftwareVersion());
         request.setBatteryCharge(5);
         request.setCharging(false);
@@ -71,5 +74,25 @@ class ScooterServiceTest extends AbstractJunitTest {
     public void testUpdateScooter_ScooterExists_EntityNotFoundException() {
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> scooterService.updateScooter(UUID.randomUUID(), new ScooterDto()));
+    }
+
+    @Test
+    public void testGetAllScootersPage_FilterNotNull_ReturnAllScootersOnPage() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "model");
+        ScooterSpecificationDto specificationDto = scooterService.getScooterFilterProperties();
+        specificationDto.setActive(false);
+        Page<Scooter> scooterPage = scooterService.getAllScootersPage(pageRequest, specificationDto);
+
+        Assertions.assertEquals(20, scooterRepository.count());
+        Assertions.assertEquals(20, scooterPage.getTotalElements());
+    }
+
+    @Test
+    public void testGetAllScootersPage_FilterEmpty_ReturnEmptyPage() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "model");
+        Page<Scooter> scooterPage = scooterService.getAllScootersPage(pageRequest, new ScooterSpecificationDto());
+
+        Assertions.assertEquals(20, scooterRepository.count());
+        Assertions.assertEquals(0, scooterPage.getTotalElements());
     }
 }

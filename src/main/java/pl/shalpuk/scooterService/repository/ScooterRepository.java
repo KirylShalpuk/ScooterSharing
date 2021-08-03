@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import pl.shalpuk.scooterService.model.Scooter;
+import pl.shalpuk.scooterService.model.ScooterStatus;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,5 +43,7 @@ public interface ScooterRepository extends JpaRepository<Scooter, UUID>, JpaSpec
     int getMaxBatteryChargeActiveScooters();
 
     boolean existsByActiveTrue();
+
+    List<Scooter> findAllByActiveIsTrueAndScooterStatus(ScooterStatus scooterStatus);
 
 }
