@@ -1,7 +1,6 @@
 package pl.shalpuk.scooterService.service;
 
 import org.apache.logging.log4j.Logger;
-import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -20,7 +19,6 @@ import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
 
 import javax.sql.DataSource;
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static pl.shalpuk.scooterService.helper.LocationHelper.preparationLocations;
@@ -42,6 +40,8 @@ public class DataLoader {
 
     @Value("${spring.flyway.locations}")
     private String locations;
+
+
 
     private final Logger logger;
     private final DataSource dataSource;
@@ -70,11 +70,9 @@ public class DataLoader {
     }
 
     @EventListener
-    @Transactional
+//    @Transactional
     public void uploadData(ContextRefreshedEvent event) {
         logger.info("Start flyway migrations...");
-        Flyway flyway = configureFlyway();
-        flyway.migrate();
 
         logger.info("Start uploading system default data...");
         if (userRepository.count() == 0) {
@@ -105,11 +103,5 @@ public class DataLoader {
         rideRepository.save(generateFinishedRide(scooters.get(1), user, regularTariff, locations));
     }
 
-    private Flyway configureFlyway() {
-        return Flyway.configure()
-                .dataSource(dataSource)
-                .locations(locations)
-                .outOfOrder(true)
-                .load();
-    }
+
 }

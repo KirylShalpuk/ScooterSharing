@@ -1,0 +1,400 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet author="Kiryl Shalpuk" id="create cards">
+        <createTable tableName="cards">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="card_number" type="VARCHAR(255)"/>
+            <column name="card_holder" type="VARCHAR(255)"/>
+            <column name="date_expiration" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="main" type="BIT(1)"/>
+            <column name="payment_id" type="VARCHAR(222)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create coordinates">
+        <createTable tableName="coordinates">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="latitude" type="VARCHAR(255)"/>
+            <column name="longitude" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create">
+        <createTable tableName="locations">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="building" type="VARCHAR(255)"/>
+            <column name="coordinates_id" type="VARCHAR(222)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create payments">
+        <createTable tableName="payments">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="post_code" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create ride_locations">
+        <createTable tableName="ride_locations">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="ride_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_time" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create rides">
+        <createTable tableName="rides">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="start_time" type="timestamp"/>
+            <column name="end_time" type="timestamp"/>
+            <column name="ride_status" type="VARCHAR(255)"/>
+            <column name="tariff_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scooter_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create roles">
+        <createTable tableName="roles">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="admin" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="modifiable" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create scooter_statistic">
+        <createTable tableName="scooter_statistic">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="count" type="INT"/>
+            <column name="date" type="date"/>
+            <column name="time" type="time"/>
+            <column name="location_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create scooters">
+        <createTable tableName="scooters">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="manufacturer" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo_url" type="VARCHAR(500)"/>
+            <column name="battery_charge" type="INT"/>
+            <column name="last_service" type="timestamp"/>
+            <column name="software_version" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="charging" type="BIT(1)"/>
+            <column name="location_id" type="VARCHAR(222)"/>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create tariffs">
+        <createTable tableName="tariffs">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="costs" type="INT"/>
+            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create tokens">
+        <createTable tableName="tokens">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="user_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamp"/>
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create user_locations">
+        <createTable tableName="user_locations">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="user_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="VARCHAR(222)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_time" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create users">
+        <createTable tableName="users">
+            <column name="id" type="VARCHAR(222)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="firstname" type="VARCHAR(255)"/>
+            <column name="lastname" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="photo_url" type="VARCHAR(500)"/>
+            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column name="role_id" type="VARCHAR(222)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_cards_payment_id">
+        <createIndex indexName="fk_cards_payment_id" tableName="cards">
+            <column name="payment_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_locations_coordinates_id">
+        <createIndex indexName="fk_locations_coordinates_id" tableName="locations">
+            <column name="coordinates_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_payments_user_id">
+        <createIndex indexName="fk_payments_user_id" tableName="payments">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_location_id">
+        <createIndex indexName="fk_ride_locations_location_id" tableName="ride_locations">
+            <column name="location_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_ride_id">
+        <createIndex indexName="fk_ride_locations_ride_id" tableName="ride_locations">
+            <column name="ride_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_scooter_id">
+        <createIndex indexName="fk_rides_scooter_id" tableName="rides">
+            <column name="scooter_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_tariff_id">
+        <createIndex indexName="fk_rides_tariff_id" tableName="rides">
+            <column name="tariff_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_user_id">
+        <createIndex indexName="fk_rides_user_id" tableName="rides">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_scooter_statistic_location_id">
+        <createIndex indexName="fk_scooter_statistic_location_id" tableName="scooter_statistic">
+            <column name="location_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_scooters_location_id">
+        <createIndex indexName="fk_scooters_location_id" tableName="scooters">
+            <column name="location_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_tokens_user_id">
+        <createIndex indexName="fk_tokens_user_id" tableName="tokens">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_location_id">
+        <createIndex indexName="fk_user_locations_location_id" tableName="user_locations">
+            <column name="location_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_user_id">
+        <createIndex indexName="fk_user_locations_user_id" tableName="user_locations">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_users_role_id">
+        <createIndex indexName="fk_users_role_id" tableName="users">
+            <column name="role_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_cards_payment_id constraint">
+        <addForeignKeyConstraint baseColumnNames="payment_id" baseTableName="cards" constraintName="fk_cards_payment_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="payments" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_locations_coordinates_id constraint">
+        <addForeignKeyConstraint baseColumnNames="coordinates_id" baseTableName="locations"
+                                 constraintName="fk_locations_coordinates_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="coordinates" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_payments_user_id constraint">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="payments" constraintName="fk_payments_user_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_location_id constraint">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="ride_locations"
+                                 constraintName="fk_ride_locations_location_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="locations" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_ride_id constraint">
+        <addForeignKeyConstraint baseColumnNames="ride_id" baseTableName="ride_locations"
+                                 constraintName="fk_ride_locations_ride_id" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+                                 referencedTableName="rides" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_scooter_id constraint">
+        <addForeignKeyConstraint baseColumnNames="scooter_id" baseTableName="rides" constraintName="fk_rides_scooter_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="scooters" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_tariff_id constraint">
+        <addForeignKeyConstraint baseColumnNames="tariff_id" baseTableName="rides" constraintName="fk_rides_tariff_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="tariffs" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_rides_user_id constraint">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="rides" constraintName="fk_rides_user_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_scooter_statistic_location_id constraint">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="scooter_statistic"
+                                 constraintName="fk_scooter_statistic_location_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="locations" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_scooters_location_id constraint">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="scooters"
+                                 constraintName="fk_scooters_location_id" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+                                 referencedTableName="locations" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_tokens_user_id constraint">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tokens" constraintName="fk_tokens_user_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_location_id constraint">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="user_locations"
+                                 constraintName="fk_user_locations_location_id" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="locations" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_user_id constraint">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_locations"
+                                 constraintName="fk_user_locations_user_id" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Kiryl Shalpuk" id="create fk_users_role_id constraint ">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users" constraintName="fk_users_role_id"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="roles" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

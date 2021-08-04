@@ -23,6 +23,7 @@ ext {
     mySQLVersion = '8.0.25'
     postgreSQLVersion = '42.2.23'
     flywayVersion = '7.11.2'
+    liquibaseVersion = '4.4.2'
     hibernateVersion = '5.5.3.Final'
 }
 
@@ -39,7 +40,8 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:$mySQLVersion")
     implementation("org.postgresql:postgresql:$postgreSQLVersion")
-    implementation("org.flywaydb:flyway-core:$flywayVersion")
+//    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("org.liquibase:liquibase-core:$liquibaseVersion")
 
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.4")
