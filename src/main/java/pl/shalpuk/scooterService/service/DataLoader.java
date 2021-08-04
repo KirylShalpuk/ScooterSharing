@@ -19,6 +19,7 @@ import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static pl.shalpuk.scooterService.helper.LocationHelper.preparationLocations;
@@ -70,7 +71,7 @@ public class DataLoader {
     }
 
     @EventListener
-//    @Transactional
+    @Transactional
     public void uploadData(ContextRefreshedEvent event) {
         logger.info("Start flyway migrations...");
 

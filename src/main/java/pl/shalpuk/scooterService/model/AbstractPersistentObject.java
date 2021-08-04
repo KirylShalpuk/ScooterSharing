@@ -1,8 +1,10 @@
 package pl.shalpuk.scooterService.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 import pl.shalpuk.scooterService.util.IdGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -12,6 +14,8 @@ import java.util.UUID;
 public abstract class AbstractPersistentObject {
 
     @Id
+    @Column(columnDefinition = "VARCHAR(36)")
+    @Type(type = "uuid-char")
     private UUID id = IdGenerator.generateId();
 
     @Version

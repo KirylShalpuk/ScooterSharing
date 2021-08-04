@@ -34,7 +34,7 @@ public class RideHelper {
                 .sorted(Comparator.comparing(Location::getStreet))
                 .forEach(location -> RideLocationHelper.generateRideLocation(locations, ride, location));
 
-        scooter.setScooterStatus(ScooterStatus.TAKEN);
+//        scooter.setScooterStatus(ScooterStatus.TAKEN);
 
         return ride;
     }
