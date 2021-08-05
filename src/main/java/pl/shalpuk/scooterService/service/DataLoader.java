@@ -73,7 +73,6 @@ public class DataLoader {
         logger.info("Start flyway migrations...");
 
         if (flywayAutoUpload) {
-//        Spring use liquibase by default. You have to comment @Bean annotation in LiquibaseConfig to turn it off
             flyway.migrate();
             logger.info("Start uploading system default data...");
             if (userRepository.count() == 0) {
