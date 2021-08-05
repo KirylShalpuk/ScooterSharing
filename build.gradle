@@ -40,7 +40,7 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:$mySQLVersion")
     implementation("org.postgresql:postgresql:$postgreSQLVersion")
-//    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
 
     implementation("org.apache.commons:commons-lang3:3.12.0")

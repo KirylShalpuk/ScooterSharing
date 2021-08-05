@@ -1,6 +1,7 @@
 package pl.shalpuk.scooterService.service;
 
 import org.apache.logging.log4j.Logger;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -18,7 +19,6 @@ import pl.shalpuk.scooterService.repository.ScooterRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
 
-import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -39,13 +39,11 @@ import static pl.shalpuk.scooterService.helper.UserHelper.createSuperAdminUser;
 @ComponentScan("pl.shalpuk")
 public class DataLoader {
 
-    @Value("${spring.flyway.locations}")
-    private String locations;
-
-
+    @Value("${flyway.enable}")
+    private boolean flywayAutoUpload;
 
     private final Logger logger;
-    private final DataSource dataSource;
+    private final Flyway flyway;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ScooterRepository scooterRepository;
@@ -54,14 +52,13 @@ public class DataLoader {
     private final RideRepository rideRepository;
 
     public DataLoader(Logger logger,
-                      DataSource dataSource,
-                      UserRepository userRepository,
+                      Flyway flyway, UserRepository userRepository,
                       RoleRepository roleRepository,
                       ScooterRepository scooterRepository,
                       TariffRepository tariffRepository,
                       LocationRepository locationRepository, RideRepository rideRepository) {
         this.logger = logger;
-        this.dataSource = dataSource;
+        this.flyway = flyway;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.scooterRepository = scooterRepository;
@@ -75,12 +72,16 @@ public class DataLoader {
     public void uploadData(ContextRefreshedEvent event) {
         logger.info("Start flyway migrations...");
 
-        logger.info("Start uploading system default data...");
-        if (userRepository.count() == 0) {
-            createDefaultData();
-            logger.info("Uploading system default data was finished successfully");
-        } else {
-            logger.info("Uploading system default data was skipped");
+        if (flywayAutoUpload) {
+//        Spring use liquibase by default. You have to comment @Bean annotation in LiquibaseConfig to turn it off
+            flyway.migrate();
+            logger.info("Start uploading system default data...");
+            if (userRepository.count() == 0) {
+                createDefaultData();
+                logger.info("Uploading system default data was finished successfully");
+            } else {
+                logger.info("Uploading system default data was skipped");
+            }
         }
     }
 

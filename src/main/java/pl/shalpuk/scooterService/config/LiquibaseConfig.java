@@ -15,6 +15,12 @@ public class LiquibaseConfig {
     @Value("${liquibase.change-log.path}")
     private String changelogPath;
 
+    @Value("${liquibase.context}")
+    private String liquibaseContext;
+
+    @Value("${liquibase.enable}")
+    private boolean enable;
+
     public LiquibaseConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -24,6 +30,8 @@ public class LiquibaseConfig {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog(changelogPath);
         liquibase.setDataSource(dataSource);
+        liquibase.setContexts(liquibaseContext);
+        liquibase.setShouldRun(enable);
         return liquibase;
     }
 }

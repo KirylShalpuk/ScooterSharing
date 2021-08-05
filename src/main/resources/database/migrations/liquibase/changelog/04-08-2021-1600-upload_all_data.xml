@@ -1,0 +1,150 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="04-08-2021-1600-1" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="coordinates"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.2__upload_coordinates.sql"/>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-2" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="locations"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.3__upload_locations.sql"/>
+        <rollback>
+            <delete tableName="locations">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-3" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="tariffs"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.4__upload_tariffs.sql"/>
+        <rollback>
+            <delete tableName="tariffs">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-4" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="roles"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.5__upload_roles.sql"/>
+        <rollback>
+            <delete tableName="roles">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-5" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="users"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.6__upload_users.sql"/>
+        <rollback>
+            <delete tableName="users">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-6" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="user_locations"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.7__upload_user_locations.sql"/>
+        <rollback>
+            <delete tableName="user_locations">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-7" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="scooter_statistic"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.8__upload_scooter_statistics.sql"/>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-8" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="scooters"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.9__upload_scooters.sql"/>
+        <rollback>
+            <delete tableName="scooters">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-9" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="rides"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.10__upload_rides.sql"/>
+        <rollback>
+            <delete tableName="rides">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-10" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="ride_locations"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.11__upload_ride_locations.sql"/>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-11" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="payments"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.12__upload_payments.sql"/>
+        <rollback>
+            <delete tableName="payments">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04-08-2021-1600-12" author="Kiryl Shalpuk">
+        <preConditions>
+            <tableIsEmpty tableName="cards"/>
+        </preConditions>
+        <sqlFile path="database/migrations/V1.13__upload_cards.sql"/>
+        <rollback>
+            <delete tableName="cards">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

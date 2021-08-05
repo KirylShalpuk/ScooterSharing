@@ -3,7 +3,13 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <changeSet author="Kiryl Shalpuk" id="create cards">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="cards"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="cards">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -18,7 +24,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create coordinates">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="coordinates"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="coordinates">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -29,7 +41,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="locations"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="locations">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -43,7 +61,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create payments">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="payments"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="payments">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -61,7 +85,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create ride_locations">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ride_locations"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="ride_locations">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -77,7 +107,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create rides">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="rides"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="rides">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -99,7 +135,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create roles">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="roles"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="roles">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -115,7 +157,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create scooter_statistic">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="scooter_statistic"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="scooter_statistic">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -130,7 +178,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create scooters">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-10">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="scooters"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="scooters">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -153,7 +207,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create tariffs">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-11">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tariffs"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="tariffs">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -168,7 +228,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create tokens">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-12">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tokens"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="tokens">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -185,7 +251,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create user_locations">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-13">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_locations"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="user_locations">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -201,7 +273,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create users">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-14">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="users">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -222,179 +300,346 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_cards_payment_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-15">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_cards_payment_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_cards_payment_id" tableName="cards">
             <column name="payment_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_locations_coordinates_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-16">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_locations_coordinates_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_locations_coordinates_id" tableName="locations">
             <column name="coordinates_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_payments_user_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-17">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_payments_user_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_payments_user_id" tableName="payments">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_location_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-18">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_ride_locations_location_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_ride_locations_location_id" tableName="ride_locations">
             <column name="location_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_ride_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-19">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_ride_locations_ride_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_ride_locations_ride_id" tableName="ride_locations">
             <column name="ride_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_scooter_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-20">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_rides_scooter_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_rides_scooter_id" tableName="rides">
             <column name="scooter_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_tariff_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-21">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_rides_tariff_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_rides_tariff_id" tableName="rides">
             <column name="tariff_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_user_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-22">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_rides_user_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_rides_user_id" tableName="rides">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_scooter_statistic_location_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-23">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_scooter_statistic_location_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_scooter_statistic_location_id" tableName="scooter_statistic">
             <column name="location_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_scooters_location_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-24">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_scooters_location_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_scooters_location_id" tableName="scooters">
             <column name="location_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_tokens_user_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-25">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_tokens_user_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_tokens_user_id" tableName="tokens">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_location_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-26">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_user_locations_location_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_user_locations_location_id" tableName="user_locations">
             <column name="location_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_user_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-27">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_user_locations_user_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_user_locations_user_id" tableName="user_locations">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_users_role_id">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-28">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fk_users_role_id"/>
+            </not>
+        </preConditions>
+
         <createIndex indexName="fk_users_role_id" tableName="users">
             <column name="role_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_cards_payment_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-30">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_cards_payment_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="payment_id" baseTableName="cards" constraintName="fk_cards_payment_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
                                  referencedColumnNames="id" referencedTableName="payments" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_locations_coordinates_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-31">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_locations_coordinates_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="coordinates_id" baseTableName="locations"
                                  constraintName="fk_locations_coordinates_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
                                  referencedColumnNames="id" referencedTableName="coordinates" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_payments_user_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-32">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_payments_user_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="payments" constraintName="fk_payments_user_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
                                  referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_location_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-33">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_ride_locations_location_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="ride_locations"
                                  constraintName="fk_ride_locations_location_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="locations" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_ride_locations_ride_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-34">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_ride_locations_ride_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="ride_id" baseTableName="ride_locations"
                                  constraintName="fk_ride_locations_ride_id" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="rides" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_scooter_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-35">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_rides_scooter_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="scooter_id" baseTableName="rides" constraintName="fk_rides_scooter_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="scooters" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_tariff_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-36">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_rides_tariff_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="tariff_id" baseTableName="rides" constraintName="fk_rides_tariff_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="tariffs" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_rides_user_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-37">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_rides_user_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="rides" constraintName="fk_rides_user_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_scooter_statistic_location_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-38">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_scooter_statistic_location_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="scooter_statistic"
                                  constraintName="fk_scooter_statistic_location_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="locations" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_scooters_location_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-39">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_scooters_location_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="scooters"
                                  constraintName="fk_scooters_location_id" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="locations" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_tokens_user_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-40">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_tokens_user_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tokens" constraintName="fk_tokens_user_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_location_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-41">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_user_locations_location_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="user_locations"
                                  constraintName="fk_user_locations_location_id" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="locations" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_user_locations_user_id constraint">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-42">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_user_locations_user_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_locations"
                                  constraintName="fk_user_locations_user_id" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="users" validate="true"/>
     </changeSet>
 
-    <changeSet author="Kiryl Shalpuk" id="create fk_users_role_id constraint ">
+    <changeSet author="Kiryl Shalpuk" id="04-08-2021-1510-43">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_users_role_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users" constraintName="fk_users_role_id"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="id" referencedTableName="roles" validate="true"/>
     </changeSet>
-
 </databaseChangeLog>
