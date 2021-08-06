@@ -4,87 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
 
-    <changeSet id="04-08-2021-1700-1" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="coordinates"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.2__upload_coordinates.sql"/>
-        <rollback>
-            <delete tableName="coordinates">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-0900-upload-coordinates.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-0950-upload-locations.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-1040-upload-roles.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-1050-upload-users.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-1100-upload-user-locations.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-1300-upload-payments.xml"/>
+    <include file="database/migrations/liquibase/changelog/upload-data/06-08-2021-1310-upload-cards.xml"/>
 
-    <changeSet id="04-08-2021-1700-2" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="locations"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.3__upload_locations.sql"/>
-        <rollback>
-            <delete tableName="locations">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="04-08-2021-1700-3" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="roles"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.5__upload_roles.sql"/>
-        <rollback>
-            <delete tableName="roles">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="04-08-2021-1700-4" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="users"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.6__upload_users.sql"/>
-        <rollback>
-            <delete tableName="users">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="04-08-2021-1700-5" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="user_locations"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.7__upload_user_locations.sql"/>
-        <rollback>
-            <delete tableName="user_locations">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="04-08-2021-1700-6" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="payments"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.12__upload_payments.sql"/>
-        <rollback>
-            <delete tableName="payments">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="04-08-2021-1700-7" author="Kiryl Shalpuk">
-        <preConditions>
-            <tableIsEmpty tableName="cards"/>
-        </preConditions>
-        <sqlFile path="database/migrations/V1.13__upload_cards.sql"/>
-        <rollback>
-            <delete tableName="cards">
-                <where>in!=null</where>
-            </delete>
-        </rollback>
-    </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,175 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="06-08-2021-1110-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="3e615f4b-24e7-4010-adcd-3debfa52606e"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="3e615f4b-24e7-4010-adcd-3debfa52606e"/>
+            <column name="version" value="0"/>
+            <column name="count" value="2"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="17b13c7a-4d74-47c7-b5f1-d7cb2d77bde2"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=3e615f4b-24e7-4010-adcd-3debfa52606e</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="713596cd-87c9-4142-9a1a-4ecb243cbef0"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="713596cd-87c9-4142-9a1a-4ecb243cbef0"/>
+            <column name="version" value="0"/>
+            <column name="count" value="1"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="5457bb06-5ddc-4b35-9f47-a36684f20fca"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=713596cd-87c9-4142-9a1a-4ecb243cbef0</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-3" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="a0178b03-07e6-4a68-8a61-a75e8a712c54"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="a0178b03-07e6-4a68-8a61-a75e8a712c54"/>
+            <column name="version" value="0"/>
+            <column name="count" value="1"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="9deac3f0-755b-476d-b19b-7767e20ab1af"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=a0178b03-07e6-4a68-8a61-a75e8a712c54</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-4" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="b11cd6e4-456b-4d5e-89b6-8adef65303d2"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="b11cd6e4-456b-4d5e-89b6-8adef65303d2"/>
+            <column name="version" value="0"/>
+            <column name="count" value="1"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="9e35ed5a-0c05-43b0-b4b1-c59b552ee5d7"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=b11cd6e4-456b-4d5e-89b6-8adef65303d2</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-5" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="bc83f2f9-8139-4106-b439-4f42d1a9343a"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="bc83f2f9-8139-4106-b439-4f42d1a9343a"/>
+            <column name="version" value="0"/>
+            <column name="count" value="1"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="b8618360-3624-4f24-bb72-96afbfe7f4e5"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=bc83f2f9-8139-4106-b439-4f42d1a9343a</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-6" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="bd2beae7-3b8c-48cd-b495-167f5260c1b4"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="bd2beae7-3b8c-48cd-b495-167f5260c1b4"/>
+            <column name="version" value="0"/>
+            <column name="count" value="2"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="c43bd98d-a501-489a-bd92-586b9a1bb5c0"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=bd2beae7-3b8c-48cd-b495-167f5260c1b4</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-7" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="cf092cd2-227f-4b7d-b722-42b66584a53a"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="cf092cd2-227f-4b7d-b722-42b66584a53a"/>
+            <column name="version" value="0"/>
+            <column name="count" value="2"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="c9182413-57b6-4a6c-b64d-379352160450"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=cf092cd2-227f-4b7d-b722-42b66584a53a</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1110-8" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="scooter_statistic" primaryKeyName="f0c53352-4cd7-4059-bf9c-b7b793e8ecbc"/>
+            </not>
+        </preConditions>
+        <insert tableName="scooter_statistic">
+            <column name="id" value="f0c53352-4cd7-4059-bf9c-b7b793e8ecbc"/>
+            <column name="version" value="0"/>
+            <column name="count" value="1"/>
+            <column name="date" value="2021-08-04"/>
+            <column name="time" value="15:00"/>
+            <column name="location_id" value="fb639d65-7bb5-473c-ba73-5ef4030116c4"/>
+        </insert>
+        <rollback>
+            <delete tableName="scooter_statistic">
+                <where>id!=f0c53352-4cd7-4059-bf9c-b7b793e8ecbc</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

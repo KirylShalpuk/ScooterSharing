@@ -19,6 +19,7 @@ import pl.shalpuk.scooterService.repository.RideLocationRepository;
 import pl.shalpuk.scooterService.repository.RideRepository;
 import pl.shalpuk.scooterService.repository.RoleRepository;
 import pl.shalpuk.scooterService.repository.ScooterRepository;
+import pl.shalpuk.scooterService.repository.ScooterStatisticRepository;
 import pl.shalpuk.scooterService.repository.TariffRepository;
 import pl.shalpuk.scooterService.repository.UserLocationRepository;
 import pl.shalpuk.scooterService.repository.UserRepository;
@@ -95,6 +96,9 @@ public class AbstractIntegrationServiceTest {
 
     @Autowired
     protected UserLocationRepository userLocationRepository;
+
+    @Autowired
+    protected ScooterStatisticRepository scooterStatisticRepository;
 
     @PostConstruct
     public void init() {

@@ -1,0 +1,348 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1210-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="110273e8-edf4-4115-8383-2624e295f9cf"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="110273e8-edf4-4115-8383-2624e295f9cf"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="4e9726a6-6197-4c2c-b0d5-ccc0903f7112"/>
+            <column name="position_time" value="2021-08-04T14:23:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=110273e8-edf4-4115-8383-2624e295f9cf</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="152bcb62-428a-4d3a-92b4-4814f7d84555"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="152bcb62-428a-4d3a-92b4-4814f7d84555"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="5457bb06-5ddc-4b35-9f47-a36684f20fca"/>
+            <column name="position_time" value="2021-08-04T14:18:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=152bcb62-428a-4d3a-92b4-4814f7d84555</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-3" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="159d121d-0368-406c-bc62-178e2403ccd4"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="159d121d-0368-406c-bc62-178e2403ccd4"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="6cfc0380-36c4-4196-bade-3539d50b34ec"/>
+            <column name="position_time" value="2021-08-04T14:20:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=159d121d-0368-406c-bc62-178e2403ccd4</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-4" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="19a92cf5-1a47-462c-ac84-090ff9caba39"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="19a92cf5-1a47-462c-ac84-090ff9caba39"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="707b3652-b4e9-4786-87e4-ea4413b4cb3b"/>
+            <column name="position_time" value="2021-08-04T14:21:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=19a92cf5-1a47-462c-ac84-090ff9caba39</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-5" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="32928ace-5eeb-46f1-b5f2-1a43092ef177"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="32928ace-5eeb-46f1-b5f2-1a43092ef177"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="71443eab-4d39-4e1f-ad0f-dc32133d0f48"/>
+            <column name="position_time" value="2021-08-04T14:19:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=32928ace-5eeb-46f1-b5f2-1a43092ef177</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-6" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="34595e73-1438-4118-9eb7-ba82f39a2ca8"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="34595e73-1438-4118-9eb7-ba82f39a2ca8"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="83a42e5c-f00f-4b14-bcc1-d02e5a0191fa"/>
+            <column name="position_time" value="2021-08-04T14:22:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=34595e73-1438-4118-9eb7-ba82f39a2ca8</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-7" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="34c7a20b-701a-4f63-94a5-e5916ea6b859"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="34c7a20b-701a-4f63-94a5-e5916ea6b859"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="879a038c-5b52-407d-9b8f-1fc8618f97f9"/>
+            <column name="position_time" value="2021-08-04T14:21:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=34c7a20b-701a-4f63-94a5-e5916ea6b859</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-8" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="4621976e-4a16-4296-9d81-d5329cf5975c"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="4621976e-4a16-4296-9d81-d5329cf5975c"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="8e537f68-7384-4092-bb5c-a3c563cc1b3d"/>
+            <column name="position_time" value="2021-08-04T14:19:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=4621976e-4a16-4296-9d81-d5329cf5975c</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-9" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="5dcaa502-f4b9-4e59-9b80-1a93740c5fa1"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="5dcaa502-f4b9-4e59-9b80-1a93740c5fa1"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="9deac3f0-755b-476d-b19b-7767e20ab1af"/>
+            <column name="position_time" value="2021-08-04T14:20:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=5dcaa502-f4b9-4e59-9b80-1a93740c5fa1</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-10" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="71e38d06-c991-4624-93c2-a01949aa24d2"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="71e38d06-c991-4624-93c2-a01949aa24d2"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="83a42e5c-f00f-4b14-bcc1-d02e5a0191fa"/>
+            <column name="position_time" value="2021-08-04T14:18:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=71e38d06-c991-4624-93c2-a01949aa24d2</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-11" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="a13a73e7-9ce0-4518-8c92-0562f6f8e466"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="a13a73e7-9ce0-4518-8c92-0562f6f8e466"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="9e35ed5a-0c05-43b0-b4b1-c59b552ee5d7"/>
+            <column name="position_time" value="2021-08-04T14:17:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=a13a73e7-9ce0-4518-8c92-0562f6f8e466</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-12" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="a30ddaa1-8adc-44e8-b22d-d62828ccb720"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="a30ddaa1-8adc-44e8-b22d-d62828ccb720"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="a811c358-51c3-4635-88b3-a8fb8c47ac31"/>
+            <column name="position_time" value="2021-08-04T14:26:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=a30ddaa1-8adc-44e8-b22d-d62828ccb720</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-13" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="a3828ba0-0fb9-4e5c-8302-e71b803151db"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="a3828ba0-0fb9-4e5c-8302-e71b803151db"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="b3ee6657-6dc6-49e4-bb3c-313aa21803a2"/>
+            <column name="position_time" value="2021-08-04T14:24:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=a3828ba0-0fb9-4e5c-8302-e71b803151db</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-14" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="a3ff7794-9dfe-4d62-9544-96ea95d17730"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="a3ff7794-9dfe-4d62-9544-96ea95d17730"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="location_id" value="b60db63a-83c1-4a66-90e1-75e8be01306a"/>
+            <column name="position_time"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=a3ff7794-9dfe-4d62-9544-96ea95d17730</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-15" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="b4ad31f7-724d-4f56-b9b0-aae1f02e6643"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="b4ad31f7-724d-4f56-b9b0-aae1f02e6643"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="b8618360-3624-4f24-bb72-96afbfe7f4e5"/>
+            <column name="position_time" value="2021-08-04T14:17:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=b4ad31f7-724d-4f56-b9b0-aae1f02e6643</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-16" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="ef67c2f1-f193-4205-be09-a1ba79882511"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="ef67c2f1-f193-4205-be09-a1ba79882511"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="bb541160-265b-40ef-a59f-ca248cdcb4be"/>
+            <column name="position_time" value="2021-08-04T14:17:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=ef67c2f1-f193-4205-be09-a1ba79882511</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1210-17" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="ride_locations" primaryKeyName="fdf43904-3ced-452f-8b8e-ac0167e9115b"/>
+            </not>
+        </preConditions>
+        <insert tableName="ride_locations">
+            <column name="id" value="fdf43904-3ced-452f-8b8e-ac0167e9115b"/>
+            <column name="version" value="0"/>
+            <column name="ride_id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="location_id" value="c1e5bcad-1cb4-47a9-ae85-3b12fcd3720a"/>
+            <column name="position_time" value="2021-08-04T14:25:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="ride_locations">
+                <where>id!=fdf43904-3ced-452f-8b8e-ac0167e9115b</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

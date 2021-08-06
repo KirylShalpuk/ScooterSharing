@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1030-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="tariffs" primaryKeyName="21aeb6be-b2f0-4d59-8f6f-85a15ca4c2f6"/>
+            </not>
+        </preConditions>
+        <insert tableName="tariffs">
+            <column name="id" value="21aeb6be-b2f0-4d59-8f6f-85a15ca4c2f6"/>
+            <column name="version" value="0"/>
+            <column name="name" value="Premium"/>
+            <column name="description" value="Premium tariff, health insurance included"/>
+            <column name="costs" value="12"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <rollback>
+            <delete tableName="tariffs">
+                <where>id!=21aeb6be-b2f0-4d59-8f6f-85a15ca4c2f6</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1030-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="tariffs" primaryKeyName="68f8cdd6-c4a1-4a9f-bd73-8d73f48124fc"/>
+            </not>
+        </preConditions>
+        <insert tableName="tariffs">
+            <column name="id" value="68f8cdd6-c4a1-4a9f-bd73-8d73f48124fc"/>
+            <column name="version" value="0"/>
+            <column name="name" value="Discount"/>
+            <column name="description" value="Discount -25% tariff"/>
+            <column name="costs" value="6"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <rollback>
+            <delete tableName="tariffs">
+                <where>id!=68f8cdd6-c4a1-4a9f-bd73-8d73f48124fc</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1030-3" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="tariffs" primaryKeyName="b4def6a2-9c9b-4412-b122-f29d6ec2c025"/>
+            </not>
+        </preConditions>
+        <insert tableName="tariffs">
+            <column name="id" value="b4def6a2-9c9b-4412-b122-f29d6ec2c025"/>
+            <column name="version" value="0"/>
+            <column name="name" value="Regular"/>
+            <column name="description" value="Regular tariff"/>
+            <column name="costs" value="8"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <rollback>
+            <delete tableName="tariffs">
+                <where>id!=b4def6a2-9c9b-4412-b122-f29d6ec2c025</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,56 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1200-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="rides" primaryKeyName="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            </not>
+        </preConditions>
+        <insert tableName="rides">
+            <column name="id" value="684fea6a-d197-409f-a568-3e0f271e8762"/>
+            <column name="version" value="0"/>
+            <column name="start_time" value="2021-08-04T14:17:11"/>
+            <column name="end_time" value="null"/>
+            <column name="ride_status" value="STARTED"/>
+            <column name="tariff_id" value="b4def6a2-9c9b-4412-b122-f29d6ec2c025"/>
+            <column name="user_id" value="3194514f-83b0-49a7-bb99-37dd40be6f7f"/>
+            <column name="scooter_id" value="3de60575-2f7b-422b-8084-64d1e7d1d665"/>
+            <column name="payment_status" value="null"/>
+        </insert>
+        <rollback>
+            <delete tableName="rides">
+                <where>id!=684fea6a-d197-409f-a568-3e0f271e8762</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1200-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="rides" primaryKeyName="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            </not>
+        </preConditions>
+        <insert tableName="rides">
+            <column name="id" value="bb0d39a7-61c5-426e-ac96-ce978be9f8f3"/>
+            <column name="version" value="0"/>
+            <column name="start_time" value="2021-08-04T14:17:11"/>
+            <column name="end_time" value="2021-08-04T15:17:11"/>
+            <column name="ride_status" value="FINISHED"/>
+            <column name="tariff_id" value="b4def6a2-9c9b-4412-b122-f29d6ec2c025"/>
+            <column name="user_id" value="3194514f-83b0-49a7-bb99-37dd40be6f7f"/>
+            <column name="scooter_id" value="54144d57-eede-4ace-8e42-c12da8cc3899"/>
+            <column name="payment_status" value="PROCESSING"/>
+        </insert>
+        <rollback>
+            <delete tableName="rides">
+                <where>id!=bb0d39a7-61c5-426e-ac96-ce978be9f8f3</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

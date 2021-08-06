@@ -1,0 +1,84 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1050-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="users" primaryKeyName="3194514f-83b0-49a7-bb99-37dd40be6f7f"/>
+            </not>
+        </preConditions>
+        <insert tableName="users">
+            <column name="id" value="3194514f-83b0-49a7-bb99-37dd40be6f7f"/>
+            <column name="version" value="0"/>
+            <column name="firstname" value="Kiryl"/>
+            <column name="lastname" value="Shalpuk"/>
+            <column name="phone_number" value="+48798743379"/>
+            <column name="password" value="$2a$10$0sBp8KSHQW/VuTjGJSnoO.nbRcr3mcfStc5BxA5s61A4Mt2vU6iq."/>
+            <column name="email" value="kiryl.shalpuk@scooter.com"/>
+            <column name="photo_url"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="role_id" value="f1d961d3-a477-4028-a631-90b91c9ccf0d"/>
+        </insert>
+        <rollback>
+            <delete tableName="users">
+                <where>id!=3194514f-83b0-49a7-bb99-37dd40be6f7f</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1050-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="users" primaryKeyName="4bf2ec52-8114-4eec-bb5d-a0f4d7c3b502"/>
+            </not>
+        </preConditions>
+        <insert tableName="users">
+            <column name="id" value="4bf2ec52-8114-4eec-bb5d-a0f4d7c3b502"/>
+            <column name="version" value="0"/>
+            <column name="firstname" value="null"/>
+            <column name="lastname" value="null"/>
+            <column name="phone_number" value="+48798743377"/>
+            <column name="password" value="$2a$10$0sBp8KSHQW/VuTjGJSnoO.nbRcr3mcfStc5BxA5s61A4Mt2vU6iq."/>
+            <column name="email" value="super.admin@scooter.com"/>
+            <column name="photo_url"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="role_id"/>
+        </insert>
+        <rollback>
+            <delete tableName="users">
+                <where>id!=4bf2ec52-8114-4eec-bb5d-a0f4d7c3b502</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1050-3" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="users" primaryKeyName="4db08d79-92d2-47c3-988c-d47bef0e36ca"/>
+            </not>
+        </preConditions>
+        <insert tableName="users">
+            <column name="id" value="4db08d79-92d2-47c3-988c-d47bef0e36ca"/>
+            <column name="version" value="0"/>
+            <column name="firstname" value="admin"/>
+            <column name="lastname" value="admin"/>
+            <column name="phone_number" value="+48798743378"/>
+            <column name="password" value="$2a$10$0sBp8KSHQW/VuTjGJSnoO.nbRcr3mcfStc5BxA5s61A4Mt2vU6iq."/>
+            <column name="email" value="admin@scooter.com"/>
+            <column name="photo_url"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="role_id" value="e13d0ac4-7afc-453e-881a-796cd7b4a400"/>
+        </insert>
+        <rollback>
+            <delete tableName="users">
+                <where>id!=4db08d79-92d2-47c3-988c-d47bef0e36ca</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>
+

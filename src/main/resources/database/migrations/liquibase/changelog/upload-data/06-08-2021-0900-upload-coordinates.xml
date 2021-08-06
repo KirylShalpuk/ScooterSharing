@@ -1,0 +1,483 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-0900-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="bebca449-3511-46d6-8682-3ccb2a52da19"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="bebca449-3511-46d6-8682-3ccb2a52da19"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3037816"/>
+            <column name="longitude" value="21.0386536"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="9ee43909-2673-4ce8-a6af-20f7a5cbbda2"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="9ee43909-2673-4ce8-a6af-20f7a5cbbda2"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3082363"/>
+            <column name="longitude" value="21.0421013"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-3" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="0b6cbc61-5e4e-403c-a730-0909209f20b7"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="0b6cbc61-5e4e-403c-a730-0909209f20b7"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3093387"/>
+            <column name="longitude" value="21.0369766"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+    <changeSet id="06-08-2021-0900-4" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="78763ab4-96b6-4a41-8ab4-5ac4ddc25a85"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="78763ab4-96b6-4a41-8ab4-5ac4ddc25a85"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3114181"/>
+            <column name="longitude" value="20.9749499"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-5" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="4c6d535f-52d8-4b37-a486-957d7dc8739a"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="4c6d535f-52d8-4b37-a486-957d7dc8739a"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3146191"/>
+            <column name="longitude" value="20.974743"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-6" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="87717f76-ecac-4d8e-9124-ecedbf0c3263"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="87717f76-ecac-4d8e-9124-ecedbf0c3263"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3132214"/>
+            <column name="longitude" value="20.9708633"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-7" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="22bef2e8-1c85-4f33-9800-93a3748672fd"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="22bef2e8-1c85-4f33-9800-93a3748672fd"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3147575"/>
+            <column name="longitude" value="21.031854"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-8" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="b339947a-9f51-406c-ac41-5412525136e4"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="b339947a-9f51-406c-ac41-5412525136e4"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3202245"/>
+            <column name="longitude" value="20.9795637"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-9" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="bcd24866-8acc-4969-a8c3-8b8fcf40a505"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="bcd24866-8acc-4969-a8c3-8b8fcf40a505"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3258099"/>
+            <column name="longitude" value="20.9960641"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-10" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="0574800a-f4ab-4f8a-9309-3dd06f11c746"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="0574800a-f4ab-4f8a-9309-3dd06f11c746"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3257851"/>
+            <column name="longitude" value="20.994143"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-11" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="722cf649-9b80-402d-a6ac-3ed352b669dd"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="722cf649-9b80-402d-a6ac-3ed352b669dd"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3432968"/>
+            <column name="longitude" value="20.9613521"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-12" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="e2dd300c-662b-4d2e-aaf8-3007d1cfac7d"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="e2dd300c-662b-4d2e-aaf8-3007d1cfac7d"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3439631"/>
+            <column name="longitude" value="20.9624818"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-13" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="a36728dc-9b73-43a8-995a-efd845c020d6"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="a36728dc-9b73-43a8-995a-efd845c020d6"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.34222"/>
+            <column name="longitude" value="20.9571792"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-14" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="edfb8706-df1d-4ea9-94c5-ea3a43919599"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="edfb8706-df1d-4ea9-94c5-ea3a43919599"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3341957"/>
+            <column name="longitude" value="21.053242"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-15" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="04699ac7-3524-44fe-99aa-b9a32df64069"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="04699ac7-3524-44fe-99aa-b9a32df64069"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.335037"/>
+            <column name="longitude" value="21.048507"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-16" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="9f58573e-9199-474f-97ac-8730c9038270"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="9f58573e-9199-474f-97ac-8730c9038270"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3352485"/>
+            <column name="longitude" value="21.0515189"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-17" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="b0b5ad00-997a-4320-9787-e5a4b5358b9d"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="b0b5ad00-997a-4320-9787-e5a4b5358b9d"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3032257"/>
+            <column name="longitude" value="21.0385318"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-18" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="ab0ff7c0-802f-4529-909d-4db9f7d4b682"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="ab0ff7c0-802f-4529-909d-4db9f7d4b682"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3568995"/>
+            <column name="longitude" value="20.9795076"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-19" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="c62bd7b6-8757-4715-a97b-aec6467cf164"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="c62bd7b6-8757-4715-a97b-aec6467cf164"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3374061"/>
+            <column name="longitude" value="20.985037"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-20" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="c3457722-60da-4ac9-b8ec-993a24293477"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="c3457722-60da-4ac9-b8ec-993a24293477"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3253332"/>
+            <column name="longitude" value="21.0248352"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-21" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="46ea8ef2-e7f6-4262-ad74-74b7f9f2f1d8"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="46ea8ef2-e7f6-4262-ad74-74b7f9f2f1d8"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.2300702"/>
+            <column name="longitude" value="20.9932131"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-22" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="6abc5389-bb7f-4789-887c-1f5cfa76c000"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="6abc5389-bb7f-4789-887c-1f5cfa76c000"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3275464"/>
+            <column name="longitude" value="20.9638585"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-23" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="e08561da-3934-4571-ba68-6298e7daea4e"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="e08561da-3934-4571-ba68-6298e7daea4e"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3277573"/>
+            <column name="longitude" value="20.9621587"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-24" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="85f0a447-7f06-456a-a88e-effb8caf9163"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="85f0a447-7f06-456a-a88e-effb8caf9163"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.3301249"/>
+            <column name="longitude" value="20.9351852"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-0900-25" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="coordinates" primaryKeyName="47afeff7-8255-42b1-9bc1-b83bb48e1808"/>
+            </not>
+        </preConditions>
+        <insert tableName="coordinates">
+            <column name="id" value="47afeff7-8255-42b1-9bc1-b83bb48e1808"/>
+            <column name="version" value="0"/>
+            <column name="latitude" value="52.2018567"/>
+            <column name="longitude" value="21.1250601"/>
+        </insert>
+        <rollback>
+            <delete tableName="coordinates">
+                <where>in!=null</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+
+

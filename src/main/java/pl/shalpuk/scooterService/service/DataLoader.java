@@ -70,9 +70,8 @@ public class DataLoader {
     @EventListener
     @Transactional
     public void uploadData(ContextRefreshedEvent event) {
-        logger.info("Start flyway migrations...");
-
         if (flywayAutoUpload) {
+            logger.info("Start flyway migrations...");
             flyway.migrate();
             logger.info("Start uploading system default data...");
             if (userRepository.count() == 0) {

@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1300-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="payments" primaryKeyName="309a1544-8e85-4a38-bb9c-cc991ab618c9"/>
+            </not>
+        </preConditions>
+        <insert tableName="payments">
+            <column name="id" value="309a1544-8e85-4a38-bb9c-cc991ab618c9"/>
+            <column name="version" value="0"/>
+            <column name="country" value="Poland"/>
+            <column name="address" value="Warsaw"/>
+            <column name="post_code" value="00-001"/>
+            <column name="phone_number" value="+48798743379"/>
+            <column name="user_id" value="4db08d79-92d2-47c3-988c-d47bef0e36ca"/>
+        </insert>
+        <rollback>
+            <delete tableName="payments">
+                <where>id!=309a1544-8e85-4a38-bb9c-cc991ab618c9</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

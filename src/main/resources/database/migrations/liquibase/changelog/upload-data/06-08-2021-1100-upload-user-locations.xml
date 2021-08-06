@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="06-08-2021-1100-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="user_locations" primaryKeyName="e0cb2294-7a71-4c7e-8111-dcf00603a6be"/>
+            </not>
+        </preConditions>
+        <insert tableName="user_locations">
+            <column name="id" value="e0cb2294-7a71-4c7e-8111-dcf00603a6be"/>
+            <column name="version" value="0"/>
+            <column name="user_id" value="3194514f-83b0-49a7-bb99-37dd40be6f7f"/>
+            <column name="location_id" value="b3ee6657-6dc6-49e4-bb3c-313aa21803a2"/>
+            <column name="position_time" value="2021-08-04T14:47:11"/>
+        </insert>
+        <rollback>
+            <delete tableName="user_locations">
+                <where>id!=e0cb2294-7a71-4c7e-8111-dcf00603a6be</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -1,0 +1,31 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1310-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="cards" primaryKeyName="2bedc1ce-b0e9-4c8a-b7c1-c8091e165e6f"/>
+            </not>
+        </preConditions>
+        <insert tableName="cards">
+            <column name="id" value="2bedc1ce-b0e9-4c8a-b7c1-c8091e165e6f"/>
+            <column name="version" value="0"/>
+            <column name="card_number" value="8888 8888 8888 8888"/>
+            <column name="card_holder" value="Kiryl Shalpuk"/>
+            <column name="date_expiration" value="05/2099"/>
+            <column name="email" value="kiryl.shalpuk@com"/>
+            <column name="main" valueBoolean="true"/>
+            <column name="payment_id" value="309a1544-8e85-4a38-bb9c-cc991ab618c9"/>
+        </insert>
+        <rollback>
+            <delete tableName="cards">
+                <where>id!=2bedc1ce-b0e9-4c8a-b7c1-c8091e165e6f</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

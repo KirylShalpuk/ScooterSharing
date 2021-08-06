@@ -1,0 +1,52 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+
+    <changeSet id="06-08-2021-1040-1" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="roles" primaryKeyName="e13d0ac4-7afc-453e-881a-796cd7b4a400"/>
+            </not>
+        </preConditions>
+        <insert tableName="roles">
+            <column name="id" value="e13d0ac4-7afc-453e-881a-796cd7b4a400"/>
+            <column name="version" value="0"/>
+            <column name="name" value="ADMIN"/>
+            <column name="description" value="Default admin role"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="admin" valueBoolean="true"/>
+            <column name="modifiable" valueBoolean="false"/>
+        </insert>
+        <rollback>
+            <delete tableName="roles">
+                <where>id!=e13d0ac4-7afc-453e-881a-796cd7b4a400</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="06-08-2021-1040-2" author="Kiryl Shalpuk">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="roles" primaryKeyName="f1d961d3-a477-4028-a631-90b91c9ccf0d"/>
+            </not>
+        </preConditions>
+        <insert tableName="roles">
+            <column name="id" value="f1d961d3-a477-4028-a631-90b91c9ccf0d"/>
+            <column name="version" value="0"/>
+            <column name="name" value="USER"/>
+            <column name="description" value="Default user role"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="admin" valueBoolean="false"/>
+            <column name="modifiable" valueBoolean="false"/>
+        </insert>
+        <rollback>
+            <delete tableName="roles">
+                <where>id!=f1d961d3-a477-4028-a631-90b91c9ccf0d</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

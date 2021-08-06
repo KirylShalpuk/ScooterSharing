@@ -19,7 +19,7 @@
             <column name="card_holder" type="VARCHAR(255)"/>
             <column name="date_expiration" type="VARCHAR(255)"/>
             <column name="email" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="main" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="main" type="BOOLEAN"/>
             <column name="payment_id" type="VARCHAR(36)"/>
         </createTable>
     </changeSet>
@@ -151,9 +151,9 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="description" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
-            <column defaultValueBoolean="false" name="admin" type="BIT(1)"/>
-            <column defaultValueBoolean="false" name="modifiable" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="active" type="BOOLEAN"/>
+            <column defaultValueBoolean="false" name="admin" type="BOOLEAN"/>
+            <column defaultValueBoolean="false" name="modifiable" type="BOOLEAN"/>
         </createTable>
     </changeSet>
 
@@ -200,8 +200,8 @@
             <column name="battery_charge" type="INT"/>
             <column name="last_service" type="timestamp"/>
             <column name="software_version" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
-            <column defaultValueBoolean="false" name="charging" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="active" type="BOOLEAN"/>
+            <column defaultValueBoolean="false" name="charging" type="BOOLEAN"/>
             <column name="location_id" type="VARCHAR(36)"/>
             <column name="status" type="VARCHAR(255)"/>
         </createTable>
@@ -224,7 +224,7 @@
             </column>
             <column name="description" type="VARCHAR(255)"/>
             <column name="costs" type="INT"/>
-            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="active" type="BOOLEAN"/>
         </createTable>
     </changeSet>
 
@@ -247,7 +247,7 @@
             <column name="token" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="active" type="BOOLEAN"/>
         </createTable>
     </changeSet>
 
@@ -295,7 +295,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="photo_url" type="VARCHAR(500)"/>
-            <column defaultValueBoolean="false" name="active" type="BIT(1)"/>
+            <column defaultValueBoolean="false" name="active" type="BOOLEAN"/>
             <column name="role_id" type="VARCHAR(36)"/>
         </createTable>
     </changeSet>
