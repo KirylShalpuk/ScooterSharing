@@ -18,7 +18,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -37,7 +37,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -56,7 +56,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -74,7 +74,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -93,7 +93,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -112,7 +112,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -131,7 +131,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -150,7 +150,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -169,7 +169,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -188,7 +188,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -207,7 +207,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -226,7 +226,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -245,7 +245,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -264,7 +264,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -283,7 +283,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -302,7 +302,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -321,7 +321,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -340,7 +340,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -359,7 +359,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -378,7 +378,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -397,7 +397,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -416,7 +416,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -435,7 +435,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -454,7 +454,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
@@ -473,7 +473,7 @@
         </insert>
         <rollback>
             <delete tableName="coordinates">
-                <where>in!=null</where>
+                <where>id is not null</where>
             </delete>
         </rollback>
     </changeSet>
